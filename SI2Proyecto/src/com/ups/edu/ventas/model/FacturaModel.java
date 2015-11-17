@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.ups.edu.ventas.controller;
+package com.ups.edu.ventas.model;
 
 /**
  *
  * @author Admin
  */
-public class Facturas {
+public class FacturaModel {
     
 }
