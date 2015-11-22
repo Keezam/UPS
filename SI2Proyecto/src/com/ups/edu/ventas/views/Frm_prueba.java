@@ -18,6 +18,8 @@ public class Frm_prueba extends javax.swing.JFrame {
         initComponents();
     }
 
+    // Pubruea
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
