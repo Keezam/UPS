@@ -110,7 +110,7 @@ public class Ofertas extends javax.swing.JFrame {
         txtDescuento = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         txtValor = new javax.swing.JTextField();
-        cmbEstado = new javax.swing.JComboBox<>();
+        cmbEstado = new javax.swing.JComboBox<String>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -247,7 +247,7 @@ public class Ofertas extends javax.swing.JFrame {
             }
         });
 
-        cmbEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "I", "A" }));
+        cmbEstado.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "I", "A" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -322,7 +322,7 @@ public class Ofertas extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
                             .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel7))
@@ -345,7 +345,7 @@ public class Ofertas extends javax.swing.JFrame {
                     .addComponent(btnBuscar))
                 .addGap(50, 50, 50)
                 .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(60, 60, 60))
+                .addGap(48, 48, 48))
         );
 
         pack();
@@ -517,7 +517,7 @@ public class Ofertas extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane;
-    private javax.swing.JTable tbdatos;
+    public static javax.swing.JTable tbdatos;
     public static javax.swing.JTextField txtCodArticulo;
     public static javax.swing.JTextField txtCodOferta;
     public static javax.swing.JTextField txtDescripcion;
