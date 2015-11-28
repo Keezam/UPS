@@ -5,6 +5,8 @@
  */
 package com.ups.edu.rrhh.menuinicio;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author SERVIDOR
@@ -17,7 +19,8 @@ public class menu extends javax.swing.JFrame {
     public menu() {
         initComponents();
     }
-
+iframe1 objIFrame1=new iframe1();
+//iframe2 objIFrame2=new iframe2();
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -36,6 +39,7 @@ public class menu extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         Escritorio.setBackground(new java.awt.Color(102, 255, 102));
+        Escritorio.setToolTipText("");
 
         javax.swing.GroupLayout EscritorioLayout = new javax.swing.GroupLayout(Escritorio);
         Escritorio.setLayout(EscritorioLayout);
@@ -45,10 +49,10 @@ public class menu extends javax.swing.JFrame {
         );
         EscritorioLayout.setVerticalGroup(
             EscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 326, Short.MAX_VALUE)
+            .addGap(0, 358, Short.MAX_VALUE)
         );
 
-        jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ups/edu/rrhh/menuinicio/logo-ups-home.png"))); // NOI18N
+        jMenu1.setIcon(new javax.swing.ImageIcon("C:\\Users\\SERVIDOR\\Documents\\NetBeansProjects\\UPS\\SI2Proyecto\\src\\com\\ups\\edu\\rrhh\\menuinicio\\logo-ups-home.png")); // NOI18N
         jMenuBar1.add(jMenu1);
 
         jMenu2.setForeground(new java.awt.Color(0, 0, 102));
@@ -86,9 +90,18 @@ public class menu extends javax.swing.JFrame {
 
     private void jCheckBoxMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxMenuItem1ActionPerformed
         // TODO add your handling code here:
-        frame1 ses = new frame1();
-        this.Escritorio.add(ses);
-        ses.show();
+//        iframe1 ses = new iframe1();
+//        this.Escritorio.add(ses);
+//        ses.show();
+       if(objIFrame1.isShowing())
+	{
+	    JOptionPane.showMessageDialog(null,"LA VENTANA YA ESTA ABIERTA");
+        }
+	else
+	{
+	Escritorio.add(objIFrame1);
+	objIFrame1.show();
+	}
     }//GEN-LAST:event_jCheckBoxMenuItem1ActionPerformed
 
     /**
