@@ -54,7 +54,11 @@ public class orden_compra extends javax.swing.JFrame {
 
         jLabel1.setText("ID ORDEN");
 
-        id_orden.setText("jTextField5");
+        id_orden.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                id_ordenActionPerformed(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel2.setText("INFORMACION");
@@ -148,8 +152,8 @@ public class orden_compra extends javax.swing.JFrame {
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(jLabel1)
                                     .addGap(18, 18, 18)
-                                    .addComponent(id_orden, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(162, 162, 162)
+                                    .addComponent(id_orden, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(109, 109, 109)
                                     .addComponent(buscar)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -222,6 +226,10 @@ public class orden_compra extends javax.swing.JFrame {
     private void estado3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_estado3ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_estado3ActionPerformed
+
+    private void id_ordenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_id_ordenActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_id_ordenActionPerformed
 
     /**
      * @param args the command line arguments

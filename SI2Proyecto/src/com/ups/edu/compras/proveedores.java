@@ -50,8 +50,6 @@ public class proveedores extends javax.swing.JFrame {
 
         jLabel1.setText("ID PROVEEDOR");
 
-        id_proveedor.setText("jTextField5");
-
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel2.setText("INFORMACION");
 
@@ -134,8 +132,8 @@ public class proveedores extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(18, 18, 18)
-                        .addComponent(id_proveedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(77, 77, 77)
+                        .addComponent(id_proveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(68, 68, 68)
                         .addComponent(buscar)))
                 .addContainerGap(62, Short.MAX_VALUE))
         );
