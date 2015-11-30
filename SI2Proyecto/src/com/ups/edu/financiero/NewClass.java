@@ -3,12 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package financiero;
+package com.ups.edu.financiero;
 
 /**
  *
  * @author USUARIO
  */
 public class NewClass {
+    ///dasdaszdsdas
     
 }
