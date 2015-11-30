@@ -10,6 +10,8 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
@@ -48,17 +50,139 @@ public class FacturaModel {
         return secuencia;
     }
     
-    public DefaultTableModel cargarComboCliente(){
-        DefaultTableModel model = null;
-        String sqlBuscar = "SELECT codcliente,nombre || apellido cliente , identificacion, dirreccion, telefono FROM vta_cliente";
+    public List<String> cargarComboCliente(){
+        List<String> clientes = new ArrayList<>();
+        String sqlBuscar = "SELECT codcliente, CONCAT(nombre,' ', apellido) cliente FROM vta_cliente";
+        
         try{
             
-        }catch(Exception e){
+            st = con.createStatement();
+            rs = st.executeQuery(sqlBuscar);
             
+            while(rs.next()){
+                String cliente = rs.getInt(1)+"-"+rs.getString(2);
+                clientes.add(cliente);
+            }
+            
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            try{
+            if(st != null)st.close();
+            if(rs != null)rs.close();   
+           }catch(Exception e){}
         }
-        return model;
+        return clientes;
     }
     
+    
+    public String[] cliente(int codcliente){
+        String sqlBuscar = "SELECT telefono , identidicacion , dirrecion cliente FROM vta_cliente";
+        String datosCliente[] = new String[3];
+        try {
+            st = con.createStatement();
+            rs = st.executeQuery(sqlBuscar);
+            if(rs.next()){
+                datosCliente[0] = rs.getString(1);
+                datosCliente[1] = rs.getString(2);
+                datosCliente[2] = rs.getString(3);
+            }
+            
+        } catch (Exception e) {
+             e.printStackTrace();
+            datosCliente[0] = "";
+            datosCliente[1] = "";
+            datosCliente[2] = "";
+        }finally{
+            try{
+            if(st != null)st.close();
+            if(rs != null)rs.close();   
+           }catch(Exception e){}
+        }
+        return datosCliente;
+    }
+    
+    public List<String> cargarComboProducto(){
+        List<String> productos = new ArrayList<>();
+        String sqlBuscar = "SELECT p.id_producto , tp.nombre tipo , ma.nombre  marca, mo.nombre modelo " +
+                            " FROM inv_Producto p , inv_Tipo_Producto tp , inv_Marca_Producto ma ,inv_Modelo_Producto mo" +
+                            " WHERE tp.id_tipo= p.id_tipo " +
+                            " AND ma.id_marca = p.id_marca " +
+                            " AND mo.id_modelo= p.id_modelo ";
+        
+        try{
+            
+            st = con.createStatement();
+            rs = st.executeQuery(sqlBuscar);
+            
+            while(rs.next()){
+                String producto = rs.getInt(1)+"-TIPO: "+rs.getInt(2)+" MA:"+rs.getInt(3)+" MO:"+rs.getInt(4);
+                productos.add(producto);
+            }
+            
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            try{
+            if(st != null)st.close();
+            if(rs != null)rs.close();   
+           }catch(Exception e){}
+        }
+        return productos;
+    }
+    
+    public double existePromocion(int id_producto){
+        String sqlBuscar = " SELECT pp.`descuento` FROM vta_promoxproducto pp , vta_promocion p " +
+                           "  WHERE p.`codpromocion` = pp.`codpromocion` " +
+                           "    AND p.`estado` = 'A' " +
+                           "    AND pp.`id_producto` = "+id_producto;
+        
+        try {
+            st = con.createStatement();
+            rs = st.executeQuery(sqlBuscar);
+            if(rs.next()){
+                return rs.getDouble(1);
+            }
+        } catch (Exception e) {
+             e.printStackTrace();
+        }finally{
+            try{
+            if(st != null)st.close();
+            if(rs != null)rs.close();   
+           }catch(Exception e){}
+        }
+        
+        return 0;
+    }
+    
+    public double existeOferta(int id_producto){
+        String sqlBuscar = " SELECT descuento FROM vta_ofertas WHERE id_producto = "+id_producto+" AND estado = 'A'"    ;
+        
+        try {
+            st = con.createStatement();
+            rs = st.executeQuery(sqlBuscar);
+            if(rs.next()){
+                return rs.getDouble(1);
+            }
+        } catch (Exception e) {
+             e.printStackTrace();
+        }finally{
+           try{
+               if(st != null)st.close();
+               if(rs != null)rs.close();   
+           }catch(Exception e){}
+        }
+        return 0;
+    }
+    
+    public Object[] datosProducto(int id_producto){
+        String sqlBuscar="SELECT precio_unitario, 10 FROM inv_Producto WHERE id_producto = "+id_producto;
+        try {
+            
+        } catch (Exception e) {
+        }
+        return null;
+    }
     
     private void getconection(){
         con = ConexionBD.GetConnection();
