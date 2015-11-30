@@ -58,6 +58,15 @@ public class ConsultarOrdenCompra extends javax.swing.JInternalFrame {
         ));
         tblOrdenCompra.setFocusable(false);
         jScrollPane1.setViewportView(tblOrdenCompra);
+        Timer timer = new Timer(0, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cargarPorCheck();
+            }
+        });
+
+        timer.setDelay(30000); // delay for 30 seconds
+        timer.start();
 
         checkAProbada.setText("Aprobada");
         checkAProbada.addActionListener(new java.awt.event.ActionListener() {
@@ -107,7 +116,7 @@ public class ConsultarOrdenCompra extends javax.swing.JInternalFrame {
                     .addComponent(checkDeclinada)
                     .addComponent(checkEspera))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 369, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 373, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -182,6 +191,8 @@ public class ConsultarOrdenCompra extends javax.swing.JInternalFrame {
         timer.start();
         */
     }
+    
+
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox checkAProbada;

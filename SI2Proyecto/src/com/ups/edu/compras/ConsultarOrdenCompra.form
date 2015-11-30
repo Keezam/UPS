@@ -48,7 +48,7 @@
                   <Component id="checkEspera" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="jScrollPane1" pref="369" max="32767" attributes="0"/>
+              <Component id="jScrollPane1" pref="373" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -67,7 +67,7 @@
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
               <Table columnCount="0" rowCount="0"/>
             </Property>
-            <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
+            <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor" postCode="Timer timer = new Timer(0, new ActionListener() {&#xa;    @Override&#xa;    public void actionPerformed(ActionEvent e) {&#xa;       cargarPorCheck();&#xa;    }&#xa;});&#xa;&#xa;timer.setDelay(30000); // delay for 30 seconds&#xa;timer.start();">
               <TableColumnModel selectionModel="0"/>
             </Property>
             <Property name="focusable" type="boolean" value="false"/>
