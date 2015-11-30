@@ -5,10 +5,18 @@
  */
 package com.ups.edu.ventas.model;
 
+import java.sql.Connection;
+
 /**
  *
  * @author Admin
  */
 public class FacturaModel {
     
+    private Connection con;
+    
+    
+    public int numeroFactura(){
+        return 1;
+    }
 }
