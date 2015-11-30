@@ -21,7 +21,7 @@ public class Panel_Fecha extends javax.swing.JInternalFrame {
     public Panel_Fecha() {
           ((BasicInternalFrameUI) this.getUI()).setNorthPane(null);
         initComponents();
-    }
+                }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -43,6 +43,13 @@ public class Panel_Fecha extends javax.swing.JInternalFrame {
         jLabel1.setText("DESDE:  ");
 
         date1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        date1.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+            }
+            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
+                date1InputMethodTextChanged(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setText("HASTA:  ");
@@ -95,11 +102,7 @@ public class Panel_Fecha extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        System.out.println(date1.isValid());
-        System.out.println(date2.isValid());
-        if(date1.isValid() == true || date2.isValid() == true )
-             JOptionPane.showMessageDialog(null, "VERIFICAR CAMPOS", "ERROR", JOptionPane.ERROR_MESSAGE);
-        else{
+       try{
         if(date1.getCalendar().after(date2.getCalendar())){
            JOptionPane.showMessageDialog(null, "VERIFICAR CAMPOS", "ERROR", JOptionPane.ERROR_MESSAGE);
      }else{
@@ -108,9 +111,16 @@ String mes = Integer.toString(date1.getCalendar().get(Calendar.MONTH) + 1);
 String year = Integer.toString(date1.getCalendar().get(Calendar.YEAR));
 String fecha = (year + "-" + mes+ "-" + dia);
         System.out.println(fecha);
-    }
-    }
+        } 
+       }catch (Exception e) {
+                 JOptionPane.showMessageDialog(null, "VERIFICAR CAMPOS", "ERROR", JOptionPane.ERROR_MESSAGE);
+                }
+    
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void date1InputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_date1InputMethodTextChanged
+       
+    }//GEN-LAST:event_date1InputMethodTextChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
