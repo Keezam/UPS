@@ -104,6 +104,7 @@ iframe1 objIFrame1=new iframe1();
 	Escritorio.add(objIFrame1);
         objIFrame1.setLocation(500, 80);
 	objIFrame1.show();
+        
 	}
     }//GEN-LAST:event_jCheckBoxMenuItem1ActionPerformed
 

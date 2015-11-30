@@ -9,7 +9,6 @@ import java.sql.*;
 import javax.swing.JOptionPane;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.Locale;
 import javax.swing.JPasswordField;
 
 /**
@@ -26,6 +25,7 @@ public class iframe1 extends javax.swing.JInternalFrame {
         initComponents();
         this.setLocation(350, 300);
         this.requestFocus();
+        
     }
     
     void ingresar(String cuenta, String clave)throws Exception{
@@ -41,21 +41,29 @@ public class iframe1 extends javax.swing.JInternalFrame {
             String passwordDB = "gV6!kN8!";
             Connection conexion = DriverManager.getConnection(servidor, usuarioDB, passwordDB);
             Statement s = conexion.createStatement();
-            ResultSet rs = s.executeQuery("select * from rrhh_usuarios where cuenta ='"+cuenta+"'");
+            ResultSet rs = s.executeQuery("select * from rrhh_usuarios where cuenta ='"+cuenta+"' and clave ='"+clave+"'");
             
             while(rs.next()){
             c=rs.getString("estado");
                 System.out.println(c);
             }
             if(c.equalsIgnoreCase("A")){
-            JOptionPane.showMessageDialog(null, "Bienvenido Activo");
-                     
+                JOptionPane.showMessageDialog(null, "Bienvenido Activo");
+                this.setVisible(false);
+                jTextField1.setText("");
+                jPasswordField1.setText("");
             }
             if(c.equalsIgnoreCase("I")){
-                JOptionPane.showMessageDialog(null, "Bienvenido Inactivo");
+                JOptionPane.showMessageDialog(null, "Bienvenido Inactivo" );
+                 this.setVisible(false);
+                 jTextField1.setText("");
+                  jPasswordField1.setText("");
             }
             if((!c.equalsIgnoreCase("A"))&&(!c.equalsIgnoreCase("I"))){
-                JOptionPane.showMessageDialog(null, "No existe cuenta");
+                JOptionPane.showMessageDialog(null, "NO EXISTE CUENTA","Error",JOptionPane.WARNING_MESSAGE);
+                this.setVisible(false);
+                jTextField1.setText("");
+                jPasswordField1.setText("");
             }
         }catch(Exception ex){
             System.out.println("Error sql");
@@ -152,7 +160,7 @@ public class iframe1 extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        //jTextField1.requestFocus();
+        jTextField1.requestFocus();
     }//GEN-LAST:event_jTextField1ActionPerformed
 JPasswordField password = new JPasswordField();
 JPasswordField jtextField2 = new JPasswordField(10);
