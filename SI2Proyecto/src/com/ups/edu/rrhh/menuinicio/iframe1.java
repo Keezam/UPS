@@ -16,6 +16,7 @@ public class iframe1 extends javax.swing.JInternalFrame {
     public iframe1() {
         initComponents();
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.

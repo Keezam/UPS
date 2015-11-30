@@ -18,8 +18,10 @@ public class menu extends javax.swing.JFrame {
      */
     public menu() {
         initComponents();
+        
     }
 iframe1 objIFrame1=new iframe1();
+
 //iframe2 objIFrame2=new iframe2();
     /**
      * This method is called from within the constructor to initialize the form.
@@ -100,6 +102,7 @@ iframe1 objIFrame1=new iframe1();
 	else
 	{
 	Escritorio.add(objIFrame1);
+        objIFrame1.setLocation(500, 80);
 	objIFrame1.show();
 	}
     }//GEN-LAST:event_jCheckBoxMenuItem1ActionPerformed
@@ -137,6 +140,7 @@ iframe1 objIFrame1=new iframe1();
                 //new menu().setVisible(true);
                 menu men = new menu();
                 men.setExtendedState(MAXIMIZED_BOTH);
+                
                 men.setVisible(true);
                 
             }
