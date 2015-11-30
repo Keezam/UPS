@@ -29,9 +29,14 @@ public class ordenCompra extends javax.swing.JInternalFrame {
     public ordenCompra() throws SQLException{
         initComponents();
         conn = ConexionBD.GetConnection();
-        fecha.setText(fechaActual());
-        id_orden.setText(String.valueOf(getNumero_Orden_Compra()));
-        llenarCB();
+        if(conn!=null){
+            lblEstado.setText("Estado de conexion con la base: Conectado");
+            fecha.setText(fechaActual());
+            id_orden.setText(String.valueOf(getNumero_Orden_Compra()));
+            llenarCB();
+        }else{
+            lblEstado.setText("Estado de conexion con la base: Desconectado");
+        }
     }
 
     /**
@@ -43,6 +48,7 @@ public class ordenCompra extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        dialogAgregarProducto = new javax.swing.JDialog();
         jLabel1 = new javax.swing.JLabel();
         id_orden = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
@@ -59,8 +65,20 @@ public class ordenCompra extends javax.swing.JInternalFrame {
         total = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbl_detalle = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        btnAgregar = new javax.swing.JButton();
         cmbProveedor = new javax.swing.JComboBox();
+        lblEstado = new javax.swing.JLabel();
+
+        javax.swing.GroupLayout dialogAgregarProductoLayout = new javax.swing.GroupLayout(dialogAgregarProducto.getContentPane());
+        dialogAgregarProducto.getContentPane().setLayout(dialogAgregarProductoLayout);
+        dialogAgregarProductoLayout.setHorizontalGroup(
+            dialogAgregarProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 526, Short.MAX_VALUE)
+        );
+        dialogAgregarProductoLayout.setVerticalGroup(
+            dialogAgregarProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 385, Short.MAX_VALUE)
+        );
 
         setTitle("Orden de compra");
 
@@ -115,8 +133,13 @@ public class ordenCompra extends javax.swing.JInternalFrame {
         ));
         jScrollPane1.setViewportView(tbl_detalle);
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ups/edu/compras/resources/añadir.png"))); // NOI18N
-        jButton1.setText("AGREGAR");
+        btnAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ups/edu/compras/resources/añadir.png"))); // NOI18N
+        btnAgregar.setText("AGREGAR");
+        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -132,7 +155,7 @@ public class ordenCompra extends javax.swing.JInternalFrame {
                                     .addComponent(jLabel4)
                                     .addGap(200, 200, 200))
                                 .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jButton1)
+                                    .addComponent(btnAgregar)
                                     .addGap(148, 148, 148)))
                             .addComponent(jLabel2)
                             .addGroup(layout.createSequentialGroup()
@@ -164,7 +187,10 @@ public class ordenCompra extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(222, 222, 222)
                         .addComponent(guardar)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(lblEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -195,9 +221,8 @@ public class ordenCompra extends javax.swing.JInternalFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jLabel4)
                         .addGap(134, 134, 134)
-                        .addComponent(jButton1)
+                        .addComponent(btnAgregar)
                         .addGap(2, 2, 2)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(sub_total, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -207,7 +232,8 @@ public class ordenCompra extends javax.swing.JInternalFrame {
                     .addComponent(total, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(guardar)
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(lblEstado, javax.swing.GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE))
         );
 
         pack();
@@ -219,7 +245,18 @@ public class ordenCompra extends javax.swing.JInternalFrame {
 
     private void guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarActionPerformed
         // TODO add your handling code here:
+        conn = ConexionBD.GetConnection();
+        if(conn != null){
+            
+        }else{
+            lblEstado.setText("Estado de conexion con la base: Desconectado");
+        }
     }//GEN-LAST:event_guardarActionPerformed
+
+    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
+        // TODO add your handling code here:
+        dialogAgregarProducto.setVisible(true);
+    }//GEN-LAST:event_btnAgregarActionPerformed
     
     private static String fechaActual(){
         Date fecha=new Date();
@@ -267,12 +304,13 @@ public class ordenCompra extends javax.swing.JInternalFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAgregar;
     private javax.swing.JComboBox cmbProveedor;
+    private javax.swing.JDialog dialogAgregarProducto;
     private javax.swing.JTextField fecha;
     private javax.swing.JButton guardar;
     private javax.swing.JTextField id_orden;
     private javax.swing.JTextField impuesto;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -282,6 +320,7 @@ public class ordenCompra extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblEstado;
     private javax.swing.JTextField sub_total;
     private javax.swing.JTable tbl_detalle;
     private javax.swing.JTextField total;
