@@ -4,10 +4,19 @@
  * and open the template in the editor.
  */
 package com.ups.edu.rrhh.menuinicio;
+import com.ups.edu.conexion.ConexionBD;
+import java.sql.*;
+import javax.swing.JOptionPane;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.Locale;
+import javax.swing.JPasswordField;
+
 /**
  *
  * @author SERVIDOR
  */
+
 public class iframe1 extends javax.swing.JInternalFrame {
 
     /**
@@ -15,8 +24,43 @@ public class iframe1 extends javax.swing.JInternalFrame {
      */
     public iframe1() {
         initComponents();
+        this.setLocation(350, 300);
+        this.requestFocus();
     }
     
+    void ingresar(String cuenta, String clave)throws Exception{
+        String c="";
+        try{
+            try{
+                Class.forName("com.mysql.jdbc.Driver");
+            }catch(Exception e){
+            e.printStackTrace();
+            }
+            String servidor = "jdbc:mysql://sql3.freesqldatabase.com/sql396208";
+            String usuarioDB = "sql396208";
+            String passwordDB = "gV6!kN8!";
+            Connection conexion = DriverManager.getConnection(servidor, usuarioDB, passwordDB);
+            Statement s = conexion.createStatement();
+            ResultSet rs = s.executeQuery("select * from rrhh_usuarios where cuenta ='"+cuenta+"'");
+            
+            while(rs.next()){
+            c=rs.getString("estado");
+                System.out.println(c);
+            }
+            if(c.equalsIgnoreCase("A")){
+            JOptionPane.showMessageDialog(null, "Bienvenido Activo");
+                     
+            }
+            if(c.equalsIgnoreCase("I")){
+                JOptionPane.showMessageDialog(null, "Bienvenido Inactivo");
+            }
+            if((!c.equalsIgnoreCase("A"))&&(!c.equalsIgnoreCase("I"))){
+                JOptionPane.showMessageDialog(null, "No existe cuenta");
+            }
+        }catch(Exception ex){
+            System.out.println("Error sql");
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -31,8 +75,8 @@ public class iframe1 extends javax.swing.JInternalFrame {
         jLabel2 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
+        jPasswordField1 = new javax.swing.JPasswordField();
 
         setClosable(true);
         setIconifiable(true);
@@ -54,6 +98,11 @@ public class iframe1 extends javax.swing.JInternalFrame {
         jLabel3.setText("Clave:");
 
         jButton1.setText("Ingresar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -78,7 +127,7 @@ public class iframe1 extends javax.swing.JInternalFrame {
                                 .addGap(30, 30, 30)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jTextField1)
-                                    .addComponent(jTextField2))))))
+                                    .addComponent(jPasswordField1))))))
                 .addGap(50, 50, 50))
         );
         layout.setVerticalGroup(
@@ -93,18 +142,31 @@ public class iframe1 extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(27, 27, 27)
                 .addComponent(jButton1)
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
+        jTextField1.requestFocus();
     }//GEN-LAST:event_jTextField1ActionPerformed
+JPasswordField password = new JPasswordField();
+JPasswordField jtextField2 = new JPasswordField(10);
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        String c=""; 
+        String cuenta=jTextField1.getText(); 
+        String clave= jPasswordField1.getText();
+        try{
+            ingresar(cuenta,clave);
+        }catch(Exception e){
+            System.out.println("ERROR");
+        }        
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -112,7 +174,10 @@ public class iframe1 extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
+ConexionBD cc = new ConexionBD();
+Connection cn=cc.GetConnection();
+
 }
