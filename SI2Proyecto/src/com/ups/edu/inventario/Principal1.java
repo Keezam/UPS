@@ -3,25 +3,22 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.ups.edu.inventario;
+package Ventanas;
 
 import java.awt.Dimension;
-import javax.swing.JTextField;
-import javax.swing.plaf.basic.BasicInternalFrameUI;
 
 /**
  *
  * @author JeanPierre
  */
-public class Principal extends javax.swing.JFrame {
+public class Principal1 extends javax.swing.JInternalFrame {
 
     /**
-     * Creates new form Principal
+     * Creates new form Principal1
      */
-    public Principal() {
-        
+    public Principal1() {
         initComponents();
-        buttonGroup1.add(RadioButton_Producto);
+           buttonGroup1.add(RadioButton_Producto);
         buttonGroup1.add(RadioButton_Proveedor);
         buttonGroup1.add(RadioButton_Marca);
         buttonGroup1.add(RadioButton_Fecha);
@@ -37,40 +34,13 @@ public class Principal extends javax.swing.JFrame {
     private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
-        jPanel1 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
         RadioButton_Producto = new javax.swing.JRadioButton();
         RadioButton_Proveedor = new javax.swing.JRadioButton();
         RadioButton_Marca = new javax.swing.JRadioButton();
         RadioButton_Fecha = new javax.swing.JRadioButton();
         panel1 = new javax.swing.JPanel();
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
 
         RadioButton_Producto.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         RadioButton_Producto.setText("Producto");
@@ -115,6 +85,19 @@ public class Principal extends javax.swing.JFrame {
             .addGap(0, 59, Short.MAX_VALUE)
         );
 
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -138,7 +121,7 @@ public class Principal extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(44, 44, 44)
                 .addComponent(panel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(49, Short.MAX_VALUE))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -152,84 +135,50 @@ public class Principal extends javax.swing.JFrame {
                 .addGap(52, 52, 52)
                 .addComponent(panel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    
-   public void Cargar_Panel_P_P_M(){
-        Principal.panel1.removeAll();
-            Principal.panel1.repaint();
+     public void Cargar_Panel_P_P_M(){
+        Principal1.panel1.removeAll();
+            Principal1.panel1.repaint();
             Panel_P_P_M ch = new Panel_P_P_M();
-            Principal.panel1.add(ch);
+            Principal1.panel1.add(ch);
               Dimension desktopSize = panel1.getSize();
                Dimension FrameSize = ch.getSize();
               ch.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
             ch.setVisible(true);   
    } 
    public void Cargar_Panel_Fecha(){
-         Principal.panel1.removeAll();
-            Principal.panel1.repaint();
+         Principal1.panel1.removeAll();
+            Principal1.panel1.repaint();
             Panel_Fecha ch = new Panel_Fecha();
-            Principal.panel1.add(ch);
+            Principal1.panel1.add(ch);
               Dimension desktopSize = panel1.getSize();
                Dimension FrameSize = ch.getSize();
               ch.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
             ch.setVisible(true);   
    }
+    
+    private void RadioButton_ProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RadioButton_ProductoActionPerformed
+        Cargar_Panel_P_P_M();
+    }//GEN-LAST:event_RadioButton_ProductoActionPerformed
+
+    private void RadioButton_ProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RadioButton_ProveedorActionPerformed
+        Cargar_Panel_P_P_M();
+    }//GEN-LAST:event_RadioButton_ProveedorActionPerformed
+
+    private void RadioButton_MarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RadioButton_MarcaActionPerformed
+        Cargar_Panel_P_P_M();
+    }//GEN-LAST:event_RadioButton_MarcaActionPerformed
+
     private void RadioButton_FechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RadioButton_FechaActionPerformed
         Cargar_Panel_Fecha();
     }//GEN-LAST:event_RadioButton_FechaActionPerformed
 
-    private void RadioButton_ProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RadioButton_ProductoActionPerformed
-     Cargar_Panel_P_P_M();
-    }//GEN-LAST:event_RadioButton_ProductoActionPerformed
-
-    private void RadioButton_ProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RadioButton_ProveedorActionPerformed
-      Cargar_Panel_P_P_M();
-    }//GEN-LAST:event_RadioButton_ProveedorActionPerformed
-
-    private void RadioButton_MarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RadioButton_MarcaActionPerformed
-       Cargar_Panel_P_P_M();
-    }//GEN-LAST:event_RadioButton_MarcaActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Principal().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JRadioButton RadioButton_Fecha;
@@ -237,7 +186,6 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JRadioButton RadioButton_Producto;
     private javax.swing.JRadioButton RadioButton_Proveedor;
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private static javax.swing.JPanel panel1;
