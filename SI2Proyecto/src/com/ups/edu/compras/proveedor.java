@@ -12,6 +12,7 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -381,13 +382,14 @@ public class proveedor extends javax.swing.JInternalFrame {
 
     
     private void getProveedor(String cedula_proveedor){
+        DefaultTableModel modelo = new DefaultTableModel();
         String consultaProveedor = "SELECT `id_producto`, `id_ciudad`, `nombre`, `direccion`, `telefono1`, "
                 + "`telefono2`, `correo`, `estado` FROM `cmprv_provedores` where `cedula_proveedor` = '"+cedula_proveedor+"'";
         String consultaCiudad = "SELECT `descripcion` FROM `cmprv_ciudad` WHERE `id_ciudad` =";
-        String consultaProducto = "SELECT `` ";
         String [] dataProveedorString = new String[5];
         Integer [] dataProveedorInt = new Integer[4];
         try{
+            tableProductos.setModel(modelo);
             CallableStatement cs = conn.prepareCall(consultaProveedor);
             ResultSet rs = cs.executeQuery();
             while(rs.next()){
@@ -401,22 +403,38 @@ public class proveedor extends javax.swing.JInternalFrame {
                 dataProveedorString[3] = rs.getString("estado");
             }
             
-            
-            
             consultaCiudad = consultaCiudad + dataProveedorInt[1];
             cs = conn.prepareCall(consultaCiudad);
             rs = cs.executeQuery();
             while(rs.next()){
                 dataProveedorString[4] = rs.getString("descripcion");
             }
+            String consultaProducto = "select `invModelo.Nombre`, `invMarca.Nombre`, `invTipo.Nombre`, `invProducto.Precio_unitario`" + 
+                            " from "+
+                            "`inv_Modelo_Producto` as `invModelo`, `inv_Marca_Producto` as `invMarca`, `inv_Tipo_Producto` as `invTipo`, "+
+                            "`inv_Producto` as `invProducto`"+
+                            " where "+
+                            "`invProducto.id_proveedor` = "+ dataProveedorInt[0] +" & "+
+                            "`invProducto.id_marca` = `invMarca.id_marca` & "+
+                            "`invProducto.id_tipo` = `invTipo.id_tipo` & "+
+                            "`invProducto.id_modelo` = `invModelo.id_modelo`";
+            cs = conn.prepareCall(consultaCiudad);
+            rs = cs.executeQuery();
             
+            while(rs.next()){
+                Object[] fila = new Object[4];
+                for (int i = 0; i < 4; i++) {
+                  fila[i]=rs.getObject(i+1);
+                }
+                modelo.addRow(fila);
+            }
             
             cs.close();
             rs.close();
             
             
         }catch(Exception e){
-            JOptionPane.showMessageDialog(this, "No se encuentra el proveedor", "Error", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "El proveedor a consultar no se encuentra registrado", "Error", JOptionPane.WARNING_MESSAGE);
         }
     }
 
