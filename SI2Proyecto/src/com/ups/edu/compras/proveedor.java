@@ -389,13 +389,22 @@ public class proveedor extends javax.swing.JInternalFrame {
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         // TODO add your handling code here:
         modelo = new DefaultTableModel();
+        id_proveedor.setText("");
         nombre.setFocusable(false);nombre.setText("");
         direccion.setFocusable(false);direccion.setText("");
         telefono1.setFocusable(false);telefono1.setText("");
         telefono2.setFocusable(false);telefono2.setText("");
         txtCiudad.setFocusable(false);txtCiudad.setText("");
         correo.setFocusable(false);correo.setText("");
+        estado1.setEnabled(false);
+        estado2.setEnabled(false);
         
+        
+        btnNuevoGuardar.setEnabled(true);
+        eliminar.setEnabled(false);
+        btnActualizar.setEnabled(false);
+        btnAgregar.setEnabled(false);
+        btnCancelar.setEnabled(false);
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void id_proveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_id_proveedorActionPerformed
