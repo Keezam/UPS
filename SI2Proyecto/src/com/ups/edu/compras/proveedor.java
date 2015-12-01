@@ -384,6 +384,7 @@ public class proveedor extends javax.swing.JInternalFrame {
         String consultaProveedor = "SELECT `id_producto`, `id_ciudad`, `nombre`, `direccion`, `telefono1`, "
                 + "`telefono2`, `correo`, `estado` FROM `cmprv_provedores` where `cedula_proveedor` = '"+cedula_proveedor+"'";
         String consultaCiudad = "SELECT `descripcion` FROM `cmprv_ciudad` WHERE `id_ciudad` =";
+        String consultaProducto = "SELECT `` ";
         String [] dataProveedorString = new String[5];
         Integer [] dataProveedorInt = new Integer[4];
         try{
@@ -399,12 +400,20 @@ public class proveedor extends javax.swing.JInternalFrame {
                 dataProveedorString[2] = rs.getString("correo");
                 dataProveedorString[3] = rs.getString("estado");
             }
+            
+            
+            
             consultaCiudad = consultaCiudad + dataProveedorInt[1];
-            CallableStatement csProv = conn.prepareCall(consultaCiudad);
-            ResultSet rsProv = csProv.executeQuery();
-            while(rsProv.next()){
-                dataProveedorString[4] = rsProv.getString("descripcion");
+            cs = conn.prepareCall(consultaCiudad);
+            rs = cs.executeQuery();
+            while(rs.next()){
+                dataProveedorString[4] = rs.getString("descripcion");
             }
+            
+            
+            cs.close();
+            rs.close();
+            
             
         }catch(Exception e){
             JOptionPane.showMessageDialog(this, "No se encuentra el proveedor", "Error", JOptionPane.WARNING_MESSAGE);

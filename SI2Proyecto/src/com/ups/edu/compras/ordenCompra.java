@@ -203,9 +203,17 @@ public class ordenCompra extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Codigo", "Producto", "Cantidad", "Precio Unitario", "Precio Total"
+                "Codigo", "Producto", "Marca", "Modelo", "Cantidad", "Precio Unitario", "Precio Total"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, true, true, true, true, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(tbl_detalle);
 
         btnAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ups/edu/compras/resources/añadir.png"))); // NOI18N
@@ -298,7 +306,6 @@ public class ordenCompra extends javax.swing.JInternalFrame {
                         .addGap(134, 134, 134)
                         .addComponent(btnAgregar)
                         .addGap(2, 2, 2)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(txtImpuesto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -309,7 +316,7 @@ public class ordenCompra extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(guardar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblEstado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(lblEstado, javax.swing.GroupLayout.DEFAULT_SIZE, 8, Short.MAX_VALUE))
         );
 
         pack();
