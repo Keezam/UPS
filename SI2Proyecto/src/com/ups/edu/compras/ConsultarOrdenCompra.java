@@ -23,9 +23,7 @@ public class ConsultarOrdenCompra extends javax.swing.JInternalFrame {
     /**
      * Creates new form ConsultarOrdenCompra
      */
-    DefaultTableModel modelo = new DefaultTableModel();
     Connection conn;
-    boolean controller = true;
     
     public ConsultarOrdenCompra() {
         initComponents();
@@ -47,6 +45,8 @@ public class ConsultarOrdenCompra extends javax.swing.JInternalFrame {
         checkAProbada = new javax.swing.JCheckBox();
         checkDeclinada = new javax.swing.JCheckBox();
         checkEspera = new javax.swing.JCheckBox();
+
+        setTitle("Consultar ordenes de compras");
 
         tblOrdenCompra.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -139,6 +139,7 @@ public class ConsultarOrdenCompra extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_checkEsperaActionPerformed
 
     private void cargarPorCheck(){
+        DefaultTableModel modelo = new DefaultTableModel();
         String query = "SELECT `id_orden_compra`, `fecha_orden`, `fecha_atencion`, `estado` FROM `cmprv_orden_compra` ";
         String condicion = "";
         if(
@@ -148,11 +149,11 @@ public class ConsultarOrdenCompra extends javax.swing.JInternalFrame {
         {
             ////NO SE REALIZA NINGUNA ACCION PUESTO QUE SON LOS MISMOS
         }else if(checkAProbada.isSelected() && checkDeclinada.isSelected()){
-            condicion = "where `estado` = 'A' & `estado` = 'D'";
+            condicion = "where `estado` = 'A' || `estado` = 'D'";
         }else if(checkAProbada.isSelected() && checkEspera.isSelected()){
-            condicion = "where `estado` = 'A' & `estado` = 'E'";
+            condicion = "where `estado` = 'A' || `estado` = 'E'";
         }else if(checkDeclinada.isSelected() && checkEspera.isSelected()){
-            condicion = "where `estado` = 'D' & `estado` = 'E'";
+            condicion = "where `estado` = 'D' || `estado` = 'E'";
         }else if(checkAProbada.isSelected()){
             condicion = "where `estado` = 'A'";
         }else if(checkDeclinada.isSelected()){
