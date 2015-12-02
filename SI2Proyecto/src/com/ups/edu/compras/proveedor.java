@@ -417,32 +417,16 @@ public class proveedor extends javax.swing.JInternalFrame {
             btnNuevoGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ups/edu/compras/resources/nuevousuario.png")));
         }
     }//GEN-LAST:event_btnNuevoGuardarActionPerformed
-
+    
     
     private void getProveedor(String cedula_proveedor){
+        cambiarEstadoBotones();
         modelo = new DefaultTableModel();
-        //Cambio en los botones cuando se trata de busquedas
-        btnNuevoGuardar.setEnabled(false);
-        btnAgregar.setEnabled(false);
-        btnCancelar.setEnabled(true);
-        eliminar.setEnabled(true);
-        btnActualizar.setEnabled(true);
-        
-        //Cambio en las cajas de textos cuando se trata de busquedas
-        nombre.setFocusable(false);
-        direccion.setFocusable(false);
-        telefono1.setFocusable(false);
-        telefono2.setFocusable(false);
-        txtCiudad.setFocusable(false);
-        correo.setFocusable(false);
-        tableProductos.setEnabled(false);
-        estado1.setEnabled(false);
-        estado2.setEnabled(false);
-        
         int i = 0;
         
-        String consultaProveedor = "SELECT `id_producto`, `id_ciudad`, `nombre`, `direccion`, `telefono1`, "
-                + "`telefono2`, `correo`, `estado` FROM `cmprv_provedores` where `cedula_proveedor` = '"+cedula_proveedor+"'";
+        String consultaProveedor = 
+                "SELECT  `id_producto` , `id_ciudad` , `nombre`, `direccion` , `telefono1` , `telefono2` , `correo` , `estado` "
+                + "FROM  `cmprv_provedores` where `cedula_proveedor` = '"+cedula_proveedor+"'";
         String consultaCiudad = "SELECT `descripcion` FROM `cmprv_ciudad` WHERE `id_ciudad` = ";
         String [] dataProveedorString = new String[5];
         Integer [] dataProveedorInt = new Integer[4];
@@ -468,9 +452,10 @@ public class proveedor extends javax.swing.JInternalFrame {
                 dataProveedorString[4] = rs.getString("descripcion");
             }
            
-            String obtenerData = "SELECT invProducto.id_modelo, invProducto.id_marca, invProducto.id_tipo, invProducto_Precio_unitario" +
-                                    " FROM `inv_Producto` AS `invProducto`" +
-                                    " WHERE invProducto.id_producto ="+dataProveedorInt[0];   
+            String obtenerData = 
+                    "SELECT invProducto.id_modelo, invProducto.id_marca, invProducto.id_tipo, invProducto.Precio_unitario" +
+                    " FROM `inv_Producto` AS `invProducto`" +
+                    " WHERE invProducto.id_producto ="+dataProveedorInt[0];   
             
             cs = conn.prepareCall(obtenerData);
             rs = cs.executeQuery();
@@ -485,35 +470,41 @@ public class proveedor extends javax.swing.JInternalFrame {
                 data[2] = rs.getInt("id_tipo");
                 precio[0] = rs.getDouble("Precio_unitario");
                 
+                Object datos[] = new Object[4];
+                
                 String consultaTipo = "select `nombre` from `inv_Tipo_Producto` where `id_tipo`="+data[2];
                 String consultaModelo = "select `nombre` from `inv_Marca_Producto` where `id_marca`="+data[1];
                 String consultaMarca = "select `nombre` from `inv_Modelo_Producto` where `id_modelo`="+data[0];
 
                 cs = conn.prepareCall(consultaTipo);
                 rs = cs.executeQuery();
-                Object tipoP[] = new Object[1];
                 while(rs.next()){
-                    tipoP[0] = rs.getObject("nombre");
-                    modelo.setValueAt(tipoP[0], i, 1);
+                    datos[0] = rs.getObject("nombre");
                 }
 
                 cs = conn.prepareCall(consultaModelo);
                 rs = cs.executeQuery();
-                Object modeloP[] = new Object[1];
                 while(rs.next()){
-                    modeloP[0] = rs.getObject("nombre");
-                    modelo.setValueAt(tipoP[0], i, 2);
+                    datos[1] = rs.getObject("nombre");
                 }
 
                 cs = conn.prepareCall(consultaMarca);
                 rs = cs.executeQuery();
-                Object marcaP[] = new Object[1];
                 while(rs.next()){
-                    marcaP[0] = rs.getObject("nombre");
-                    modelo.setValueAt(tipoP[0], i, 3);
+                    datos[2] = rs.getObject("nombre");
                 }
+                datos[3] = precio[0];
                 
-                modelo.setValueAt(precio[0], i, 4);
+                Object parametros[] = new Object[4];
+                parametros[0]="Producto";
+                parametros[1]="Marca";
+                parametros[2]="Modelo";
+                parametros[3]="Precio";
+                
+                for (int j = 0; j < parametros.length; j++) {
+                    modelo.addColumn(parametros[j]);
+                }
+                modelo.addRow(datos);
             }
             
             
@@ -539,6 +530,7 @@ public class proveedor extends javax.swing.JInternalFrame {
             
         }catch(Exception e){
             JOptionPane.showMessageDialog(this, "El proveedor a consultar no se encuentra registrado o el valor ingresado es nulo", "Error", JOptionPane.WARNING_MESSAGE);
+            cambiarConError();
         }
     }
 
@@ -546,6 +538,48 @@ public class proveedor extends javax.swing.JInternalFrame {
         if (!String.valueOf(evt.getKeyChar()).matches(limite)) {
             evt.consume();
         } 
+    }
+    private void cambiarEstadoBotones(){
+        //Cambio en los botones cuando se trata de busquedas
+        btnNuevoGuardar.setEnabled(false);
+        btnAgregar.setEnabled(false);
+        btnCancelar.setEnabled(true);
+        eliminar.setEnabled(true);
+        btnActualizar.setEnabled(true);
+        
+        //Cambio en las cajas de textos cuando se trata de busquedas
+        nombre.setFocusable(false);
+        direccion.setFocusable(false);
+        telefono1.setFocusable(false);
+        telefono2.setFocusable(false);
+        txtCiudad.setFocusable(false);
+        correo.setFocusable(false);
+        estado1.setEnabled(false);
+        estado2.setEnabled(false);
+    }
+    
+    private void cambiarConError(){
+        
+        id_proveedor.setText("");
+        
+        modelo = new DefaultTableModel();
+        //Cambio en los botones cuando se trata de busquedas
+        btnNuevoGuardar.setEnabled(true);
+        btnAgregar.setEnabled(false);
+        btnCancelar.setEnabled(false);
+        eliminar.setEnabled(false);
+        btnActualizar.setEnabled(false);
+        
+        //Cambio en las cajas de textos cuando se trata de busquedas
+        nombre.setFocusable(false);
+        direccion.setFocusable(false);
+        telefono1.setFocusable(false);
+        telefono2.setFocusable(false);
+        txtCiudad.setFocusable(false);
+        correo.setFocusable(false);
+        //tableProductos.setFocusable(false);
+        estado1.setEnabled(false);
+        estado2.setEnabled(false);
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

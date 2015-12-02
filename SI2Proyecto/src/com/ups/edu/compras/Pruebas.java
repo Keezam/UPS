@@ -5,6 +5,7 @@
  */
 package com.ups.edu.compras;
 
+import com.ups.edu.conexion.ConexionBD;
 import com.ups.edu.ventas.model.Validacion;
 import java.awt.event.KeyEvent;
 import java.sql.CallableStatement;
@@ -29,6 +30,12 @@ public class Pruebas extends javax.swing.JFrame {
 
     public Pruebas() {
         initComponents();
+        conn = ConexionBD.GetConnection();
+        if(conn!=null){
+            System.out.println("Conectado");
+        }else{
+            System.out.println("No conectado");
+        }
     }
 
     /**
@@ -372,6 +379,23 @@ public class Pruebas extends javax.swing.JFrame {
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         // TODO add your handling code here:
+        modelo = new DefaultTableModel();
+        id_proveedor.setText("");
+        nombre.setFocusable(false);nombre.setText("");
+        direccion.setFocusable(false);direccion.setText("");
+        telefono1.setFocusable(false);telefono1.setText("");
+        telefono2.setFocusable(false);telefono2.setText("");
+        txtCiudad.setFocusable(false);txtCiudad.setText("");
+        correo.setFocusable(false);correo.setText("");
+        estado1.setEnabled(false);
+        estado2.setEnabled(false);
+        
+        
+        btnNuevoGuardar.setEnabled(true);
+        eliminar.setEnabled(false);
+        btnActualizar.setEnabled(false);
+        btnAgregar.setEnabled(false);
+        btnCancelar.setEnabled(false);
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnNuevoGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoGuardarActionPerformed
@@ -380,7 +404,7 @@ public class Pruebas extends javax.swing.JFrame {
 
     private void getProveedor(String cedula_proveedor){
         cambiarEstadoBotones();
-        
+        modelo = new DefaultTableModel();
         int i = 0;
         
         String consultaProveedor = 
@@ -411,9 +435,10 @@ public class Pruebas extends javax.swing.JFrame {
                 dataProveedorString[4] = rs.getString("descripcion");
             }
            
-            String obtenerData = "SELECT invProducto.id_modelo, invProducto.id_marca, invProducto.id_tipo, invProducto_Precio_unitario" +
-                                    " FROM `inv_Producto` AS `invProducto`" +
-                                    " WHERE invProducto.id_producto ="+dataProveedorInt[0];   
+            String obtenerData = 
+                    "SELECT invProducto.id_modelo, invProducto.id_marca, invProducto.id_tipo, invProducto.Precio_unitario" +
+                    " FROM `inv_Producto` AS `invProducto`" +
+                    " WHERE invProducto.id_producto ="+dataProveedorInt[0];   
             
             cs = conn.prepareCall(obtenerData);
             rs = cs.executeQuery();
@@ -428,35 +453,41 @@ public class Pruebas extends javax.swing.JFrame {
                 data[2] = rs.getInt("id_tipo");
                 precio[0] = rs.getDouble("Precio_unitario");
                 
+                Object datos[] = new Object[4];
+                
                 String consultaTipo = "select `nombre` from `inv_Tipo_Producto` where `id_tipo`="+data[2];
                 String consultaModelo = "select `nombre` from `inv_Marca_Producto` where `id_marca`="+data[1];
                 String consultaMarca = "select `nombre` from `inv_Modelo_Producto` where `id_modelo`="+data[0];
 
                 cs = conn.prepareCall(consultaTipo);
                 rs = cs.executeQuery();
-                Object tipoP[] = new Object[1];
                 while(rs.next()){
-                    tipoP[0] = rs.getObject("nombre");
-                    modelo.setValueAt(tipoP[0], i, 1);
+                    datos[0] = rs.getObject("nombre");
                 }
 
                 cs = conn.prepareCall(consultaModelo);
                 rs = cs.executeQuery();
-                Object modeloP[] = new Object[1];
                 while(rs.next()){
-                    modeloP[0] = rs.getObject("nombre");
-                    modelo.setValueAt(tipoP[0], i, 2);
+                    datos[1] = rs.getObject("nombre");
                 }
 
                 cs = conn.prepareCall(consultaMarca);
                 rs = cs.executeQuery();
-                Object marcaP[] = new Object[1];
                 while(rs.next()){
-                    marcaP[0] = rs.getObject("nombre");
-                    modelo.setValueAt(tipoP[0], i, 3);
+                    datos[2] = rs.getObject("nombre");
                 }
+                datos[3] = precio[0];
                 
-                modelo.setValueAt(precio[0], i, 4);
+                Object parametros[] = new Object[4];
+                parametros[0]="Producto";
+                parametros[1]="Marca";
+                parametros[2]="Modelo";
+                parametros[3]="Precio";
+                
+                for (int j = 0; j < parametros.length; j++) {
+                    modelo.addColumn(parametros[j]);
+                }
+                modelo.addRow(datos);
             }
             
             
@@ -528,7 +559,6 @@ public class Pruebas extends javax.swing.JFrame {
     }
 
     private void cambiarEstadoBotones(){
-        modelo = new DefaultTableModel();
         //Cambio en los botones cuando se trata de busquedas
         btnNuevoGuardar.setEnabled(false);
         btnAgregar.setEnabled(false);
@@ -543,9 +573,8 @@ public class Pruebas extends javax.swing.JFrame {
         telefono2.setFocusable(false);
         txtCiudad.setFocusable(false);
         correo.setFocusable(false);
-        tableProductos.setEnabled(false);
-        estado1.setFocusable(false);
-        estado2.setFocusable(false);
+        estado1.setEnabled(false);
+        estado2.setEnabled(false);
     }
     
     private void cambiarConError(){
@@ -567,9 +596,9 @@ public class Pruebas extends javax.swing.JFrame {
         telefono2.setFocusable(false);
         txtCiudad.setFocusable(false);
         correo.setFocusable(false);
-        tableProductos.setEnabled(false);
-        estado1.setFocusable(false);
-        estado2.setFocusable(false);
+        //tableProductos.setFocusable(false);
+        estado1.setEnabled(false);
+        estado2.setEnabled(false);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizar;
