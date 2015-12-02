@@ -38,7 +38,8 @@ public class Iframe1_2 extends javax.swing.JInternalFrame {
             Connection conexion = DriverManager.getConnection(servidor, usuarioDB, passwordDB);
             Statement s = conexion.createStatement();
             ResultSet rs = s.executeQuery("select * from rrhh_usuarios where cuenta ='"+cuenta+"' and clave ='"+clave+"'");
-                        
+            char[] arrayC = jPasswordField1.getPassword(); 
+            String pass = new String(arrayC);        
             while(rs.next()){
             c=rs.getString("id_modulo");
                 System.out.println(c);
@@ -49,8 +50,6 @@ public class Iframe1_2 extends javax.swing.JInternalFrame {
                 jTextField1.setText("");
                 jPasswordField1.setText("");
                 jMRecHum.setVisible(true);
-                
-                                           
             }else if(c.equalsIgnoreCase("2")){
                 JOptionPane.showMessageDialog(null, "Bienvenido Financiero" );
                  this.setVisible(false);
@@ -75,10 +74,14 @@ public class Iframe1_2 extends javax.swing.JInternalFrame {
                  jTextField1.setText("");
                   jPasswordField1.setText("");
                   jMInventario.setVisible(true);
-            } else{
-            JOptionPane.showMessageDialog(null, "NO EXISTE CUENTA","Error",JOptionPane.WARNING_MESSAGE);
-            jTextField1.setText("");
-            jPasswordField1.setText("");
+            } else if(cuenta!=jTextField1.getText()){
+                JOptionPane.showMessageDialog(null, "Error en Cuenta","Error",JOptionPane.WARNING_MESSAGE);
+                jTextField1.setText("");
+                jPasswordField1.setText("");
+            }else if(clave!=pass){
+                JOptionPane.showMessageDialog(null, "Error en Clave","Error",JOptionPane.WARNING_MESSAGE);
+                jTextField1.setText("");
+                jPasswordField1.setText("");
             }
             
         }catch(Exception ex){
@@ -180,11 +183,14 @@ public class Iframe1_2 extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jTextField1ActionPerformed
 JPasswordField password = new JPasswordField();
 JPasswordField jtextField2 = new JPasswordField(10);
+   
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         String c=""; 
+        char[] arrayC = jPasswordField1.getPassword(); 
+            String pass = new String(arrayC);
         String cuenta=jTextField1.getText(); 
-        String clave= jPasswordField1.getText();
+        String clave= pass;
         try{
             ingresar(cuenta,clave);
         }catch(Exception e){

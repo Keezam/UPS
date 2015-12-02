@@ -30,6 +30,7 @@ public class menuu extends javax.swing.JFrame {
                 jMCompras.setVisible(false);
                 jMVentas.setVisible(false);
                 jMInventario.setVisible(false);
+                
     }
 Iframe1_2 objIFrame1=new Iframe1_2();
 
@@ -158,6 +159,11 @@ Iframe1_2 objIFrame1=new Iframe1_2();
 	Escritorio.add(objIFrame1);
         objIFrame1.setLocation(500, 80);
 	objIFrame1.show();
+                jMFinanciero.setVisible(false);
+                jMRecHum.setVisible(false);
+                jMCompras.setVisible(false);
+                jMVentas.setVisible(false);
+                jMInventario.setVisible(false);
    }
     }//GEN-LAST:event_jCheckBoxMenuItem1ActionPerformed
 
