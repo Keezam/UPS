@@ -41,7 +41,7 @@
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="txtNombre" min="-2" pref="191" max="-2" attributes="0"/>
                                           <Component id="txtApellido" alignment="0" min="-2" pref="199" max="-2" attributes="0"/>
-                                          <Component id="txtEmail1" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="txtDireccion" alignment="0" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <Group type="102" attributes="0">
@@ -103,7 +103,7 @@
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="txtEmail1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtDireccion" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="lblEmail" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
@@ -189,7 +189,7 @@
         <Property name="text" type="java.lang.String" value="Telefono"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtEmail1">
+    <Component class="javax.swing.JTextField" name="txtDireccion">
       <Properties>
         <Property name="toolTipText" type="java.lang.String" value="Email del Alumno"/>
       </Properties>

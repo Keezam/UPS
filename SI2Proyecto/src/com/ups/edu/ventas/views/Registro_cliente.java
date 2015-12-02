@@ -48,7 +48,7 @@ public class Registro_cliente extends javax.swing.JFrame {
         txtApellido = new javax.swing.JTextField();
         txtTelefono = new javax.swing.JTextField();
         lblTelefono = new javax.swing.JLabel();
-        txtEmail1 = new javax.swing.JTextField();
+        txtDireccion = new javax.swing.JTextField();
         lblCedula = new javax.swing.JLabel();
         txtCedula = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
@@ -81,7 +81,7 @@ public class Registro_cliente extends javax.swing.JFrame {
 
         lblTelefono.setText("Telefono");
 
-        txtEmail1.setToolTipText("Email del Alumno");
+        txtDireccion.setToolTipText("Email del Alumno");
 
         lblCedula.setText("Cedula");
 
@@ -191,7 +191,7 @@ public class Registro_cliente extends javax.swing.JFrame {
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(txtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(txtEmail1)))
+                                            .addComponent(txtDireccion)))
                                     .addGroup(layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(lblCedula)
@@ -235,7 +235,7 @@ public class Registro_cliente extends javax.swing.JFrame {
                             .addComponent(txtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtEmail1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblEmail))
                         .addGap(11, 11, 11)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -269,42 +269,12 @@ public class Registro_cliente extends javax.swing.JFrame {
     private void btnInsertarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertarActionPerformed
         if (txtApellido.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Error al Registrar, campo Descripción Vacio");
-        } else if (txtValor.getText().isEmpty()) {
+        } else if (txtCedula.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Error al Registrar, campo Valor Vacio");
-        } else if (txtDescuento.getText().isEmpty()) {
+        } else if (txtDireccion.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Error al Registrar, campo Descuento Vacio");
         } else {
-            String descripcion, estado, sql, codOfertaS;
-            Integer codOferta, codArticulo;
-            Double valor, descuento;
-            codOferta = Integer.parseInt(lblCodOferta.getText());
-            codArticulo = Integer.parseInt((String) cmbCodArticulo.getSelectedItem());
-            descripcion = txtDescripcion.getText();
-            valor = Double.parseDouble(txtValor.getText());
-            descuento = Double.parseDouble(txtDescuento.getText());
-            estado = (String) cmbEstado.getSelectedItem();
-            sql = "Insert Into vta_ofertas(codofertas,id_producto,descripcion,valor,descuento,estado) values (?,?,?,?,?,?)";
-            try {
-                PreparedStatement pst = cn.prepareStatement(sql);
-                pst.setInt(1, codOferta);
-                pst.setInt(2, codArticulo);
-                pst.setString(3, descripcion);
-                pst.setDouble(4, valor);
-                pst.setDouble(5, descuento);
-                pst.setString(6, estado);
-
-                int n = pst.executeUpdate();
-                if (n > 0) {
-                    JOptionPane.showMessageDialog(null, "Registrado con exito");
-                    Limpiar();
-                    codOfertaS = String.valueOf(codOferta);
-                    cargarTabla();
-                }
-                cargarIdArticulo();
-                cargarIdOferta();
-            } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, "Error al Registrar");
-            }
+            System.out.println("");
         }
         //            JOptionPane.showMessageDialog(null, "Error al Registrar, todos los campos deben ser llenados");
     }//GEN-LAST:event_btnInsertarActionPerformed
@@ -312,35 +282,14 @@ public class Registro_cliente extends javax.swing.JFrame {
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
         if ((txtbuscar.getText().isEmpty())) {
             JOptionPane.showMessageDialog(null, "Error, No Existe ese Codigo");
-        } else if (txtDescripcion.getText().isEmpty()) {
+        } else if (txtCedula.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Error al Actualizar, campo Descripción Vacio");
-        } else if (txtValor.getText().isEmpty()) {
+        } else if (txtDireccion.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Error al Actualizar, campo Valor Vacio");
-        } else if (txtDescuento.getText().isEmpty()) {
+        } else if (txtTelefono.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Error al Actualizar, campo Descuento Vacio");
         } else {
-            String descripcion, estado, codOfertaS;
-            Integer codOferta, codArticulo;
-            Double valor, descuento;
-            codOferta = Integer.parseInt(lblCodOferta.getText());
-            codArticulo = Integer.parseInt((String) cmbCodArticulo.getSelectedItem());
-            descripcion = txtDescripcion.getText();
-            valor = Double.parseDouble(txtValor.getText());
-            descuento = Double.parseDouble(txtDescuento.getText());
-            estado = (String) cmbEstado.getSelectedItem();
-            String sql = "UPDATE vta_ofertas SET id_producto = " + codArticulo + ", descripcion = '" + descripcion + "', valor =" + valor + ", descuento =" + descuento + ",estado ='" + estado + "' where codofertas =" + codOferta;
-            try {
-                PreparedStatement pst = cn.prepareStatement(sql);
-                pst.executeUpdate();
-                JOptionPane.showMessageDialog(null, "Actualizado");
-                Limpiar();
-                codOfertaS = String.valueOf(codOferta);
-                cargarTabla();
-                cargarIdArticulo();
-                cargarIdOferta();
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, e);
-            }
+            
 
         }
     }//GEN-LAST:event_btnActualizarActionPerformed
@@ -349,26 +298,11 @@ public class Registro_cliente extends javax.swing.JFrame {
         if ((txtbuscar.getText().isEmpty())) {
             JOptionPane.showMessageDialog(null, "Error, No Existe ese Codigo");
         } else {
-            String codOfertaS;
-            Integer codigoOfertaEliminar;
-            codigoOfertaEliminar = Integer.parseInt((String) lblCodOferta.getText());
-            try {
-                PreparedStatement pst = cn.prepareStatement("DELETE FROM vta_ofertas WHERE codofertas ='" + codigoOfertaEliminar + "'");
-                pst.executeUpdate();
-                JOptionPane.showMessageDialog(null, "Registro Eliminado");
-                Limpiar();
-                codOfertaS = String.valueOf(codigoOfertaEliminar);
-                cargarTabla();
-                cargarIdArticulo();
-                cargarIdOferta();
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "Ocurrio un problema");
-            }
+
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
-        Limpiar();
         cargarTabla();
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
@@ -431,7 +365,7 @@ public class Registro_cliente extends javax.swing.JFrame {
     private javax.swing.JTable tbtClientes;
     private javax.swing.JTextField txtApellido;
     private javax.swing.JTextField txtCedula;
-    private javax.swing.JTextField txtEmail1;
+    private javax.swing.JTextField txtDireccion;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtTelefono;
     private javax.swing.JTextField txtbuscar;
