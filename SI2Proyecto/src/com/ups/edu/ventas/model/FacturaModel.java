@@ -77,8 +77,9 @@ public class FacturaModel {
     
     
     public String[] cliente(int codcliente){
-        String sqlBuscar = "SELECT telefono , identidicacion , dirrecion cliente FROM vta_cliente";
+        String sqlBuscar = "SELECT telefono , identificacion, direccion FROM vta_cliente where codcliente = "+codcliente;
         String datosCliente[] = new String[3];
+        System.out.println(""+sqlBuscar);
         try {
             st = con.createStatement();
             rs = st.executeQuery(sqlBuscar);
@@ -116,7 +117,7 @@ public class FacturaModel {
             rs = st.executeQuery(sqlBuscar);
             
             while(rs.next()){
-                String producto = rs.getInt(1)+"-TIPO: "+rs.getInt(2)+" MA:"+rs.getInt(3)+" MO:"+rs.getInt(4);
+                String producto = rs.getInt(1)+"-Tipo: "+rs.getString(2)+" Marca:"+rs.getString(3)+" Modelo:"+rs.getString(4);
                 productos.add(producto);
             }
             
@@ -132,12 +133,13 @@ public class FacturaModel {
     }
     
     public double existePromocion(int id_producto){
-        String sqlBuscar = " SELECT pp.`descuento` FROM vta_promoxproducto pp , vta_promocion p " +
+        String sqlBuscar = " SELECT pp.`valor` FROM vta_promoxproducto pp , vta_promocion p " +
                            "  WHERE p.`codpromocion` = pp.`codpromocion` " +
                            "    AND p.`estado` = 'A' " +
                            "    AND pp.`id_producto` = "+id_producto;
         
         try {
+            System.out.println(""+sqlBuscar);
             st = con.createStatement();
             rs = st.executeQuery(sqlBuscar);
             if(rs.next()){
@@ -156,8 +158,8 @@ public class FacturaModel {
     }
     
     public double existeOferta(int id_producto){
-        String sqlBuscar = " SELECT descuento FROM vta_ofertas WHERE id_producto = "+id_producto+" AND estado = 'A'"    ;
-        
+                String sqlBuscar = " SELECT valor FROM vta_ofertas WHERE id_producto = "+id_producto+" AND estado = 'A'"    ;
+        System.out.println(""+sqlBuscar);
         try {
             st = con.createStatement();
             rs = st.executeQuery(sqlBuscar);
@@ -176,12 +178,29 @@ public class FacturaModel {
     }
     
     public Object[] datosProducto(int id_producto){
-        String sqlBuscar="SELECT precio_unitario, 10 FROM inv_Producto WHERE id_producto = "+id_producto;
+        String sqlBuscar="SELECT p.precio_unitario, IFNULL(i.cantidad_total,0) FROM inv_Producto  p  "
+                       + " left join inv_Inventario i on i.id_producto = p.id_producto WHERE p.id_producto = "+id_producto;
+        
+        Object[] resultado = null;
+        
+        System.out.println(""+sqlBuscar);
         try {
-            
+            st = con.createStatement();
+            rs = st.executeQuery(sqlBuscar);
+            if(rs.next()){
+                resultado = new Object[2];
+                resultado[0] = rs.getDouble(1);
+                resultado[1] = rs.getInt(2);
+            }
         } catch (Exception e) {
+            e.printStackTrace();
+        }finally{
+           try{
+               if(st != null)st.close();
+               if(rs != null)rs.close();   
+           }catch(Exception e){}
         }
-        return null;
+        return resultado;
     }
     
     private void getconection(){

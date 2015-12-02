@@ -27,16 +27,43 @@ import javax.swing.table.DefaultTableModel;
  */
 public class Ofertas extends javax.swing.JFrame {
 
-    /**
-     *
-     */
+    private Statement st;
+    private  ResultSet rs;
+    
+    private void cargarIdArticulo() {
+        try {
+            st = cn.createStatement();
+            rs = st.executeQuery("select id_producto from inv_Producto");
+            cmbCodArticulo.removeAllItems();
+            while (rs.next()) {
+                cmbCodArticulo.addItem(rs.getString(1));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void cargarIdOferta() {
+        try {
+            st = cn.createStatement();
+            rs = st.executeQuery("select IFNULL(MAX(codofertas),0) from vta_ofertas");
+            while (rs.next()) {
+                Integer idOferta = Integer.valueOf(rs.getString(1)) + 1;
+                lblCodOferta.setText(Integer.toString(idOferta));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public void Limpiar() {
-        txtCodArticulo.setText("");
-        txtCodOferta.setText("");
+        cmbCodArticulo.setSelectedIndex(0);
+        lblCodOferta.setText("");
         txtDescripcion.setText("");
         txtDescuento.setText("");
         txtbuscar.setText("");
         txtValor.setText("");
+        cargarIdOferta();
         JOptionPane.showMessageDialog(null, "Limpio");
     }
 
@@ -47,31 +74,60 @@ public class Ofertas extends javax.swing.JFrame {
     }
 
     DefaultTableModel model;
-    //ConexionBD cc = new ConexionBD();
     Connection cn = ConexionBD.GetConnection();
 
     public Ofertas() {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setTitle("Ingreso y Consulta de Ofertas");
+        this.cargarIdOferta();
+        this.cargarIdArticulo();
+        this.cargarTabla();
     }
 
     void Buscar(String valor) {
-
-        String codigoOfertaBuscar = valor;
-//        String codigoOfertaBuscar = txtbuscar.getText();
-//        String sqlBuscar = "SELECT * FROM ofertas WHERE codofertas = '" + codigoOfertaBuscar + "'";
-        String sqlBuscar = "SELECT * FROM ofertas WHERE CONCAT(codofertas,codarticulo,descripcion,valor,descuento,estado) LIKE '%" + valor + "%'";
-        String[] campos = {"Codigo Ofertas", "Codigo Articulo", "Descripcion", "Valor", "Descuento", "Estado"};
+        String sqlBuscar = "SELECT * FROM vta_ofertas WHERE codofertas ='" + valor + "'";
+        String[] campos = {"Codigo Ofertas", "Codigo Producto", "Descripcion", "Valor", "Descuento", "Estado"};
         String[] registros = new String[6];
+        
         model = new DefaultTableModel(campos, 0);
 
         try {
-            Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery(sqlBuscar);
+            st = cn.createStatement();
+            rs = st.executeQuery(sqlBuscar);
             while (rs.next()) {
                 registros[0] = rs.getString("codofertas");
-                registros[1] = rs.getString("codarticulo");
+                registros[1] = rs.getString("id_producto");
+                registros[2] = rs.getString("descripcion");
+                registros[3] = rs.getString("valor");
+                registros[4] = rs.getString("descuento");
+                registros[5] = rs.getString("estado");
+                model.addRow(registros);
+            }
+            cmbCodArticulo.setSelectedItem(registros[1]);
+            txtDescripcion.setText(registros[2]);
+            txtValor.setText(registros[3]);
+            txtDescuento.setText(registros[4]);
+            cmbEstado.setSelectedItem(registros[5]);
+            tbdatos.setModel(model);
+        } catch (SQLException ex) {
+            Logger.getLogger(Ofertas.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    private void cargarTabla(){
+        String sqlBuscar = "SELECT * FROM vta_ofertas ";
+        String[] campos = {"Codigo Ofertas", "Codigo Producto", "Descripcion", "Valor", "Descuento", "Estado"};
+        String[] registros = new String[6];
+        
+        model = new DefaultTableModel(campos, 0);
+
+        try {
+            st = cn.createStatement();
+            rs = st.executeQuery(sqlBuscar);
+            while (rs.next()) {
+                registros[0] = rs.getString("codofertas");
+                registros[1] = rs.getString("id_producto");
                 registros[2] = rs.getString("descripcion");
                 registros[3] = rs.getString("valor");
                 registros[4] = rs.getString("descuento");
@@ -91,8 +147,6 @@ public class Ofertas extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        txtCodOferta = new javax.swing.JTextField();
-        txtCodArticulo = new javax.swing.JTextField();
         txtDescripcion = new javax.swing.JTextField();
         jScrollPane = new javax.swing.JScrollPane();
         tbdatos = new javax.swing.JTable();
@@ -111,6 +165,8 @@ public class Ofertas extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         txtValor = new javax.swing.JTextField();
         cmbEstado = new javax.swing.JComboBox<String>();
+        lblCodOferta = new javax.swing.JLabel();
+        cmbCodArticulo = new javax.swing.JComboBox<String>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -119,18 +175,6 @@ public class Ofertas extends javax.swing.JFrame {
         jLabel2.setText("Codigo Articulo:");
 
         jLabel3.setText("Descripción:");
-
-        txtCodOferta.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtCodOfertaKeyTyped(evt);
-            }
-        });
-
-        txtCodArticulo.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtCodArticuloKeyTyped(evt);
-            }
-        });
 
         txtDescripcion.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -152,6 +196,7 @@ public class Ofertas extends javax.swing.JFrame {
         ));
         jScrollPane.setViewportView(tbdatos);
 
+        btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ups/edu/compras/resources/search.png"))); // NOI18N
         btnBuscar.setText("Buscar");
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -174,13 +219,15 @@ public class Ofertas extends javax.swing.JFrame {
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Opciones"));
 
-        btnInsertar.setText("Insertar");
+        btnInsertar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ups/edu/compras/resources/añadir.png"))); // NOI18N
+        btnInsertar.setText("Crear");
         btnInsertar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnInsertarActionPerformed(evt);
             }
         });
 
+        btnActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ups/edu/compras/resources/actualizar.png"))); // NOI18N
         btnActualizar.setText("Actualizar");
         btnActualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -188,6 +235,7 @@ public class Ofertas extends javax.swing.JFrame {
             }
         });
 
+        btnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ups/edu/compras/resources/borrar.png"))); // NOI18N
         btnEliminar.setText("Eliminar");
         btnEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -247,7 +295,32 @@ public class Ofertas extends javax.swing.JFrame {
             }
         });
 
-        cmbEstado.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "I", "A" }));
+        cmbEstado.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "A", "I" }));
+
+        cmbCodArticulo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cmbCodArticuloMouseClicked(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                cmbCodArticuloMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                cmbCodArticuloMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                cmbCodArticuloMouseReleased(evt);
+            }
+        });
+        cmbCodArticulo.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cmbCodArticuloItemStateChanged(evt);
+            }
+        });
+        cmbCodArticulo.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                cmbCodArticuloFocusLost(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -255,70 +328,64 @@ public class Ofertas extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(46, 46, 46)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(txtbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(28, 28, 28)
+                        .addComponent(btnBuscar))
+                    .addComponent(jLabel6)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 97, Short.MAX_VALUE)
+                                    .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
+                                    .addComponent(cmbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtDescuento, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                         .addGap(1, 1, 1)
-                                        .addComponent(jLabel7)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel8)
-                                            .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(18, 18, 18)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(cmbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(txtDescuento, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(btnBuscar))))
-                                .addGap(81, 81, 81)
-                                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(1, 1, 1)
-                                .addComponent(jLabel4)))
-                        .addContainerGap(34, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 517, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel6)
+                                .addComponent(jLabel4))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtCodArticulo, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(1, 1, 1)
-                                .addComponent(jLabel1)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtCodOferta, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblCodOferta, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(cmbCodArticulo, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(20, 20, 20)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane))
+                .addGap(0, 45, Short.MAX_VALUE))
         );
-
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jLabel1, jLabel2, jLabel3, jLabel7, jLabel8, jLabel9});
-
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addComponent(jLabel4)
-                .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtCodOferta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(27, 27, 27)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblCodOferta, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel1))
-                        .addGap(26, 26, 26)
+                        .addGap(29, 29, 29)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtCodArticulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2))
-                        .addGap(28, 28, 28)
+                            .addComponent(jLabel2)
+                            .addComponent(cmbCodArticulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
                             .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -329,11 +396,11 @@ public class Ofertas extends javax.swing.JFrame {
                         .addGap(26, 26, 26)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtDescuento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel8))
-                        .addGap(28, 28, 28))
+                            .addComponent(jLabel8)))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
                     .addComponent(cmbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -353,6 +420,7 @@ public class Ofertas extends javax.swing.JFrame {
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         Buscar(txtbuscar.getText());
+        lblCodOferta.setText(txtbuscar.getText());
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void txtbuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtbuscarActionPerformed
@@ -360,92 +428,111 @@ public class Ofertas extends javax.swing.JFrame {
     }//GEN-LAST:event_txtbuscarActionPerformed
 
     private void btnInsertarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertarActionPerformed
-        String descripcion, estado, sql;
-        Integer codOferta, codArticulo;
-        Double valor, descuento;
+        if (txtDescripcion.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Error al Registrar, campo Descripción Vacio");
+        } else if (txtValor.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Error al Registrar, campo Valor Vacio");
+        } else if (txtDescuento.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Error al Registrar, campo Descuento Vacio");
+        } else {
+            String descripcion, estado, sql, codOfertaS;
+            Integer codOferta, codArticulo;
+            Double valor, descuento;
+            codOferta = Integer.parseInt(lblCodOferta.getText());
+            codArticulo = Integer.parseInt((String) cmbCodArticulo.getSelectedItem());
+            descripcion = txtDescripcion.getText();
+            valor = Double.parseDouble(txtValor.getText());
+            descuento = Double.parseDouble(txtDescuento.getText());
+            estado = (String) cmbEstado.getSelectedItem();
+            sql = "Insert Into vta_ofertas(codofertas,id_producto,descripcion,valor,descuento,estado) values (?,?,?,?,?,?)";
+            try {
+                PreparedStatement pst = cn.prepareStatement(sql);
+                pst.setInt(1, codOferta);
+                pst.setInt(2, codArticulo);
+                pst.setString(3, descripcion);
+                pst.setDouble(4, valor);
+                pst.setDouble(5, descuento);
+                pst.setString(6, estado);
 
-        codOferta = Integer.parseInt(txtCodOferta.getText());
-        codArticulo = Integer.parseInt(txtCodArticulo.getText());
-        descripcion = txtDescripcion.getText();
-        valor = Double.parseDouble(txtValor.getText());
-        descuento = Double.parseDouble(txtDescuento.getText());
-        estado = (String) cmbEstado.getSelectedItem();
-
-        sql = "Insert Into ofertas(codofertas,codarticulo,descripcion,valor,descuento,estado) values (?,?,?,?,?,?)";
-        try {
-            PreparedStatement pst = cn.prepareStatement(sql);
-            pst.setInt(1, codOferta);
-            pst.setInt(2, codArticulo);
-            pst.setString(3, descripcion);
-            pst.setDouble(4, valor);
-            pst.setDouble(5, descuento);
-            pst.setString(6, estado);
-
-            int n = pst.executeUpdate();
-            if (n > 0) {
-                JOptionPane.showMessageDialog(null, "Registrado con exito");
-                Limpiar();
-                Buscar("");
+                int n = pst.executeUpdate();
+                if (n > 0) {
+                    JOptionPane.showMessageDialog(null, "Registrado con exito");
+                    Limpiar();
+                    codOfertaS = String.valueOf(codOferta);
+                    cargarTabla();
+                }
+                cargarIdArticulo();
+                cargarIdOferta();
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Error al Registrar");
             }
-
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al Registrar");
         }
+//            JOptionPane.showMessageDialog(null, "Error al Registrar, todos los campos deben ser llenados");
     }//GEN-LAST:event_btnInsertarActionPerformed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
-        String descripcionActualizar, estadoActualizar;
-        Integer codOfertaActualizar, codArticuloActualizar;
-        Double valorActualizar, descuentoActualizar;
+        if ((txtbuscar.getText().isEmpty())) {
+            JOptionPane.showMessageDialog(null, "Error, No Existe ese Codigo");
+        } else if (txtDescripcion.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Error al Actualizar, campo Descripción Vacio");
+        } else if (txtValor.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Error al Actualizar, campo Valor Vacio");
+        } else if (txtDescuento.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Error al Actualizar, campo Descuento Vacio");
+        } else {
+            String descripcion, estado, codOfertaS;
+            Integer codOferta, codArticulo;
+            Double valor, descuento;
+            codOferta = Integer.parseInt(lblCodOferta.getText());
+            codArticulo = Integer.parseInt((String) cmbCodArticulo.getSelectedItem());
+            descripcion = txtDescripcion.getText();
+            valor = Double.parseDouble(txtValor.getText());
+            descuento = Double.parseDouble(txtDescuento.getText());
+            estado = (String) cmbEstado.getSelectedItem();
+            String sql = "UPDATE vta_ofertas SET id_producto = " + codArticulo + ", descripcion = '" + descripcion + "', valor =" + valor + ", descuento =" + descuento + ",estado ='" + estado + "' where codofertas =" + codOferta;
+            try {
+                PreparedStatement pst = cn.prepareStatement(sql);
+                pst.executeUpdate();
+                JOptionPane.showMessageDialog(null, "Actualizado");
+                Limpiar();
+                codOfertaS = String.valueOf(codOferta);
+                cargarTabla();
+                cargarIdArticulo();
+                cargarIdOferta();
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e);
+            }
 
-        codOfertaActualizar = Integer.parseInt(txtCodOferta.getText());
-        codArticuloActualizar = Integer.parseInt(txtCodArticulo.getText());
-        descripcionActualizar = txtDescripcion.getText();
-        valorActualizar = Double.parseDouble(txtValor.getText());
-        descuentoActualizar = Double.parseDouble(txtDescuento.getText());
-        estadoActualizar = (String) cmbEstado.getSelectedItem();
-
-        String sql = "UPDATE ofertas SET codarticulo = " + codArticuloActualizar + ", descripcion = '" + descripcionActualizar + "', valor =" + valorActualizar + ", descuento =" + descuentoActualizar + ",estado ='" + estadoActualizar + "' where codofertas =" + codOfertaActualizar;
-        try {
-            PreparedStatement pst = cn.prepareStatement(sql);
-            pst.executeUpdate();
-            JOptionPane.showMessageDialog(null, "Actualizado");
-            Limpiar();
-            Buscar("");
-
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
         }
+
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        //int fila = tbdatos.getSelectedRow();
-        Integer codigoOfertaEliminar;
-        codigoOfertaEliminar = Integer.parseInt(txtCodOferta.getText());
-
-        try {
-            PreparedStatement pst = cn.prepareStatement("DELETE FROM ofertas WHERE codofertas ='" + codigoOfertaEliminar + "'");
-            pst.executeUpdate();
-            //Buscar("");
-            JOptionPane.showMessageDialog(null, "Registro Eliminado");
-            Limpiar();
-            Buscar("");
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Ocurrio un problema");
+        if ((txtbuscar.getText().isEmpty())) {
+            JOptionPane.showMessageDialog(null, "Error, No Existe ese Codigo");
+        } else {
+            String codOfertaS;
+            Integer codigoOfertaEliminar;
+            codigoOfertaEliminar = Integer.parseInt((String) lblCodOferta.getText());
+            try {
+                PreparedStatement pst = cn.prepareStatement("DELETE FROM vta_ofertas WHERE codofertas ='" + codigoOfertaEliminar + "'");
+                pst.executeUpdate();
+                JOptionPane.showMessageDialog(null, "Registro Eliminado");
+                Limpiar();
+                codOfertaS = String.valueOf(codigoOfertaEliminar);
+                cargarTabla();
+                cargarIdArticulo();
+                cargarIdOferta();
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Ocurrio un problema");
+            }
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
         Limpiar();
+        cargarTabla();
     }//GEN-LAST:event_btnLimpiarActionPerformed
-
-    private void txtCodOfertaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodOfertaKeyTyped
-        validar(evt, Validacion.SOLONUMEROS);
-    }//GEN-LAST:event_txtCodOfertaKeyTyped
-
-    private void txtCodArticuloKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodArticuloKeyTyped
-        validar(evt, Validacion.SOLONUMEROS);
-    }//GEN-LAST:event_txtCodArticuloKeyTyped
 
     private void txtDescripcionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDescripcionKeyTyped
         validar(evt, Validacion.MENSAJE);
@@ -460,7 +547,28 @@ public class Ofertas extends javax.swing.JFrame {
     }//GEN-LAST:event_txtDescuentoKeyTyped
 
     private void txtbuscarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtbuscarKeyTyped
+        validar(evt, Validacion.SOLONUMEROS);
     }//GEN-LAST:event_txtbuscarKeyTyped
+
+    private void cmbCodArticuloMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cmbCodArticuloMouseReleased
+
+    }//GEN-LAST:event_cmbCodArticuloMouseReleased
+
+    private void cmbCodArticuloFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cmbCodArticuloFocusLost
+    }//GEN-LAST:event_cmbCodArticuloFocusLost
+
+    private void cmbCodArticuloItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbCodArticuloItemStateChanged
+    }//GEN-LAST:event_cmbCodArticuloItemStateChanged
+
+    private void cmbCodArticuloMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cmbCodArticuloMouseClicked
+
+    }//GEN-LAST:event_cmbCodArticuloMouseClicked
+
+    private void cmbCodArticuloMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cmbCodArticuloMouseExited
+    }//GEN-LAST:event_cmbCodArticuloMouseExited
+
+    private void cmbCodArticuloMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cmbCodArticuloMousePressed
+    }//GEN-LAST:event_cmbCodArticuloMousePressed
 
     /**
      * @param args the command line arguments
@@ -476,16 +584,24 @@ public class Ofertas extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Ofertas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Ofertas.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Ofertas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Ofertas.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Ofertas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Ofertas.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Ofertas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Ofertas.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -506,6 +622,7 @@ public class Ofertas extends javax.swing.JFrame {
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnInsertar;
     private javax.swing.JButton btnLimpiar;
+    private javax.swing.JComboBox<String> cmbCodArticulo;
     private javax.swing.JComboBox<String> cmbEstado;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -517,9 +634,8 @@ public class Ofertas extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane;
+    private javax.swing.JLabel lblCodOferta;
     public static javax.swing.JTable tbdatos;
-    public static javax.swing.JTextField txtCodArticulo;
-    public static javax.swing.JTextField txtCodOferta;
     public static javax.swing.JTextField txtDescripcion;
     public static javax.swing.JTextField txtDescuento;
     public static javax.swing.JTextField txtValor;
