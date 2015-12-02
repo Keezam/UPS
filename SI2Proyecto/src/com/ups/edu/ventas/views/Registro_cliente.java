@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
  */
 public class Registro_cliente extends javax.swing.JFrame {
 
-    private final ClienteModel clienteModel;
+    private  ClienteModel clienteModel;
     private boolean modificar = false;
         
     /**
