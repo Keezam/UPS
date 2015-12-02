@@ -40,6 +40,7 @@ public class Pruebas extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         direccion = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         telefono1 = new javax.swing.JTextField();
@@ -60,13 +61,12 @@ public class Pruebas extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         nombre = new javax.swing.JTextField();
-        jPanel1 = new javax.swing.JPanel();
-        btnActualizar = new javax.swing.JButton();
-        btnNuevoGuardar = new javax.swing.JButton();
-        eliminar = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
         btnCancelar = new javax.swing.JButton();
         btnAgregar = new javax.swing.JButton();
-        jLabel6 = new javax.swing.JLabel();
+        eliminar = new javax.swing.JButton();
+        btnActualizar = new javax.swing.JButton();
+        btnNuevoGuardar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -115,7 +115,7 @@ public class Pruebas extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tableProductos);
 
-        buscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ups/edu/compras/resources/search.png"))); // NOI18N
+        buscar.setText("BUSCAR");
         buscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buscarActionPerformed(evt);
@@ -133,8 +133,10 @@ public class Pruebas extends javax.swing.JFrame {
 
         jLabel1.setText("ID PROVEEDOR");
 
+        buttonGroup1.add(estado2);
         estado2.setText("Inactivo");
 
+        buttonGroup1.add(estado1);
         estado1.setText("Activo");
         estado1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -167,23 +169,8 @@ public class Pruebas extends javax.swing.JFrame {
             }
         });
 
-        btnActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ups/edu/compras/resources/actualizar.png"))); // NOI18N
-        btnActualizar.setText("ACTUALIZAR");
-        btnActualizar.setEnabled(false);
+        jLabel6.setText("DIRECCION");
 
-        btnNuevoGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ups/edu/compras/resources/nuevousuario.png"))); // NOI18N
-        btnNuevoGuardar.setText("NUEVO PROVEEDOR");
-        btnNuevoGuardar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNuevoGuardarActionPerformed(evt);
-            }
-        });
-
-        eliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ups/edu/compras/resources/borrar.png"))); // NOI18N
-        eliminar.setText("ELIMINAR");
-        eliminar.setEnabled(false);
-
-        btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ups/edu/compras/resources/cancelar_1.png"))); // NOI18N
         btnCancelar.setText("CANCELAR");
         btnCancelar.setEnabled(false);
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -192,41 +179,21 @@ public class Pruebas extends javax.swing.JFrame {
             }
         });
 
-        btnAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ups/edu/compras/resources/añadir.png"))); // NOI18N
         btnAgregar.setText("AGREGAR");
         btnAgregar.setEnabled(false);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnActualizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnNuevoGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(eliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnNuevoGuardar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnActualizar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(eliminar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnCancelar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnAgregar)
-                .addGap(151, 151, 151))
-        );
+        eliminar.setText("ELIMINAR");
+        eliminar.setEnabled(false);
 
-        jLabel6.setText("DIRECCION");
+        btnActualizar.setText("ACTUALIZAR");
+        btnActualizar.setEnabled(false);
+
+        btnNuevoGuardar.setText("NUEVO PROVEEDOR");
+        btnNuevoGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevoGuardarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -240,7 +207,7 @@ public class Pruebas extends javax.swing.JFrame {
                         .addGap(22, 22, 22)
                         .addComponent(id_proveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(buscar))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -274,53 +241,71 @@ public class Pruebas extends javax.swing.JFrame {
                                 .addGap(110, 110, 110)
                                 .addComponent(estado2, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnActualizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnNuevoGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(eliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(buscar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel1)
-                        .addComponent(id_proveedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addComponent(jLabel2)
-                .addGap(11, 11, 11)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel5)
-                    .addComponent(nombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(24, 24, 24)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(direccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(telefono1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(telefono2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(txtCiudad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(correo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(17, 17, 17)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(estado1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(estado2, javax.swing.GroupLayout.Alignment.LEADING))
-                .addGap(18, 18, 18)
-                .addComponent(jLabel9)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(buscar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel1)
+                                .addComponent(id_proveedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel2)
+                        .addGap(11, 11, 11)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel5)
+                            .addComponent(nombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(24, 24, 24)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel6)
+                            .addComponent(direccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel7)
+                            .addComponent(telefono1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(telefono2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4)
+                            .addComponent(txtCiudad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel8)
+                            .addComponent(correo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(17, 17, 17)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(estado1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(estado2, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel9))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnNuevoGuardar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnActualizar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(eliminar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnCancelar)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnAgregar)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE))
                 .addContainerGap())
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -328,22 +313,22 @@ public class Pruebas extends javax.swing.JFrame {
 
     private void direccionKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_direccionKeyPressed
         // TODO add your handling code here:
-        validar(evt, Validacion.NUMEROSLETRAS);
+        //validar(evt, Validacion.NUMEROSLETRAS);
     }//GEN-LAST:event_direccionKeyPressed
 
     private void telefono1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_telefono1KeyPressed
         // TODO add your handling code here:
-        validar(evt, Validacion.SOLONUMEROS);
+        //validar(evt, Validacion.SOLONUMEROS);
     }//GEN-LAST:event_telefono1KeyPressed
 
     private void telefono2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_telefono2KeyPressed
         // TODO add your handling code here:
-        validar(evt, Validacion.SOLONUMEROS);
+        //validar(evt, Validacion.SOLONUMEROS);
     }//GEN-LAST:event_telefono2KeyPressed
 
     private void correoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_correoKeyPressed
         // TODO add your handling code here:
-        validar(evt, Validacion.CORREO);
+        //validar(evt, Validacion.CORREO);
     }//GEN-LAST:event_correoKeyPressed
 
     private void buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarActionPerformed
@@ -357,7 +342,7 @@ public class Pruebas extends javax.swing.JFrame {
 
     private void txtCiudadKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCiudadKeyPressed
         // TODO add your handling code here:
-        validar(evt, Validacion.SOLOLETRAS);
+        //validar(evt, Validacion.SOLOLETRAS);
     }//GEN-LAST:event_txtCiudadKeyPressed
 
     private void estado1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_estado1ActionPerformed
@@ -371,7 +356,7 @@ public class Pruebas extends javax.swing.JFrame {
     private void id_proveedorKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_id_proveedorKeyPressed
         // TODO add your handling code here:
         try{
-            validar(evt, Validacion.SOLONUMEROS);
+            //validar(evt, Validacion.SOLONUMEROS);
             if(evt.getKeyCode() == 10){
                 getProveedor(id_proveedor.getText());
             }
@@ -382,65 +367,25 @@ public class Pruebas extends javax.swing.JFrame {
 
     private void nombreKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nombreKeyPressed
         // TODO add your handling code here:
-        validar(evt, Validacion.SOLOLETRAS);
+        //validar(evt, Validacion.SOLOLETRAS);
     }//GEN-LAST:event_nombreKeyPressed
-
-    private void btnNuevoGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoGuardarActionPerformed
-        // TODO add your handling code here:
-        buscar.setEnabled(false);
-        if(btnNuevoGuardar.getText().equals("NUEVO PROVEEDOR")){
-            btnNuevoGuardar.setText("GUARDAR");
-            btnNuevoGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ups/edu/compras/resources/boton-guardar.png")));
-        }else if(btnNuevoGuardar.getText().equals("GUARDAR")){
-            btnNuevoGuardar.setText("NUEVO PROVEEDOR");
-            btnNuevoGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ups/edu/compras/resources/nuevousuario.png")));
-        }
-    }//GEN-LAST:event_btnNuevoGuardarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         // TODO add your handling code here:
-        modelo = new DefaultTableModel();
-        id_proveedor.setText("");
-        nombre.setFocusable(false);nombre.setText("");
-        direccion.setFocusable(false);direccion.setText("");
-        telefono1.setFocusable(false);telefono1.setText("");
-        telefono2.setFocusable(false);telefono2.setText("");
-        txtCiudad.setFocusable(false);txtCiudad.setText("");
-        correo.setFocusable(false);correo.setText("");
-        estado1.setEnabled(false);
-        estado2.setEnabled(false);
-
-        btnNuevoGuardar.setEnabled(true);
-        eliminar.setEnabled(false);
-        btnActualizar.setEnabled(false);
-        btnAgregar.setEnabled(false);
-        btnCancelar.setEnabled(false);
     }//GEN-LAST:event_btnCancelarActionPerformed
 
+    private void btnNuevoGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoGuardarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnNuevoGuardarActionPerformed
+
     private void getProveedor(String cedula_proveedor){
-        modelo = new DefaultTableModel();
-        //Cambio en los botones cuando se trata de busquedas
-        btnNuevoGuardar.setEnabled(false);
-        btnAgregar.setEnabled(false);
-        btnCancelar.setEnabled(true);
-        eliminar.setEnabled(true);
-        btnActualizar.setEnabled(true);
-        
-        //Cambio en las cajas de textos cuando se trata de busquedas
-        nombre.setFocusable(false);
-        direccion.setFocusable(false);
-        telefono1.setFocusable(false);
-        telefono2.setFocusable(false);
-        txtCiudad.setFocusable(false);
-        correo.setFocusable(false);
-        tableProductos.setEnabled(false);
-        estado1.setEnabled(false);
-        estado2.setEnabled(false);
+        cambiarEstadoBotones();
         
         int i = 0;
         
-        String consultaProveedor = "SELECT `id_producto`, `id_ciudad`, `nombre`, `direccion`, `telefono1`, "
-                + "`telefono2`, `correo`, `estado` FROM `cmprv_provedores` where `cedula_proveedor` = '"+cedula_proveedor+"'";
+        String consultaProveedor = 
+                "SELECT  `id_producto` , `id_ciudad` , `nombre`, `direccion` , `telefono1` , `telefono2` , `correo` , `estado` "
+                + "FROM  `cmprv_provedores` where `cedula_proveedor` = '"+cedula_proveedor+"'";
         String consultaCiudad = "SELECT `descripcion` FROM `cmprv_ciudad` WHERE `id_ciudad` = ";
         String [] dataProveedorString = new String[5];
         Integer [] dataProveedorInt = new Integer[4];
@@ -537,6 +482,7 @@ public class Pruebas extends javax.swing.JFrame {
             
         }catch(Exception e){
             JOptionPane.showMessageDialog(this, "El proveedor a consultar no se encuentra registrado o el valor ingresado es nulo", "Error", JOptionPane.WARNING_MESSAGE);
+            cambiarConError();
         }
     }
 
@@ -581,12 +527,57 @@ public class Pruebas extends javax.swing.JFrame {
         });
     }
 
+    private void cambiarEstadoBotones(){
+        modelo = new DefaultTableModel();
+        //Cambio en los botones cuando se trata de busquedas
+        btnNuevoGuardar.setEnabled(false);
+        btnAgregar.setEnabled(false);
+        btnCancelar.setEnabled(true);
+        eliminar.setEnabled(true);
+        btnActualizar.setEnabled(true);
+        
+        //Cambio en las cajas de textos cuando se trata de busquedas
+        nombre.setFocusable(false);
+        direccion.setFocusable(false);
+        telefono1.setFocusable(false);
+        telefono2.setFocusable(false);
+        txtCiudad.setFocusable(false);
+        correo.setFocusable(false);
+        tableProductos.setEnabled(false);
+        estado1.setFocusable(false);
+        estado2.setFocusable(false);
+    }
+    
+    private void cambiarConError(){
+        
+        id_proveedor.setText("");
+        
+        modelo = new DefaultTableModel();
+        //Cambio en los botones cuando se trata de busquedas
+        btnNuevoGuardar.setEnabled(true);
+        btnAgregar.setEnabled(false);
+        btnCancelar.setEnabled(false);
+        eliminar.setEnabled(false);
+        btnActualizar.setEnabled(false);
+        
+        //Cambio en las cajas de textos cuando se trata de busquedas
+        nombre.setFocusable(false);
+        direccion.setFocusable(false);
+        telefono1.setFocusable(false);
+        telefono2.setFocusable(false);
+        txtCiudad.setFocusable(false);
+        correo.setFocusable(false);
+        tableProductos.setEnabled(false);
+        estado1.setFocusable(false);
+        estado2.setFocusable(false);
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizar;
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnNuevoGuardar;
     private javax.swing.JButton buscar;
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JTextField correo;
     private javax.swing.JTextField direccion;
     private javax.swing.JButton eliminar;
@@ -602,7 +593,6 @@ public class Pruebas extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField nombre;
     private javax.swing.JTable tableProductos;

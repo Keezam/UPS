@@ -34,7 +34,7 @@
                       <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                       <Component id="id_proveedor" min="-2" pref="132" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="buscar" min="-2" pref="24" max="-2" attributes="0"/>
+                      <Component id="buscar" min="-2" pref="88" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
@@ -82,7 +82,7 @@
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace pref="28" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -134,7 +134,7 @@
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="jScrollPane1" pref="162" max="32767" attributes="0"/>
+              <Component id="jScrollPane1" pref="166" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
           <Component id="jPanel1" alignment="0" max="32767" attributes="0"/>
@@ -247,9 +247,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="buscar">
       <Properties>
-        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/com/ups/edu/compras/resources/search.png"/>
-        </Property>
+        <Property name="text" type="java.lang.String" value="BUSCAR"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buscarActionPerformed"/>
@@ -307,18 +305,12 @@
       <SubComponents>
         <Component class="javax.swing.JButton" name="btnActualizar">
           <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/com/ups/edu/compras/resources/actualizar.png"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="ACTUALIZAR"/>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="btnNuevoGuardar">
           <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/com/ups/edu/compras/resources/nuevousuario.png"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="NUEVO PROVEEDOR"/>
           </Properties>
           <Events>
@@ -327,18 +319,12 @@
         </Component>
         <Component class="javax.swing.JButton" name="eliminar">
           <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/com/ups/edu/compras/resources/borrar.png"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="ELIMINAR"/>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="btnCancelar">
           <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/com/ups/edu/compras/resources/cancelar_1.png"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="CANCELAR"/>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
@@ -348,9 +334,6 @@
         </Component>
         <Component class="javax.swing.JButton" name="btnAgregar">
           <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/com/ups/edu/compras/resources/a&#xf1;adir.png"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="AGREGAR"/>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
