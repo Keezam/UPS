@@ -5,37 +5,24 @@
  */
 package com.ups.edu.rrhh.menuinicio;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
  *
  * @author SERVIDOR
  */
-public class menuu extends javax.swing.JFrame {
+public class menu extends javax.swing.JFrame {
 
     /**
      * Creates new form menu
      */
-    public menuu() {
+    public menu() {
         initComponents();
-                jMFinanciero.setVisible(false);
-                jMRecHum.setVisible(false);
-                jMCompras.setVisible(false);
-                jMVentas.setVisible(false);
-                jMInventario.setVisible(false);
+        
     }
-Iframe1_2 objIFrame1=new Iframe1_2();
+iframe1 objIFrame1=new iframe1();
 
-
-
-
+//iframe2 objIFrame2=new iframe2();
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -50,12 +37,6 @@ Iframe1_2 objIFrame1=new Iframe1_2();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
         jCheckBoxMenuItem1 = new javax.swing.JCheckBoxMenuItem();
-        jMRecHum = new javax.swing.JMenu();
-        jCheckBoxMenuItem2 = new javax.swing.JCheckBoxMenuItem();
-        jMFinanciero = new javax.swing.JMenu();
-        jMCompras = new javax.swing.JMenu();
-        jMVentas = new javax.swing.JMenu();
-        jMInventario = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -93,41 +74,6 @@ Iframe1_2 objIFrame1=new Iframe1_2();
 
         jMenuBar1.add(jMenu2);
 
-        jMRecHum.setForeground(new java.awt.Color(0, 0, 102));
-        jMRecHum.setText("RRHH");
-        jMRecHum.setFont(new java.awt.Font("Franklin Gothic Demi Cond", 1, 18)); // NOI18N
-
-        jCheckBoxMenuItem2.setSelected(true);
-        jCheckBoxMenuItem2.setText("Agregar Personal");
-        jCheckBoxMenuItem2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBoxMenuItem2ActionPerformed(evt);
-            }
-        });
-        jMRecHum.add(jCheckBoxMenuItem2);
-
-        jMenuBar1.add(jMRecHum);
-
-        jMFinanciero.setForeground(new java.awt.Color(0, 0, 102));
-        jMFinanciero.setText("Financiero");
-        jMFinanciero.setFont(new java.awt.Font("Franklin Gothic Medium Cond", 1, 18)); // NOI18N
-        jMenuBar1.add(jMFinanciero);
-
-        jMCompras.setForeground(new java.awt.Color(0, 0, 102));
-        jMCompras.setText("Compras");
-        jMCompras.setFont(new java.awt.Font("Franklin Gothic Demi Cond", 1, 18)); // NOI18N
-        jMenuBar1.add(jMCompras);
-
-        jMVentas.setForeground(new java.awt.Color(0, 0, 102));
-        jMVentas.setText("Ventas");
-        jMVentas.setFont(new java.awt.Font("Franklin Gothic Demi Cond", 1, 18)); // NOI18N
-        jMenuBar1.add(jMVentas);
-
-        jMInventario.setForeground(new java.awt.Color(0, 0, 102));
-        jMInventario.setText("Inventario");
-        jMInventario.setFont(new java.awt.Font("Franklin Gothic Demi Cond", 1, 18)); // NOI18N
-        jMenuBar1.add(jMInventario);
-
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -158,20 +104,9 @@ Iframe1_2 objIFrame1=new Iframe1_2();
 	Escritorio.add(objIFrame1);
         objIFrame1.setLocation(500, 80);
 	objIFrame1.show();
-   }
-    }//GEN-LAST:event_jCheckBoxMenuItem1ActionPerformed
-
-    private void jCheckBoxMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxMenuItem2ActionPerformed
-        try {
-            Iframe2_2 objIFrame2=new Iframe2_2();
-            Escritorio.add(objIFrame2);
-            objIFrame2.setLocation(280, 10);
-            objIFrame2.show();
-        } catch (SQLException ex) {
-            Logger.getLogger(menuu.class.getName()).log(Level.SEVERE, null, ex);
-        }
         
-    }//GEN-LAST:event_jCheckBoxMenuItem2ActionPerformed
+	}
+    }//GEN-LAST:event_jCheckBoxMenuItem1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -190,28 +125,21 @@ Iframe1_2 objIFrame1=new Iframe1_2();
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(menuu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(menuu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(menuu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(menuu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                //new menuu().setVisible(true);
-                menuu men = new menuu();
+                //new menu().setVisible(true);
+                menu men = new menu();
                 men.setExtendedState(MAXIMIZED_BOTH);
                 
                 men.setVisible(true);
@@ -223,12 +151,6 @@ Iframe1_2 objIFrame1=new Iframe1_2();
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane Escritorio;
     private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem1;
-    private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem2;
-    public static javax.swing.JMenu jMCompras;
-    public static javax.swing.JMenu jMFinanciero;
-    public static javax.swing.JMenu jMInventario;
-    public static javax.swing.JMenu jMRecHum;
-    public static javax.swing.JMenu jMVentas;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;

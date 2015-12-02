@@ -1,28 +1,32 @@
-
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package com.ups.edu.rrhh.menuinicio;
 import com.ups.edu.conexion.ConexionBD;
-import static com.ups.edu.rrhh.menuinicio.menuu.jMCompras;
-import static com.ups.edu.rrhh.menuinicio.menuu.jMFinanciero;
-import static com.ups.edu.rrhh.menuinicio.menuu.jMInventario;
-import static com.ups.edu.rrhh.menuinicio.menuu.jMRecHum;
-import static com.ups.edu.rrhh.menuinicio.menuu.jMVentas;
 import java.sql.*;
 import javax.swing.JOptionPane;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JCheckBoxMenuItem;
-import javax.swing.JMenu;
 import javax.swing.JPasswordField;
 
-public class Iframe1_2 extends javax.swing.JInternalFrame {
+/**
+ *
+ * @author SERVIDOR
+ */
 
-    public Iframe1_2() {
+public class iframe1 extends javax.swing.JInternalFrame {
+
+    /**
+     * Creates new form frame1
+     */
+    public iframe1() {
         initComponents();
         this.setLocation(350, 300);
         this.requestFocus();
         
     }
-    
     
     void ingresar(String cuenta, String clave)throws Exception{
         String c="";
@@ -38,49 +42,29 @@ public class Iframe1_2 extends javax.swing.JInternalFrame {
             Connection conexion = DriverManager.getConnection(servidor, usuarioDB, passwordDB);
             Statement s = conexion.createStatement();
             ResultSet rs = s.executeQuery("select * from rrhh_usuarios where cuenta ='"+cuenta+"' and clave ='"+clave+"'");
-                        
+            
             while(rs.next()){
-            c=rs.getString("id_modulo");
+            c=rs.getString("estado");
                 System.out.println(c);
             }
-            if(c.equalsIgnoreCase("1")){
-                JOptionPane.showMessageDialog(null, "Bienvenido Recursos Humanos");
+            if(c.equalsIgnoreCase("A")){
+                JOptionPane.showMessageDialog(null, "Bienvenido Activo");
                 this.setVisible(false);
                 jTextField1.setText("");
                 jPasswordField1.setText("");
-                jMRecHum.setVisible(true);
-                
-                                           
-            }else if(c.equalsIgnoreCase("2")){
-                JOptionPane.showMessageDialog(null, "Bienvenido Financiero" );
-                 this.setVisible(false);
-                 jTextField1.setText("");
-                  jPasswordField1.setText("");
-                  jMFinanciero.setVisible(true);                
-            } else if(c.equalsIgnoreCase("3")){
-                JOptionPane.showMessageDialog(null, "Bienvenido Compras" );
-                 this.setVisible(false);
-                 jTextField1.setText("");
-                  jPasswordField1.setText("");
-                  jMCompras.setVisible(true);
-            } else if(c.equalsIgnoreCase("4")){
-                JOptionPane.showMessageDialog(null, "Bienvenido Ventas" );
-                 this.setVisible(false);
-                 jTextField1.setText("");
-                  jPasswordField1.setText("");
-                  jMVentas.setVisible(true);
-            }else if(c.equalsIgnoreCase("5")){
-                JOptionPane.showMessageDialog(null, "Bienvenido Inventario" );
-                 this.setVisible(false);
-                 jTextField1.setText("");
-                  jPasswordField1.setText("");
-                  jMInventario.setVisible(true);
-            } else{
-            JOptionPane.showMessageDialog(null, "NO EXISTE CUENTA","Error",JOptionPane.WARNING_MESSAGE);
-            jTextField1.setText("");
-            jPasswordField1.setText("");
             }
-            
+            if(c.equalsIgnoreCase("I")){
+                JOptionPane.showMessageDialog(null, "Bienvenido Inactivo" );
+                 this.setVisible(false);
+                 jTextField1.setText("");
+                  jPasswordField1.setText("");
+            }
+            if((!c.equalsIgnoreCase("A"))&&(!c.equalsIgnoreCase("I"))){
+                JOptionPane.showMessageDialog(null, "NO EXISTE CUENTA","Error",JOptionPane.WARNING_MESSAGE);
+                this.setVisible(false);
+                jTextField1.setText("");
+                jPasswordField1.setText("");
+            }
         }catch(Exception ex){
             System.out.println("Error sql");
         }
