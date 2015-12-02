@@ -5,7 +5,6 @@
  */
 package com.ups.edu.compras;
 
-import com.ups.edu.conexion.ConexionBD;
 import com.ups.edu.ventas.model.Validacion;
 import java.awt.event.KeyEvent;
 import java.sql.CallableStatement;
@@ -19,18 +18,17 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Luis Bravo
  */
-public class proveedor extends javax.swing.JInternalFrame {
+public class Pruebas extends javax.swing.JFrame {
 
     /**
-     * Creates new form proveedor
+     * Creates new form Pruebas
      */
     
     Connection conn;
     DefaultTableModel modelo;
-    ImageIcon imagen;
-    public proveedor() {
+
+    public Pruebas() {
         initComponents();
-        conn = ConexionBD.GetConnection();
     }
 
     /**
@@ -42,7 +40,18 @@ public class proveedor extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        buttonGroup1 = new javax.swing.ButtonGroup();
+        direccion = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        telefono1 = new javax.swing.JTextField();
+        telefono2 = new javax.swing.JTextField();
+        correo = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tableProductos = new javax.swing.JTable();
+        buscar = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        txtCiudad = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         estado2 = new javax.swing.JRadioButton();
         estado1 = new javax.swing.JRadioButton();
@@ -51,67 +60,15 @@ public class proveedor extends javax.swing.JInternalFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         nombre = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
-        direccion = new javax.swing.JTextField();
-        jLabel7 = new javax.swing.JLabel();
-        telefono1 = new javax.swing.JTextField();
-        telefono2 = new javax.swing.JTextField();
-        correo = new javax.swing.JTextField();
-        jLabel8 = new javax.swing.JLabel();
-        buscar = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
-        txtCiudad = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         btnActualizar = new javax.swing.JButton();
         btnNuevoGuardar = new javax.swing.JButton();
         eliminar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
         btnAgregar = new javax.swing.JButton();
-        jLabel9 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tableProductos = new javax.swing.JTable();
+        jLabel6 = new javax.swing.JLabel();
 
-        setTitle("Proveedores");
-
-        jLabel1.setText("ID PROVEEDOR");
-
-        buttonGroup1.add(estado2);
-        estado2.setText("Inactivo");
-
-        buttonGroup1.add(estado1);
-        estado1.setText("Activo");
-        estado1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                estado1ActionPerformed(evt);
-            }
-        });
-
-        id_proveedor.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                id_proveedorActionPerformed(evt);
-            }
-        });
-        id_proveedor.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                id_proveedorKeyPressed(evt);
-            }
-        });
-
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel2.setText("INFORMACION");
-
-        jLabel3.setText("ESTADO");
-
-        jLabel5.setText("NOMBRE");
-
-        nombre.setFocusable(false);
-        nombre.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                nombreKeyPressed(evt);
-            }
-        });
-
-        jLabel6.setText("DIRECCION");
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         direccion.setFocusable(false);
         direccion.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -143,7 +100,20 @@ public class proveedor extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel9.setText("PRODUCTOS");
+
         jLabel8.setText("CORREO");
+
+        tableProductos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Producto", "Marca", "Modelo", "Precio"
+            }
+        ));
+        jScrollPane1.setViewportView(tableProductos);
 
         buscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ups/edu/compras/resources/search.png"))); // NOI18N
         buscar.addActionListener(new java.awt.event.ActionListener() {
@@ -158,6 +128,42 @@ public class proveedor extends javax.swing.JInternalFrame {
         txtCiudad.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtCiudadKeyPressed(evt);
+            }
+        });
+
+        jLabel1.setText("ID PROVEEDOR");
+
+        estado2.setText("Inactivo");
+
+        estado1.setText("Activo");
+        estado1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                estado1ActionPerformed(evt);
+            }
+        });
+
+        id_proveedor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                id_proveedorActionPerformed(evt);
+            }
+        });
+        id_proveedor.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                id_proveedorKeyPressed(evt);
+            }
+        });
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel2.setText("INFORMACION");
+
+        jLabel3.setText("ESTADO");
+
+        jLabel5.setText("NOMBRE");
+
+        nombre.setFocusable(false);
+        nombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                nombreKeyPressed(evt);
             }
         });
 
@@ -220,18 +226,7 @@ public class proveedor extends javax.swing.JInternalFrame {
                 .addGap(151, 151, 151))
         );
 
-        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel9.setText("PRODUCTOS");
-
-        tableProductos.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Producto", "Marca", "Modelo", "Precio"
-            }
-        ));
-        jScrollPane1.setViewportView(tableProductos);
+        jLabel6.setText("DIRECCION");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -323,7 +318,7 @@ public class proveedor extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel9)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
                 .addContainerGap())
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -331,18 +326,47 @@ public class proveedor extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void estado1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_estado1ActionPerformed
+    private void direccionKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_direccionKeyPressed
         // TODO add your handling code here:
-    }//GEN-LAST:event_estado1ActionPerformed
+        validar(evt, Validacion.NUMEROSLETRAS);
+    }//GEN-LAST:event_direccionKeyPressed
+
+    private void telefono1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_telefono1KeyPressed
+        // TODO add your handling code here:
+        validar(evt, Validacion.SOLONUMEROS);
+    }//GEN-LAST:event_telefono1KeyPressed
+
+    private void telefono2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_telefono2KeyPressed
+        // TODO add your handling code here:
+        validar(evt, Validacion.SOLONUMEROS);
+    }//GEN-LAST:event_telefono2KeyPressed
+
+    private void correoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_correoKeyPressed
+        // TODO add your handling code here:
+        validar(evt, Validacion.CORREO);
+    }//GEN-LAST:event_correoKeyPressed
 
     private void buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarActionPerformed
         // TODO add your handling code here:
         try{
             getProveedor(id_proveedor.getText());
         }catch(Exception e){
-            
+
         }
     }//GEN-LAST:event_buscarActionPerformed
+
+    private void txtCiudadKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCiudadKeyPressed
+        // TODO add your handling code here:
+        validar(evt, Validacion.SOLOLETRAS);
+    }//GEN-LAST:event_txtCiudadKeyPressed
+
+    private void estado1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_estado1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_estado1ActionPerformed
+
+    private void id_proveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_id_proveedorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_id_proveedorActionPerformed
 
     private void id_proveedorKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_id_proveedorKeyPressed
         // TODO add your handling code here:
@@ -361,30 +385,17 @@ public class proveedor extends javax.swing.JInternalFrame {
         validar(evt, Validacion.SOLOLETRAS);
     }//GEN-LAST:event_nombreKeyPressed
 
-    private void direccionKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_direccionKeyPressed
+    private void btnNuevoGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoGuardarActionPerformed
         // TODO add your handling code here:
-        validar(evt, Validacion.NUMEROSLETRAS);
-    }//GEN-LAST:event_direccionKeyPressed
-
-    private void telefono1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_telefono1KeyPressed
-        // TODO add your handling code here:
-        validar(evt, Validacion.SOLONUMEROS);
-    }//GEN-LAST:event_telefono1KeyPressed
-
-    private void telefono2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_telefono2KeyPressed
-        // TODO add your handling code here:
-        validar(evt, Validacion.SOLONUMEROS);
-    }//GEN-LAST:event_telefono2KeyPressed
-
-    private void txtCiudadKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCiudadKeyPressed
-        // TODO add your handling code here:
-        validar(evt, Validacion.SOLOLETRAS);
-    }//GEN-LAST:event_txtCiudadKeyPressed
-
-    private void correoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_correoKeyPressed
-        // TODO add your handling code here:
-        validar(evt, Validacion.CORREO);
-    }//GEN-LAST:event_correoKeyPressed
+        buscar.setEnabled(false);
+        if(btnNuevoGuardar.getText().equals("NUEVO PROVEEDOR")){
+            btnNuevoGuardar.setText("GUARDAR");
+            btnNuevoGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ups/edu/compras/resources/boton-guardar.png")));
+        }else if(btnNuevoGuardar.getText().equals("GUARDAR")){
+            btnNuevoGuardar.setText("NUEVO PROVEEDOR");
+            btnNuevoGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ups/edu/compras/resources/nuevousuario.png")));
+        }
+    }//GEN-LAST:event_btnNuevoGuardarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         // TODO add your handling code here:
@@ -398,8 +409,7 @@ public class proveedor extends javax.swing.JInternalFrame {
         correo.setFocusable(false);correo.setText("");
         estado1.setEnabled(false);
         estado2.setEnabled(false);
-        
-        
+
         btnNuevoGuardar.setEnabled(true);
         eliminar.setEnabled(false);
         btnActualizar.setEnabled(false);
@@ -407,23 +417,6 @@ public class proveedor extends javax.swing.JInternalFrame {
         btnCancelar.setEnabled(false);
     }//GEN-LAST:event_btnCancelarActionPerformed
 
-    private void id_proveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_id_proveedorActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_id_proveedorActionPerformed
-
-    private void btnNuevoGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoGuardarActionPerformed
-        // TODO add your handling code here:
-        buscar.setEnabled(false);
-        if(btnNuevoGuardar.getText().equals("NUEVO PROVEEDOR")){
-            btnNuevoGuardar.setText("GUARDAR");
-            btnNuevoGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ups/edu/compras/resources/boton-guardar.png")));
-        }else if(btnNuevoGuardar.getText().equals("GUARDAR")){
-            btnNuevoGuardar.setText("NUEVO PROVEEDOR");
-            btnNuevoGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ups/edu/compras/resources/nuevousuario.png")));
-        }
-    }//GEN-LAST:event_btnNuevoGuardarActionPerformed
-
-    
     private void getProveedor(String cedula_proveedor){
         modelo = new DefaultTableModel();
         //Cambio en los botones cuando se trata de busquedas
@@ -553,13 +546,47 @@ public class proveedor extends javax.swing.JInternalFrame {
         } 
     }
     
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(Pruebas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(Pruebas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(Pruebas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(Pruebas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new Pruebas().setVisible(true);
+            }
+        });
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizar;
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnNuevoGuardar;
     private javax.swing.JButton buscar;
-    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JTextField correo;
     private javax.swing.JTextField direccion;
     private javax.swing.JButton eliminar;
