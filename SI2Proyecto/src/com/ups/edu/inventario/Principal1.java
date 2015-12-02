@@ -6,6 +6,7 @@
 package Ventanas;
 
 import java.awt.Dimension;
+import javax.swing.plaf.basic.BasicInternalFrameUI;
 
 /**
  *
@@ -17,10 +18,11 @@ public class Principal1 extends javax.swing.JInternalFrame {
      * Creates new form Principal1
      */
     public Principal1() {
+         ((BasicInternalFrameUI) this.getUI()).setNorthPane(null);
         initComponents();
            buttonGroup1.add(RadioButton_Producto);
         buttonGroup1.add(RadioButton_Proveedor);
-        buttonGroup1.add(RadioButton_Marca);
+        buttonGroup1.add(RadioButton_Sucursal);
         buttonGroup1.add(RadioButton_Fecha);
     }
 
@@ -36,11 +38,11 @@ public class Principal1 extends javax.swing.JInternalFrame {
         buttonGroup1 = new javax.swing.ButtonGroup();
         RadioButton_Producto = new javax.swing.JRadioButton();
         RadioButton_Proveedor = new javax.swing.JRadioButton();
-        RadioButton_Marca = new javax.swing.JRadioButton();
         RadioButton_Fecha = new javax.swing.JRadioButton();
         panel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        RadioButton_Sucursal = new javax.swing.JRadioButton();
 
         RadioButton_Producto.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         RadioButton_Producto.setText("Producto");
@@ -55,14 +57,6 @@ public class Principal1 extends javax.swing.JInternalFrame {
         RadioButton_Proveedor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 RadioButton_ProveedorActionPerformed(evt);
-            }
-        });
-
-        RadioButton_Marca.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        RadioButton_Marca.setText("Marca");
-        RadioButton_Marca.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                RadioButton_MarcaActionPerformed(evt);
             }
         });
 
@@ -82,7 +76,7 @@ public class Principal1 extends javax.swing.JInternalFrame {
         );
         panel1Layout.setVerticalGroup(
             panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 59, Short.MAX_VALUE)
+            .addGap(0, 92, Short.MAX_VALUE)
         );
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -98,30 +92,38 @@ public class Principal1 extends javax.swing.JInternalFrame {
         ));
         jScrollPane1.setViewportView(jTable1);
 
+        RadioButton_Sucursal.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        RadioButton_Sucursal.setText("Sucursal");
+        RadioButton_Sucursal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RadioButton_SucursalActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jScrollPane1))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(60, 60, 60)
-                        .addComponent(RadioButton_Producto)
-                        .addGap(82, 82, 82)
-                        .addComponent(RadioButton_Proveedor)
+                        .addGap(53, 53, 53)
+                        .addComponent(RadioButton_Sucursal)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(RadioButton_Marca)
-                        .addGap(92, 92, 92)
+                        .addComponent(RadioButton_Producto)
+                        .addGap(88, 88, 88)
+                        .addComponent(RadioButton_Proveedor)
+                        .addGap(87, 87, 87)
                         .addComponent(RadioButton_Fecha)
-                        .addGap(73, 73, 73)))
+                        .addGap(55, 55, 55))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(44, 44, 44)
+                        .addComponent(panel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 23, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(44, 44, 44)
-                .addComponent(panel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(33, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -130,12 +132,12 @@ public class Principal1 extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(RadioButton_Producto)
                     .addComponent(RadioButton_Proveedor)
-                    .addComponent(RadioButton_Marca)
-                    .addComponent(RadioButton_Fecha))
-                .addGap(52, 52, 52)
+                    .addComponent(RadioButton_Fecha)
+                    .addComponent(RadioButton_Sucursal))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
                 .addComponent(panel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
+                .addGap(26, 26, 26)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -162,6 +164,16 @@ public class Principal1 extends javax.swing.JInternalFrame {
               ch.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
             ch.setVisible(true);   
    }
+    public void Cargar_Panel_Sucursal(){
+         Principal1.panel1.removeAll();
+            Principal1.panel1.repaint();
+            Panel_Sucursal ch = new Panel_Sucursal();
+            Principal1.panel1.add(ch);
+              Dimension desktopSize = panel1.getSize();
+               Dimension FrameSize = ch.getSize();
+              ch.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
+            ch.setVisible(true);   
+   }
     
     private void RadioButton_ProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RadioButton_ProductoActionPerformed
         Cargar_Panel_P_P_M();
@@ -171,20 +183,20 @@ public class Principal1 extends javax.swing.JInternalFrame {
         Cargar_Panel_P_P_M();
     }//GEN-LAST:event_RadioButton_ProveedorActionPerformed
 
-    private void RadioButton_MarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RadioButton_MarcaActionPerformed
-        Cargar_Panel_P_P_M();
-    }//GEN-LAST:event_RadioButton_MarcaActionPerformed
-
     private void RadioButton_FechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RadioButton_FechaActionPerformed
         Cargar_Panel_Fecha();
     }//GEN-LAST:event_RadioButton_FechaActionPerformed
 
+    private void RadioButton_SucursalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RadioButton_SucursalActionPerformed
+      Cargar_Panel_Sucursal();
+    }//GEN-LAST:event_RadioButton_SucursalActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JRadioButton RadioButton_Fecha;
-    private javax.swing.JRadioButton RadioButton_Marca;
     private javax.swing.JRadioButton RadioButton_Producto;
     private javax.swing.JRadioButton RadioButton_Proveedor;
+    private javax.swing.JRadioButton RadioButton_Sucursal;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
