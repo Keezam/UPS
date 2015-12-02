@@ -9,7 +9,7 @@ import javax.swing.plaf.basic.BasicInternalFrameUI;
 
 /**
  *
- * @author JeanPierre
+ * @author Anthony Galarza
  */
 public class Panel_Sucursal extends javax.swing.JInternalFrame {
 
