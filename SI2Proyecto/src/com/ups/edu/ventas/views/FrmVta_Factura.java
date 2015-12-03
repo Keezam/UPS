@@ -25,6 +25,8 @@ public class FrmVta_Factura extends javax.swing.JInternalFrame {
     private double promocion;
     private double oferta;
     private double precio;
+    private int idPromocion;
+    private int idOferta;
     private int cantidadInventario;
     private double subtotalFactura = 0;
     private double descuentoFactura = 0;
@@ -598,21 +600,29 @@ public class FrmVta_Factura extends javax.swing.JInternalFrame {
         if (!codigoArticulo.equals("Selecionar Producto")&&!codigoArticulo.equals("")){
             codigoArticulo = codigoArticulo.substring(0,codigoArticulo.indexOf("-"));
             dato = Integer.parseInt(codigoArticulo);
-            promocion = facturaModel.existePromocion(dato);
+            Object promociones[] = facturaModel.existePromocion(dato);
             System.out.println(""+promocion);
-            if (promocion!=0){
+            if (promociones!=null){
+                promocion = (double) promociones[0];
+                idPromocion = (int) promociones[1];
                 chboxPromocion.setEnabled(true);
             }else{
+                promocion = 0;
+                idPromocion = 0;
                 chboxPromocion.setEnabled(false);
                 chboxPromocion.setSelected(false);
             }
-            oferta = facturaModel.existeOferta(dato);
-            if (oferta!=0){
+            Object[] ofertas = facturaModel.existeOferta(dato);
+            if (ofertas!=null){
+                oferta = (double) ofertas[0];
+                idOferta = (int) ofertas[0];
                 chboxOferta.setEnabled(true);
                 System.out.println(""+chboxOferta.isEnabled());
             }else{
                 chboxOferta.setEnabled(false);
                 chboxOferta.setSelected(false);
+                oferta = 0;
+                idOferta = 0;
             }
             resultado = facturaModel.datosProducto(dato);
             

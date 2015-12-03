@@ -132,18 +132,22 @@ public class FacturaModel {
         return productos;
     }
     
-    public double existePromocion(int id_producto){
-        String sqlBuscar = " SELECT pp.`valor` FROM vta_promoxproducto pp , vta_promocion p " +
+    public Object[] existePromocion(int id_producto){
+        String sqlBuscar = " SELECT pp.`valor` , p.`codpromocion` FROM vta_promoxproducto pp , vta_promocion p " +
                            "  WHERE p.`codpromocion` = pp.`codpromocion` " +
                            "    AND p.`estado` = 'A' " +
                            "    AND pp.`id_producto` = "+id_producto;
+        
+        Object [] promocion = null;
         
         try {
             System.out.println(""+sqlBuscar);
             st = con.createStatement();
             rs = st.executeQuery(sqlBuscar);
             if(rs.next()){
-                return rs.getDouble(1);
+                promocion = new Object[2];
+                promocion[0] = rs.getDouble(1);
+                promocion[1] = rs.getInt(2);
             }
         } catch (Exception e) {
              e.printStackTrace();
@@ -154,17 +158,22 @@ public class FacturaModel {
            }catch(Exception e){}
         }
         
-        return 0;
+        return promocion;
     }
     
-    public double existeOferta(int id_producto){
-                String sqlBuscar = " SELECT valor FROM vta_ofertas WHERE id_producto = "+id_producto+" AND estado = 'A'"    ;
+    public Object[] existeOferta(int id_producto){
+                String sqlBuscar = " SELECT valor , codofertas FROM vta_ofertas WHERE id_producto = "+id_producto+" AND estado = 'A'"    ;
         System.out.println(""+sqlBuscar);
+        
+        Object [] oferta = null;
+        
         try {
             st = con.createStatement();
             rs = st.executeQuery(sqlBuscar);
             if(rs.next()){
-                return rs.getDouble(1);
+                oferta = new Object[2];
+                oferta[0] = rs.getDouble(1);
+                oferta[1] = rs.getInt(2);
             }
         } catch (Exception e) {
              e.printStackTrace();
@@ -174,7 +183,7 @@ public class FacturaModel {
                if(rs != null)rs.close();   
            }catch(Exception e){}
         }
-        return 0;
+        return oferta;
     }
     
     public Object[] datosProducto(int id_producto){
@@ -205,6 +214,13 @@ public class FacturaModel {
     
     private void getconection(){
         con = ConexionBD.GetConnection();
+    }
+    
+    
+    public void insterDetalleVenta(List<DetalleVentas> lista,int codVenta){
+        String sql = "";
+        
+        
     }
     
 }

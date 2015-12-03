@@ -5,8 +5,10 @@
  */
 package com.ups.edu.ventas.views;
 
+import com.ups.edu.ventas.model.DetalleVentas;
 import com.ups.edu.ventas.model.FacturaModel;
 import java.awt.Component;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.swing.JButton;
@@ -24,14 +26,17 @@ public class Facturas extends javax.swing.JFrame {
     private final FacturaModel facturaModel;
     private double promocion;
     private double oferta;
+    private int idPromocion;
+    private int idOferta;
     private double precio;
     private int cantidadInventario;
     private double subtotalFactura = 0;
     private double descuentoFactura = 0;
     private double ivafactura = 0;
     private double totalfactura = 0;
-    private final String[] nombreColumna = new String[]{"Codigo","Produto","Cantida","Precio","Descuento","Promocion","Oferta","Subtotal",""};
-    private final Class[] claseColumna = new Class[]{java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class,java.lang.Object.class, java.lang.Object.class,java.lang.Object.class,java.lang.Object.class,JButton.class};
+    private List<DetalleVentas> listDetalleVta = new ArrayList<>();
+    private final String[] nombreColumna = new String[]{"Codigo","Produto","Cantida","Precio","Descuento","Promocion","Oferta","Subtotal","IVA","Total",""};
+    private final Class[] claseColumna = new Class[]{java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class,java.lang.Object.class, java.lang.Object.class,java.lang.Object.class,java.lang.Object.class,java.lang.Object.class,java.lang.Object.class,JButton.class};
     /**
      * Creates new form Facturas
      */
@@ -77,7 +82,7 @@ public class Facturas extends javax.swing.JFrame {
     }
     
     private void tamanioTabla(){
-        int anchos[] = {5,200,20,20,20,20,20,20,5};
+        int anchos[] = {5,200,20,20,20,20,20,20,20,20,5};
         int i=0;
         for (int ancho : anchos) {
             
@@ -103,12 +108,12 @@ public class Facturas extends javax.swing.JFrame {
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        btnGuardar = new javax.swing.JButton();
         jLabel16 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         lblSecuenciaFactura = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
+        btnAgregar = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
         cmbProducto = new javax.swing.JComboBox();
         txtCantidad = new javax.swing.JTextField();
@@ -122,7 +127,6 @@ public class Facturas extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         lblTelefono = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
-        jButton3 = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
         lblDireccion = new javax.swing.JLabel();
         lblIdentificacion = new javax.swing.JLabel();
@@ -133,14 +137,14 @@ public class Facturas extends javax.swing.JFrame {
         txtDescuento = new javax.swing.JTextField();
         jScrollPane3 = new javax.swing.JScrollPane();
         txtObservacion = new javax.swing.JTextArea();
-        jButton6 = new javax.swing.JButton();
+        bntPago = new javax.swing.JButton();
         chboxPromocion = new javax.swing.JCheckBox();
         chboxOferta = new javax.swing.JCheckBox();
         lblSubTotal = new javax.swing.JLabel();
         lblIVA = new javax.swing.JLabel();
         lblDescuento = new javax.swing.JLabel();
         lblTotal = new javax.swing.JLabel();
-        jButton7 = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -156,11 +160,11 @@ public class Facturas extends javax.swing.JFrame {
 
         jButton1.setText("Crear");
 
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ups/edu/compras/resources/boton-guardar.jpg"))); // NOI18N
-        jButton4.setText("Guardar ");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ups/edu/compras/resources/boton-guardar.jpg"))); // NOI18N
+        btnGuardar.setText("Guardar ");
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                btnGuardarActionPerformed(evt);
             }
         });
 
@@ -174,11 +178,11 @@ public class Facturas extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel8.setText("Producto");
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ups/edu/compras/resources/añadir.png"))); // NOI18N
-        jButton2.setText("Agregar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ups/edu/compras/resources/añadir.png"))); // NOI18N
+        btnAgregar.setText("Agregar");
+        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnAgregarActionPerformed(evt);
             }
         });
 
@@ -233,8 +237,6 @@ public class Facturas extends javax.swing.JFrame {
 
         jLabel21.setText("Direccion : ");
 
-        jButton3.setText("Limpiar");
-
         jLabel11.setText("Subtotal : ");
 
         lblDireccion.setText("    ");
@@ -256,11 +258,11 @@ public class Facturas extends javax.swing.JFrame {
         txtObservacion.setRows(5);
         jScrollPane3.setViewportView(txtObservacion);
 
-        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ups/edu/compras/resources/añadir.png"))); // NOI18N
-        jButton6.setText("Pagos");
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
+        bntPago.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ups/edu/compras/resources/actualizar.png"))); // NOI18N
+        bntPago.setText("Pagos");
+        bntPago.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+                bntPagoActionPerformed(evt);
             }
         });
 
@@ -278,8 +280,8 @@ public class Facturas extends javax.swing.JFrame {
 
         lblTotal.setText("0.0");
 
-        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ups/edu/compras/resources/cancelar_1.png"))); // NOI18N
-        jButton7.setText("Cancelar");
+        btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ups/edu/compras/resources/cancelar_1.png"))); // NOI18N
+        btnCancelar.setText("Cancelar");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -331,16 +333,6 @@ public class Facturas extends javax.swing.JFrame {
                                         .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(162, 162, 162))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(43, 43, 43)
-                                .addComponent(chboxPromocion)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(chboxOferta)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton3)
-                                .addGap(10, 10, 10))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel15)
                                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 724, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -385,11 +377,18 @@ public class Facturas extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel16)
-                                    .addComponent(jButton6))
+                                    .addComponent(bntPago))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton4)
+                                .addComponent(btnGuardar)
                                 .addGap(18, 18, 18)
-                                .addComponent(jButton7)))
+                                .addComponent(btnCancelar))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(43, 43, 43)
+                                .addComponent(chboxPromocion)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(chboxOferta)
+                                .addGap(326, 326, 326)
+                                .addComponent(btnAgregar)))
                         .addContainerGap())))
         );
         layout.setVerticalGroup(
@@ -437,8 +436,7 @@ public class Facturas extends javax.swing.JFrame {
                     .addComponent(jLabel22))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3)
+                    .addComponent(btnAgregar)
                     .addComponent(chboxPromocion)
                     .addComponent(chboxOferta))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -468,20 +466,20 @@ public class Facturas extends javax.swing.JFrame {
                 .addComponent(jLabel16)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton4)
-                    .addComponent(jButton6)
-                    .addComponent(jButton7))
+                    .addComponent(btnGuardar)
+                    .addComponent(bntPago)
+                    .addComponent(btnCancelar))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         String codigoArticulo;
         String producto;
         DefaultTableModel model;
-        Object []listaArticulo = new Object[9];
+        Object []listaArticulo = new Object[11];
         
         codigoArticulo = (String) cmbProducto.getSelectedItem();
         if (codigoArticulo.equals("Selecionar Producto")){
@@ -504,56 +502,77 @@ public class Facturas extends javax.swing.JFrame {
         
         int cantidad = Integer.parseInt((txtCantidad.getText().equals(""))?"0":txtCantidad.getText());
         if (cantidad != 0){
+            DetalleVentas detalle = new DetalleVentas();
             double descuento =  Integer.parseInt((txtDescuento.getText().equals(""))?"0":txtDescuento.getText());
-        double subtotal = (cantidad * precio) - (descuento+((chboxPromocion.isSelected())?promocion:0)+((chboxOferta.isSelected())?oferta:0));
-        subtotalFactura = subtotalFactura + subtotal;
-        descuentoFactura = descuentoFactura+(descuento+((chboxPromocion.isSelected())?promocion:0)+((chboxOferta.isSelected())?oferta:0));
-        ivafactura = ivafactura+(subtotalFactura)*0.12;
-        totalfactura = totalfactura +(subtotalFactura - descuentoFactura + ivafactura);
+            double subtotal = (cantidad * precio);
+            double total = (cantidad * precio) - (descuento+((chboxPromocion.isSelected())?promocion:0)+((chboxOferta.isSelected())?oferta:0));
+            double iva = total * 0.12;
+            total = total + iva;
+            detalle.setId(listDetalleVta.size()+1);
+            detalle.setCodoferta(((chboxOferta.isSelected())?idOferta:0));
+            detalle.setCodpromocion(((chboxPromocion.isSelected())?idPromocion:0));
+            detalle.setCodproducto(Integer.parseInt(codigoArticulo));
+            detalle.setDescripcion(producto);
+            detalle.setDescuento((descuento+((chboxPromocion.isSelected())?promocion:0)+((chboxOferta.isSelected())?oferta:0)));
+            detalle.setIva(iva);
+            detalle.setSubtotal(subtotal);
+            detalle.setTotal(total);
+            
+            subtotalFactura = subtotalFactura + subtotal;
+            descuentoFactura = descuentoFactura+(descuento+((chboxPromocion.isSelected())?promocion:0)+((chboxOferta.isSelected())?oferta:0));
+            double totalfact = subtotalFactura -descuentoFactura;
+            ivafactura = ivafactura+(totalfact)*0.12;
+            totalfact = totalfact +ivafactura;
+            totalfactura = totalfactura + totalfact;
         
-        lblSubTotal.setText(String.valueOf(subtotalFactura));
-        lblDescuento.setText(String.valueOf(descuentoFactura));
-        lblIVA.setText(String.valueOf(ivafactura));
-        lblTotal.setText(String.valueOf(totalfactura));
+            lblSubTotal.setText(String.valueOf(subtotalFactura));
+            lblDescuento.setText(String.valueOf(descuentoFactura));
+            lblIVA.setText(String.valueOf(ivafactura));
+            lblTotal.setText(String.valueOf(totalfactura));
         
-        listaArticulo[0]=codigoArticulo;
-        listaArticulo[1]=producto;
-        listaArticulo[2]=cantidad;
-        listaArticulo[3]=precio;
-        listaArticulo[4]=descuento;
-        listaArticulo[5]=((chboxPromocion.isSelected())?promocion:0);
-        listaArticulo[6]=((chboxOferta.isSelected())?oferta:0);
-        listaArticulo[7]=subtotal;
-        listaArticulo[8]=new JButton(new javax.swing.ImageIcon(getClass().getResource("/com/ups/edu/compras/resources/borrar.png")));
+            listaArticulo[0]=codigoArticulo;
+            listaArticulo[1]=producto;
+            listaArticulo[2]=cantidad;
+            listaArticulo[3]=precio;
+            listaArticulo[4]=descuento;
+            listaArticulo[5]=((chboxPromocion.isSelected())?promocion:0);
+            listaArticulo[6]=((chboxOferta.isSelected())?oferta:0);
+            listaArticulo[7]=subtotal;
+            listaArticulo[8]=iva;
+            listaArticulo[9]=total;
+            listaArticulo[10]=new JButton(new javax.swing.ImageIcon(getClass().getResource("/com/ups/edu/compras/resources/borrar.png")));
+            listDetalleVta.add(detalle);
+            model.addRow(listaArticulo);
+            tbArticulo.setModel(model);
 
-        model.addRow(listaArticulo);
-        tbArticulo.setModel(model);
-        
-        
-        
-        
         }else{
             JOptionPane.showMessageDialog(null, "Ingrese una cantidad");
         }
             
         
         }
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void tbArticuloMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbArticuloMouseClicked
         int fila = tbArticulo.rowAtPoint(evt.getPoint());
         int columna = tbArticulo.columnAtPoint(evt.getPoint());
+        
+        
         if (tbArticulo.getModel().getColumnClass(columna).equals(JButton.class)) {
+
+        
             int cantidad = (int) tbArticulo.getModel().getValueAt(fila, 2);
             double precio  = (double) tbArticulo.getModel().getValueAt(fila, 3);
             double descuento  = (double) tbArticulo.getModel().getValueAt(fila, 4);
             double promocion = (double) tbArticulo.getModel().getValueAt(fila, 5);
             double oferta  = (double) tbArticulo.getModel().getValueAt(fila, 6);
             double iva = ((cantidad*precio)-(descuento+promocion+oferta))*0.12;
-            subtotalFactura -= (cantidad*precio)-(descuento+promocion+oferta);
+            
+            subtotalFactura -= (cantidad*precio);
             descuentoFactura -= descuento+promocion+oferta;
-            ivafactura = (subtotalFactura)*0.12;
-            totalfactura = subtotalFactura + ivafactura;
+            double total = subtotalFactura -descuentoFactura;
+            ivafactura = (total)*0.12;
+            totalfactura = total + ivafactura;
             
             lblSubTotal.setText(String.valueOf(subtotalFactura));
             lblDescuento.setText(String.valueOf(descuentoFactura));
@@ -563,13 +582,16 @@ public class Facturas extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Ha Borrado este producto de la fila "+fila);
             DefaultTableModel model = (DefaultTableModel) tbArticulo.getModel();
             model.removeRow(fila);
+            listDetalleVta.remove(fila);
             tbArticulo.setModel(model);
+
         }
+        
     }//GEN-LAST:event_tbArticuloMouseClicked
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+    private void bntPagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntPagoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton6ActionPerformed
+    }//GEN-LAST:event_bntPagoActionPerformed
 
     private void cmbClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbClienteActionPerformed
         String cdocliente = (String) cmbCliente.getSelectedItem();
@@ -598,21 +620,30 @@ public class Facturas extends javax.swing.JFrame {
         if (!codigoArticulo.equals("Selecionar Producto")&&!codigoArticulo.equals("")){
             codigoArticulo = codigoArticulo.substring(0,codigoArticulo.indexOf("-"));
             dato = Integer.parseInt(codigoArticulo);
-            promocion = facturaModel.existePromocion(dato);
+            
+            Object promociones[] = facturaModel.existePromocion(dato);
             System.out.println(""+promocion);
-            if (promocion!=0){
+            if (promociones!=null){
+                promocion = (double) promociones[0];
+                idPromocion = (int) promociones[1];
                 chboxPromocion.setEnabled(true);
             }else{
+                promocion = 0;
+                idPromocion = 0;
                 chboxPromocion.setEnabled(false);
                 chboxPromocion.setSelected(false);
             }
-            oferta = facturaModel.existeOferta(dato);
-            if (oferta!=0){
+            Object[] ofertas = facturaModel.existeOferta(dato);
+            if (ofertas!=null){
+                oferta = (double) ofertas[0];
+                idOferta = (int) ofertas[1];
                 chboxOferta.setEnabled(true);
                 System.out.println(""+chboxOferta.isEnabled());
             }else{
                 chboxOferta.setEnabled(false);
                 chboxOferta.setSelected(false);
+                oferta = 0;
+                idOferta = 0;
             }
             resultado = facturaModel.datosProducto(dato);
             
@@ -625,9 +656,9 @@ public class Facturas extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_cmbProductoActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
        
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_btnGuardarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -665,17 +696,16 @@ public class Facturas extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton bntPago;
+    private javax.swing.JButton btnAgregar;
+    private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnGuardar;
     private javax.swing.JCheckBox chboxOferta;
     private javax.swing.JCheckBox chboxPromocion;
     private javax.swing.JComboBox cmbCliente;
     private javax.swing.JComboBox cmbProducto;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
