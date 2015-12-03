@@ -5,6 +5,9 @@
  */
 package com.ups.edu.rrhh.menuinicio;
 
+import com.ups.edu.ventas.views.FrmVta_Cliente;
+import com.ups.edu.ventas.views.FrmVta_Factura;
+import com.ups.edu.ventas.views.FrmVta_Ofertas;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -12,6 +15,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -23,6 +27,11 @@ public class menuu extends javax.swing.JFrame {
     /**
      * Creates new form menu
      */
+    
+    private FrmVta_Ofertas frmVtaOferta = new FrmVta_Ofertas();
+    private FrmVta_Factura frmVtaFactura = new FrmVta_Factura();
+    private FrmVta_Cliente frmVtaCliente = new FrmVta_Cliente();
+    
     public menuu() {
         initComponents();
                 jMFinanciero.setVisible(false);
@@ -55,6 +64,10 @@ Iframe1_2 objIFrame1=new Iframe1_2();
         jMFinanciero = new javax.swing.JMenu();
         jMCompras = new javax.swing.JMenu();
         jMVentas = new javax.swing.JMenu();
+        jMVta_Cliente = new javax.swing.JMenuItem();
+        jMVta_Oferta = new javax.swing.JMenuItem();
+        jMVta_Promocion = new javax.swing.JMenuItem();
+        jMVta_Factura = new javax.swing.JMenuItem();
         jMInventario = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -73,7 +86,6 @@ Iframe1_2 objIFrame1=new Iframe1_2();
             .addGap(0, 358, Short.MAX_VALUE)
         );
 
-        jMenu1.setIcon(new javax.swing.ImageIcon("C:\\Users\\SERVIDOR\\Documents\\NetBeansProjects\\UPS\\SI2Proyecto\\src\\com\\ups\\edu\\rrhh\\menuinicio\\logo-ups-home.png")); // NOI18N
         jMenuBar1.add(jMenu1);
 
         jMenu2.setForeground(new java.awt.Color(0, 0, 102));
@@ -121,6 +133,34 @@ Iframe1_2 objIFrame1=new Iframe1_2();
         jMVentas.setForeground(new java.awt.Color(0, 0, 102));
         jMVentas.setText("Ventas");
         jMVentas.setFont(new java.awt.Font("Franklin Gothic Demi Cond", 1, 18)); // NOI18N
+
+        jMVta_Cliente.setText("Cliente");
+        jMVta_Cliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMVta_ClienteActionPerformed(evt);
+            }
+        });
+        jMVentas.add(jMVta_Cliente);
+
+        jMVta_Oferta.setText("Oferta");
+        jMVta_Oferta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMVta_OfertaActionPerformed(evt);
+            }
+        });
+        jMVentas.add(jMVta_Oferta);
+
+        jMVta_Promocion.setText("Promocion");
+        jMVentas.add(jMVta_Promocion);
+
+        jMVta_Factura.setText("Factura");
+        jMVta_Factura.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMVta_FacturaActionPerformed(evt);
+            }
+        });
+        jMVentas.add(jMVta_Factura);
+
         jMenuBar1.add(jMVentas);
 
         jMInventario.setForeground(new java.awt.Color(0, 0, 102));
@@ -172,6 +212,30 @@ Iframe1_2 objIFrame1=new Iframe1_2();
         }
         
     }//GEN-LAST:event_jCheckBoxMenuItem2ActionPerformed
+
+    private void jMVta_ClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMVta_ClienteActionPerformed
+        if(!frmVtaCliente.isShowing()){
+            Escritorio.add(frmVtaCliente);
+            frmVtaCliente.setLocation(280, 10);;
+            frmVtaCliente.show();
+        }
+    }//GEN-LAST:event_jMVta_ClienteActionPerformed
+
+    private void jMVta_FacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMVta_FacturaActionPerformed
+        if(!frmVtaFactura.isShowing()){
+            Escritorio.add(frmVtaFactura);
+            frmVtaFactura.setLocation(280, 10);;
+            frmVtaFactura.show();
+        }
+    }//GEN-LAST:event_jMVta_FacturaActionPerformed
+
+    private void jMVta_OfertaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMVta_OfertaActionPerformed
+        if(!frmVtaOferta.isShowing()){
+            Escritorio.add(frmVtaOferta);
+            frmVtaOferta.setLocation(280, 10);;
+            frmVtaOferta.show();
+        }
+    }//GEN-LAST:event_jMVta_OfertaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -229,6 +293,10 @@ Iframe1_2 objIFrame1=new Iframe1_2();
     public static javax.swing.JMenu jMInventario;
     public static javax.swing.JMenu jMRecHum;
     public static javax.swing.JMenu jMVentas;
+    private javax.swing.JMenuItem jMVta_Cliente;
+    private javax.swing.JMenuItem jMVta_Factura;
+    private javax.swing.JMenuItem jMVta_Oferta;
+    private javax.swing.JMenuItem jMVta_Promocion;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
