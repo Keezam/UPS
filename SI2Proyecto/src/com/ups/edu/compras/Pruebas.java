@@ -74,6 +74,7 @@ public class Pruebas extends javax.swing.JFrame {
         eliminar = new javax.swing.JButton();
         btnActualizar = new javax.swing.JButton();
         btnNuevoGuardar = new javax.swing.JButton();
+        btnQuitar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -117,9 +118,17 @@ public class Pruebas extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Producto", "Marca", "Modelo", "Precio"
+                "Producto", "Marca", "Precio", "Modelo"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(tableProductos);
 
         buscar.setText("BUSCAR");
@@ -195,12 +204,15 @@ public class Pruebas extends javax.swing.JFrame {
         btnActualizar.setText("ACTUALIZAR");
         btnActualizar.setEnabled(false);
 
-        btnNuevoGuardar.setText("NUEVO PROVEEDOR");
+        btnNuevoGuardar.setText("NUEVO PROV.");
         btnNuevoGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnNuevoGuardarActionPerformed(evt);
             }
         });
+
+        btnQuitar.setText("QUITAR");
+        btnQuitar.setEnabled(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -248,26 +260,35 @@ public class Pruebas extends javax.swing.JFrame {
                                 .addGap(110, 110, 110)
                                 .addComponent(estado2, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnActualizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnNuevoGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(eliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnQuitar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(36, Short.MAX_VALUE))
+                    .addComponent(btnActualizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(eliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnNuevoGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, 103, Short.MAX_VALUE))
+                .addGap(35, 35, 35))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(buscar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel1)
-                                .addComponent(id_proveedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(28, 28, 28)
+                        .addComponent(btnNuevoGuardar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnActualizar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(eliminar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnCancelar))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(25, 25, 25)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(id_proveedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(buscar))
                         .addGap(18, 18, 18)
                         .addComponent(jLabel2)
                         .addGap(11, 11, 11)
@@ -297,19 +318,13 @@ public class Pruebas extends javax.swing.JFrame {
                             .addComponent(estado1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(estado2, javax.swing.GroupLayout.Alignment.LEADING))
                         .addGap(18, 18, 18)
-                        .addComponent(jLabel9))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnNuevoGuardar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnActualizar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(eliminar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnCancelar)))
+                        .addComponent(jLabel9)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnAgregar)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnQuitar)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE))
                 .addContainerGap())
@@ -320,22 +335,22 @@ public class Pruebas extends javax.swing.JFrame {
 
     private void direccionKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_direccionKeyPressed
         // TODO add your handling code here:
-        //validar(evt, Validacion.NUMEROSLETRAS);
+//        validar(evt, Validacion.NUMEROSLETRAS);
     }//GEN-LAST:event_direccionKeyPressed
 
     private void telefono1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_telefono1KeyPressed
         // TODO add your handling code here:
-        //validar(evt, Validacion.SOLONUMEROS);
+//        validar(evt, Validacion.SOLONUMEROS);
     }//GEN-LAST:event_telefono1KeyPressed
 
     private void telefono2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_telefono2KeyPressed
         // TODO add your handling code here:
-        //validar(evt, Validacion.SOLONUMEROS);
+//        validar(evt, Validacion.SOLONUMEROS);
     }//GEN-LAST:event_telefono2KeyPressed
 
     private void correoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_correoKeyPressed
         // TODO add your handling code here:
-        //validar(evt, Validacion.CORREO);
+//        validar(evt, Validacion.CORREO);
     }//GEN-LAST:event_correoKeyPressed
 
     private void buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarActionPerformed
@@ -349,7 +364,7 @@ public class Pruebas extends javax.swing.JFrame {
 
     private void txtCiudadKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCiudadKeyPressed
         // TODO add your handling code here:
-        //validar(evt, Validacion.SOLOLETRAS);
+//        validar(evt, Validacion.SOLOLETRAS);
     }//GEN-LAST:event_txtCiudadKeyPressed
 
     private void estado1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_estado1ActionPerformed
@@ -363,7 +378,7 @@ public class Pruebas extends javax.swing.JFrame {
     private void id_proveedorKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_id_proveedorKeyPressed
         // TODO add your handling code here:
         try{
-            //validar(evt, Validacion.SOLONUMEROS);
+//            validar(evt, Validacion.SOLONUMEROS);
             if(evt.getKeyCode() == 10){
                 getProveedor(id_proveedor.getText());
             }
@@ -374,34 +389,77 @@ public class Pruebas extends javax.swing.JFrame {
 
     private void nombreKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nombreKeyPressed
         // TODO add your handling code here:
-        //validar(evt, Validacion.SOLOLETRAS);
+//        validar(evt, Validacion.SOLOLETRAS);
     }//GEN-LAST:event_nombreKeyPressed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         // TODO add your handling code here:
-        modelo = new DefaultTableModel();
-        id_proveedor.setText("");
-        nombre.setFocusable(false);nombre.setText("");
-        direccion.setFocusable(false);direccion.setText("");
-        telefono1.setFocusable(false);telefono1.setText("");
-        telefono2.setFocusable(false);telefono2.setText("");
-        txtCiudad.setFocusable(false);txtCiudad.setText("");
-        correo.setFocusable(false);correo.setText("");
-        estado1.setEnabled(false);
-        estado2.setEnabled(false);
-        
-        
-        btnNuevoGuardar.setEnabled(true);
-        eliminar.setEnabled(false);
-        btnActualizar.setEnabled(false);
-        btnAgregar.setEnabled(false);
-        btnCancelar.setEnabled(false);
+        cancelar();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnNuevoGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoGuardarActionPerformed
         // TODO add your handling code here:
+        if(btnNuevoGuardar.getText().equals("NUEVO PROV.")){
+            btnNuevoGuardar.setText("GUARDAR");
+            activarCamposInsert();
+        }else if(btnNuevoGuardar.getText().equals("GUARDAR")){
+            desactivarCamposInsert();
+            btnNuevoGuardar.setText("NUEVO PROV.");
+            boolean resultado = insertarProveedores();
+            if(resultado){
+                JOptionPane.showMessageDialog(this, "Dato ingresados correctamente","Información",JOptionPane.INFORMATION_MESSAGE);
+            }else if(!resultado){
+                JOptionPane.showMessageDialog(this, "Error en la inerción, formato incorrecto","Error",JOptionPane.WARNING_MESSAGE);
+            }
+        }
     }//GEN-LAST:event_btnNuevoGuardarActionPerformed
 
+    private boolean insertarProveedores(){
+        String insertaProveedores = "";
+        String insertaProductos = "";
+        try{
+            if(!consultarCiudad(txtCiudad.getText())){
+                insertarCiudad(txtCiudad.getText());
+            }
+            
+            return true;
+        }catch(Exception e){
+            System.out.println("Error en ingresar proveedor: "+e.getMessage());
+            return false;
+        }
+    }
+    
+    private void insertarCiudad(String ciudad){
+        try{
+            String insertaCiudad = 
+                    "INSERT INTO `cmprv_ciudad`(`descripcion`) VALUES (?)";
+            CallableStatement call;
+            call = conn.prepareCall(insertaCiudad);
+            call.setString(1, ciudad);
+            call.execute();
+            call.close();
+        }catch(Exception e){
+            System.out.println("Error en insert: "+e.getMessage());
+        }
+    }
+    
+    private boolean consultarCiudad(String ciudad){
+        int resultado = 0;
+        try{
+            String consultarCiudad = 
+                    "SELECT COUNT(`id_ciudad`) FROM `cmprv_ciudad` WHERE `descripcion` ='"+ciudad+"'";
+            CallableStatement cs = conn.prepareCall(consultarCiudad);
+            ResultSet rs = cs.executeQuery();
+            while(rs.next()){
+                resultado = rs.getInt(1);
+            }
+            return resultado == 1;
+        }catch(Exception e){
+            System.out.println("Error en consulta: "+e.getMessage());
+            return false;
+        }
+    }
+    
     private void getProveedor(String cedula_proveedor){
         cambiarEstadoBotones();
         modelo = new DefaultTableModel();
@@ -489,14 +547,10 @@ public class Pruebas extends javax.swing.JFrame {
                 }
                 modelo.addRow(datos);
             }
-            
-            
-            
+
             cs.close();
             rs.close();
-            
-            
-            
+
             nombre.setText(dataProveedorString[0]);
             direccion.setText(dataProveedorString[1]);
             telefono1.setText(String.valueOf(dataProveedorInt[2]));
@@ -512,15 +566,29 @@ public class Pruebas extends javax.swing.JFrame {
             }
             
         }catch(Exception e){
+            Object parametros[] = new Object[4];
+            parametros[0]="Producto";
+            parametros[1]="Marca";
+            parametros[2]="Modelo";
+            parametros[3]="Precio";
+
+            for (int j = 0; j < parametros.length; j++) {
+                modelo.addColumn(parametros[j]);
+            }
             JOptionPane.showMessageDialog(this, "El proveedor a consultar no se encuentra registrado o el valor ingresado es nulo", "Error", JOptionPane.WARNING_MESSAGE);
             cambiarConError();
         }
     }
-
+    //8 127 
+//    System.out.println("Tecla: "+evt.getKeyCode());
+//            if (!String.valueOf(evt.getKeyChar()).matches(limite)) {
+//                evt.consume();
+//            } 
     public void validar(KeyEvent evt, String limite) {
         if (!String.valueOf(evt.getKeyChar()).matches(limite)) {
             evt.consume();
-        } 
+        }             
+        System.out.println("Tecla: "+evt.getKeyCode());
     }
     
     /**
@@ -558,6 +626,69 @@ public class Pruebas extends javax.swing.JFrame {
         });
     }
 
+    private void activarCamposInsert(){
+        buscar.setEnabled(false);
+        btnAgregar.setEnabled(true);
+        btnQuitar.setEnabled(true);
+        btnCancelar.setEnabled(true);
+        
+        nombre.setFocusable(true);
+        direccion.setFocusable(true);
+        telefono1.setFocusable(true);
+        telefono2.setFocusable(true);
+        txtCiudad.setFocusable(true);
+        correo.setFocusable(true);
+        estado1.setEnabled(true);
+        estado2.setEnabled(true);
+        
+    }
+    
+    private void desactivarCamposInsert(){
+        buscar.setEnabled(true);
+        btnAgregar.setEnabled(false);
+        btnQuitar.setEnabled(false);
+        btnCancelar.setEnabled(false);
+        
+        id_proveedor.setText("");
+        nombre.setFocusable(false);nombre.setText("");
+        direccion.setFocusable(false);direccion.setText("");
+        telefono1.setFocusable(false);telefono1.setText("");
+        telefono2.setFocusable(false);telefono2.setText("");
+        txtCiudad.setFocusable(false);txtCiudad.setText("");
+        correo.setFocusable(false);correo.setText("");
+        estado1.setEnabled(false);estado1.setSelected(false);
+        estado2.setEnabled(false);estado2.setSelected(false);
+    }
+    
+    private void cancelar(){
+        id_proveedor.setText("");
+        nombre.setFocusable(false);nombre.setText("");
+        direccion.setFocusable(false);direccion.setText("");
+        telefono1.setFocusable(false);telefono1.setText("");
+        telefono2.setFocusable(false);telefono2.setText("");
+        txtCiudad.setFocusable(false);txtCiudad.setText("");
+        correo.setFocusable(false);correo.setText("");
+        estado1.setEnabled(false);estado1.setSelected(false);
+        estado2.setEnabled(false);estado2.setSelected(false);
+        
+        for (int i = 0; i < modelo.getRowCount(); i++) {
+            modelo.removeRow(i);
+        }
+        
+        if(btnNuevoGuardar.getText().equals("GUARDAR")){
+            btnNuevoGuardar.setText("NUEVO PROV.");
+        }
+        
+        btnNuevoGuardar.setEnabled(true);
+        eliminar.setEnabled(false);
+        btnActualizar.setEnabled(false);
+        btnAgregar.setEnabled(false);
+        btnCancelar.setEnabled(false);
+        buscar.setEnabled(true);
+        btnQuitar.setEnabled(false);
+        
+    }
+    
     private void cambiarEstadoBotones(){
         //Cambio en los botones cuando se trata de busquedas
         btnNuevoGuardar.setEnabled(false);
@@ -565,7 +696,7 @@ public class Pruebas extends javax.swing.JFrame {
         btnCancelar.setEnabled(true);
         eliminar.setEnabled(true);
         btnActualizar.setEnabled(true);
-        
+        btnQuitar.setEnabled(false);
         //Cambio en las cajas de textos cuando se trata de busquedas
         nombre.setFocusable(false);
         direccion.setFocusable(false);
@@ -575,11 +706,15 @@ public class Pruebas extends javax.swing.JFrame {
         correo.setFocusable(false);
         estado1.setEnabled(false);
         estado2.setEnabled(false);
+        tableProductos.setEnabled(false);
     }
     
     private void cambiarConError(){
         
         id_proveedor.setText("");
+        
+        telefono1.setText("");
+        telefono2.setText("");
         
         modelo = new DefaultTableModel();
         //Cambio en los botones cuando se trata de busquedas
@@ -588,7 +723,7 @@ public class Pruebas extends javax.swing.JFrame {
         btnCancelar.setEnabled(false);
         eliminar.setEnabled(false);
         btnActualizar.setEnabled(false);
-        
+        btnQuitar.setEnabled(false);
         //Cambio en las cajas de textos cuando se trata de busquedas
         nombre.setFocusable(false);
         direccion.setFocusable(false);
@@ -599,12 +734,14 @@ public class Pruebas extends javax.swing.JFrame {
         //tableProductos.setFocusable(false);
         estado1.setEnabled(false);
         estado2.setEnabled(false);
+        tableProductos.setEnabled(false);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizar;
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnNuevoGuardar;
+    private javax.swing.JButton btnQuitar;
     private javax.swing.JButton buscar;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JTextField correo;

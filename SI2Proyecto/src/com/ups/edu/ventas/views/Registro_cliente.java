@@ -6,6 +6,7 @@
 package com.ups.edu.ventas.views;
 
 import com.ups.edu.ventas.model.ClienteModel;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
@@ -14,7 +15,8 @@ import javax.swing.JOptionPane;
  */
 public class Registro_cliente extends javax.swing.JFrame {
 
-    private final ClienteModel clienteModel;
+    private  ClienteModel clienteModel;
+    private boolean modificar = false;
         
     /**
      * Creates new form Registro_cliente
@@ -23,6 +25,8 @@ public class Registro_cliente extends javax.swing.JFrame {
         initComponents();
         clienteModel = new ClienteModel();
         cargarTabla();
+        cargarComboCiudad();
+        cagarcCodigo();
     }
     
     
@@ -30,6 +34,27 @@ public class Registro_cliente extends javax.swing.JFrame {
         tbtClientes.setModel(clienteModel.cargarTabla());
     }
     
+    private void cargarComboCiudad(){
+        List<String> ciudades = clienteModel.buscarCiudad();
+        for (String ciudad : ciudades) {
+            cmbCiudad.addItem(ciudad);
+        }
+    }
+    
+    private void cagarcCodigo(){
+        lblCodigo.setText(""+clienteModel.secuenciaCliente());
+    }
+    
+    public void limpiar(){
+        txtNombre.setText("");
+        txtApellido.setText("");
+        txtCedula.setText("");
+        txtTelefono.setText("");
+        txtbuscar.setText("");
+        txtDireccion.setText("");
+        cagarcCodigo();
+    }
+            
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -62,6 +87,10 @@ public class Registro_cliente extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         lblCiudad1 = new javax.swing.JLabel();
         cmbTipoIdent = new javax.swing.JComboBox();
+        cmbEstado = new javax.swing.JComboBox();
+        lblCiudad2 = new javax.swing.JLabel();
+        lblNombre1 = new javax.swing.JLabel();
+        lblCodigo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -83,7 +112,7 @@ public class Registro_cliente extends javax.swing.JFrame {
 
         txtDireccion.setToolTipText("Email del Alumno");
 
-        lblCedula.setText("Cedula");
+        lblCedula.setText("Identificacion ");
 
         txtCedula.setToolTipText("Cedula del Alumno");
 
@@ -165,10 +194,23 @@ public class Registro_cliente extends javax.swing.JFrame {
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ups/edu/compras/resources/search.png"))); // NOI18N
         jButton1.setText("Buscar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         lblCiudad1.setText("Tipo Identificacion");
 
         cmbTipoIdent.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "C", "P" }));
+
+        cmbEstado.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "A", "I" }));
+
+        lblCiudad2.setText("Ciudad");
+
+        lblNombre1.setText("Codigo:");
+
+        lblCodigo.setText(" ");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -177,39 +219,49 @@ public class Registro_cliente extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 472, Short.MAX_VALUE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(lblApellido)
-                                            .addComponent(lblEmail)
-                                            .addComponent(lblNombre))
-                                        .addGap(18, 18, 18)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(txtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(txtDireccion)))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(lblCedula)
                                             .addGroup(layout.createSequentialGroup()
                                                 .addComponent(lblTelefono)
                                                 .addGap(18, 18, 18)
                                                 .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
                                             .addGroup(layout.createSequentialGroup()
-                                                .addComponent(lblCiudad1)
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(lblCiudad1)
+                                                    .addComponent(lblCedula))
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(cmbTipoIdent, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(txtCedula, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(cmbTipoIdent, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                             .addGroup(layout.createSequentialGroup()
-                                                .addComponent(lblCiudad)
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(lblCiudad)
+                                                    .addComponent(lblCiudad2))
                                                 .addGap(31, 31, 31)
                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(cmbCiudad, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                    .addComponent(txtCedula, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                        .addGap(0, 0, Short.MAX_VALUE)))
+                                                    .addComponent(cmbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(cmbCiudad, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(lblEmail)
+                                            .addComponent(lblNombre)
+                                            .addComponent(lblNombre1)
+                                            .addComponent(lblApellido, javax.swing.GroupLayout.Alignment.TRAILING))
+                                        .addGap(18, 18, 18)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(txtDireccion)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(txtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(lblCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addGap(0, 0, Short.MAX_VALUE)))))
                                 .addGap(18, 18, 18)
                                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(24, 24, 24))
@@ -222,17 +274,20 @@ public class Registro_cliente extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(29, 29, 29)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblNombre1)
+                            .addComponent(lblCodigo))
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblNombre)
                             .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblApellido)
-                            .addComponent(txtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtApellido, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
+                            .addComponent(lblApellido))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -241,46 +296,73 @@ public class Registro_cliente extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblTelefono)
                             .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblCiudad1)
                             .addComponent(cmbTipoIdent, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblCedula)
-                            .addComponent(txtCedula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblCiudad)
-                            .addComponent(cmbCiudad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(12, 12, 12)))
-                .addGap(18, 18, 18)
+                            .addComponent(txtCedula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblCiudad)
+                    .addComponent(cmbCiudad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblCiudad2)
+                    .addComponent(cmbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(53, 53, 53)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnInsertarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertarActionPerformed
-        if (txtApellido.getText().isEmpty()) {
+        if(modificar){
+            JOptionPane.showMessageDialog(null, "Error, No Existe ese Codigo");
+        } else if (txtApellido.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Error al Registrar, campo Descripción Vacio");
         } else if (txtCedula.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Error al Registrar, campo Valor Vacio");
         } else if (txtDireccion.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Error al Registrar, campo Descuento Vacio");
         } else {
-            System.out.println("");
+            String nombre = txtNombre.getText();
+            String apellido = txtApellido.getText();
+            String direccion = txtDireccion.getText();
+            String telefono = txtTelefono.getText();
+            String TipoIdentificacion = (String) cmbTipoIdent.getSelectedItem();
+            String identificacion = txtTelefono.getText();
+            String estado = (String) cmbEstado.getSelectedItem();
+            String ciudad = (String) cmbCiudad.getSelectedItem();
+            if (!ciudad.equals("")) {
+                ciudad = ciudad.substring(0, ciudad.indexOf("-"));
+            }
+            int insert = clienteModel.insertCliente(nombre, apellido, direccion, telefono, TipoIdentificacion, identificacion,estado, Integer.parseInt(ciudad));
+            if (insert > 0){
+                JOptionPane.showMessageDialog(null, "Se guarda Correctamente");
+                limpiar();
+                cagarcCodigo();
+                cargarTabla();
+                modificar = false;
+            }
+            
         }
         //            JOptionPane.showMessageDialog(null, "Error al Registrar, todos los campos deben ser llenados");
     }//GEN-LAST:event_btnInsertarActionPerformed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
-        if ((txtbuscar.getText().isEmpty())) {
+        if (!modificar) {
             JOptionPane.showMessageDialog(null, "Error, No Existe ese Codigo");
         } else if (txtCedula.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Error al Actualizar, campo Descripción Vacio");
@@ -289,26 +371,72 @@ public class Registro_cliente extends javax.swing.JFrame {
         } else if (txtTelefono.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Error al Actualizar, campo Descuento Vacio");
         } else {
-            
+            String nombre = txtNombre.getText();
+            String apellido = txtApellido.getText();
+            String direccion = txtDireccion.getText();
+            String telefono = txtTelefono.getText();
+            String TipoIdentificacion = (String) cmbTipoIdent.getSelectedItem();
+            String identificacion = txtTelefono.getText();
+            String estado = (String) cmbEstado.getSelectedItem();
+            String ciudad = (String) cmbCiudad.getSelectedItem();
+            String codigo = lblCodigo.getText();
+            if (!ciudad.equals("")) {
+                ciudad = ciudad.substring(0, ciudad.indexOf("-"));
+            }
+            int update = clienteModel.actualizarCliente(Integer.parseInt(codigo),nombre, apellido, direccion, telefono, TipoIdentificacion, identificacion,estado, Integer.parseInt(ciudad));
+            if (update > 0){
+                JOptionPane.showMessageDialog(null, "Se Actualizo Correctamente");
+                limpiar();
+                cagarcCodigo();
+                cargarTabla();
+            }
 
         }
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        if ((txtbuscar.getText().isEmpty())) {
+        if (!modificar) {
             JOptionPane.showMessageDialog(null, "Error, No Existe ese Codigo");
         } else {
-
+            String codigo = lblCodigo.getText();
+            int delete = clienteModel.eliminarCliente(Integer.parseInt(codigo));
+            if (delete > 0){
+                JOptionPane.showMessageDialog(null, "Se Elimini Correctamente");
+                limpiar();
+                cagarcCodigo();
+                cargarTabla();
+            }
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
+        limpiar();
         cargarTabla();
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
     private void txtbuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtbuscarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtbuscarActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        String codigo = txtbuscar.getText();
+        String [] cliente;
+        if(!codigo.equals("")){
+            cliente = clienteModel.buscarDatos(Integer.parseInt(codigo));
+            lblCodigo.setText(cliente[0]);
+            txtNombre.setText(cliente[1]);
+            txtApellido.setText(cliente[2]);
+            txtDireccion.setText(cliente[3]);
+            txtCedula.setText(cliente[6]);
+            txtTelefono.setText(cliente[4]);
+            System.out.println(""+cliente[8]+"-"+clienteModel.buscarCiudad(Integer.parseInt(cliente[8])));
+            cmbCiudad.setSelectedItem(cliente[8]+"-"+clienteModel.buscarCiudad(Integer.parseInt(cliente[8])));
+            cmbEstado.setSelectedItem(cliente[7]);
+            cmbTipoIdent.setSelectedItem(cliente[5]);
+            txtbuscar.setText("");
+            modificar = true;
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -351,6 +479,7 @@ public class Registro_cliente extends javax.swing.JFrame {
     private javax.swing.JButton btnInsertar;
     private javax.swing.JButton btnLimpiar;
     private javax.swing.JComboBox cmbCiudad;
+    private javax.swing.JComboBox cmbEstado;
     private javax.swing.JComboBox cmbTipoIdent;
     private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel3;
@@ -359,8 +488,11 @@ public class Registro_cliente extends javax.swing.JFrame {
     private javax.swing.JLabel lblCedula;
     private javax.swing.JLabel lblCiudad;
     private javax.swing.JLabel lblCiudad1;
+    private javax.swing.JLabel lblCiudad2;
+    private javax.swing.JLabel lblCodigo;
     private javax.swing.JLabel lblEmail;
     private javax.swing.JLabel lblNombre;
+    private javax.swing.JLabel lblNombre1;
     private javax.swing.JLabel lblTelefono;
     private javax.swing.JTable tbtClientes;
     private javax.swing.JTextField txtApellido;
