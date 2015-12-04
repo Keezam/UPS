@@ -5,26 +5,21 @@
  */
 package com.ups.edu.ventas.views;
 
-import com.mysql.jdbc.Connection;
 import com.ups.edu.ventas.model.FormaPago;
-import java.sql.DriverManager;
-import java.sql.Statement;
 import javax.swing.JOptionPane;
-
 /**
  *
- * @author Home
+ * @author Admin
  */
-public class pantalla_forma_depago extends javax.swing.JFrame {
+public class FrmVta_FormPago extends javax.swing.JInternalFrame {
 
     /**
-     * Creates new form pantalla_forma_depago
+     * Creates new form FrmVta_FormPago
      */
-    
-    FormaPago formaPago;
-    
-    public pantalla_forma_depago() {
+    private FormaPago formaPago;
+    public FrmVta_FormPago(FormaPago formaPagos) {
         initComponents();
+        formaPago = formaPagos;
         lblFactura.setText(""+((formaPago==null)?"0":formaPago.getFactura()));
         cmbCheqBanco.setEnabled(false);
         txtNumeroCheq.setEnabled(false);
@@ -45,8 +40,6 @@ public class pantalla_forma_depago extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        buttonGroup1 = new javax.swing.ButtonGroup();
-        jLabel9 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         rbtn_efectivo = new javax.swing.JRadioButton();
         rbtntc = new javax.swing.JRadioButton();
@@ -72,9 +65,8 @@ public class pantalla_forma_depago extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         lblFactura = new javax.swing.JLabel();
 
-        jLabel9.setText("Factura Nº : ");
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setClosable(true);
+        setTitle("Forma Pago");
 
         jLabel1.setText("TIPO DE PAGO");
 
@@ -263,13 +255,11 @@ public class pantalla_forma_depago extends javax.swing.JFrame {
                     .addComponent(jLabel11))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                 .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(11, 11, 11)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(3, 3, 3)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel7)
-                            .addComponent(txtAbono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel7)
+                        .addComponent(txtAbono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel8)
                         .addComponent(txt_num_cuotas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -416,10 +406,12 @@ public class pantalla_forma_depago extends javax.swing.JFrame {
         if(!rbtnCD.isSelected()&&!rbtntc.isSelected()&&!rbtnCheque.isSelected()&&!rbtn_efectivo.isSelected()){
             JOptionPane.showMessageDialog(null, "Seleciones tipo de pago", " Tipo pago", 0);
         }else{
+            
             FormaPago fp = new FormaPago();
-            fp.setBanco(cmbCheqBanco.getSelectedItem().toString());
-            fp.setBono(Double.parseDouble(txtAbono.getText()));
-            fp.setCouta(Integer.parseInt((rbtnCD.isSelected())?txt_num_cuotas.getText():((rbtntc.isSelected())?txtCuotas.getText():"0")));
+            fp.setBanco(rbtnCheque.isSelected()?cmbCheqBanco.getSelectedItem().toString():"");
+            System.out.println("-"+txtAbono.getText()+"-");
+            fp.setBono(Double.parseDouble((rbtnCD.isSelected())?txtAbono.getText():"0"));
+            fp.setCouta(Integer.parseInt((rbtnCD.isSelected())?txt_num_cuotas.getText():((rbtntc.isSelected())?txtCuotas.getText():"1")));
             fp.setFactura((formaPago==null)?0:formaPago.getFactura());
             fp.setFecha((rbtnCheque.isSelected()&&cmbCheq.getSelectedItem().toString().equals("Afcha"))?txtFecha.getText():"");
             fp.setNumeroCheque((rbtnCheque.isSelected())?txtNumeroCheq.getText():"");
@@ -427,51 +419,16 @@ public class pantalla_forma_depago extends javax.swing.JFrame {
             fp.setValor((formaPago==null)?0:formaPago.getValor());
             
            formaPago = fp;
+           this.dispose();
         }
+        
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void cmbCheqBancoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbCheqBancoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cmbCheqBancoActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(pantalla_forma_depago.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(pantalla_forma_depago.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(pantalla_forma_depago.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(pantalla_forma_depago.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new pantalla_forma_depago().setVisible(true);
-            }
-        });
-    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGuardar;
-    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JComboBox cmbCheq;
     private javax.swing.JComboBox cmbCheqBanco;
     private javax.swing.JComboBox cmbTC;
@@ -485,7 +442,6 @@ public class pantalla_forma_depago extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel lblFactura;
     private javax.swing.JRadioButton rbtnCD;
     private javax.swing.JRadioButton rbtnCheque;
@@ -497,4 +453,9 @@ public class pantalla_forma_depago extends javax.swing.JFrame {
     private javax.swing.JTextField txtNumeroCheq;
     private javax.swing.JTextField txt_num_cuotas;
     // End of variables declaration//GEN-END:variables
+
+    public FormaPago getFormaPago() {
+        return formaPago;
+    }
+
 }

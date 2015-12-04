@@ -7,6 +7,7 @@ package com.ups.edu.ventas.model;
 
 import com.ups.edu.conexion.ConexionBD;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -25,6 +26,7 @@ public class FacturaModel {
     Connection con;
     Statement st;
     ResultSet rs;
+    PreparedStatement pst;
     
     public FacturaModel(){
         this.getconection();
@@ -216,11 +218,150 @@ public class FacturaModel {
         con = ConexionBD.GetConnection();
     }
     
+    public List<String> cargarSucurcual(){
+        String sqlBuscar = "SELECT su.`id_sucursal`,ci.`Nombre`,se.`Nombre`,su.`Direccion` FROM inv_Sucursal su JOIN inv_Sector se ON se.`id_sector` = su.`id_sector` JOIN inv_Ciudad ci ON ci.`id_ciudad` = su.`id_ciudad`";
+        List<String> surcursales = null;
+        try{
+            
+            st = con.createStatement();
+            rs = st.executeQuery(sqlBuscar);
+            surcursales = new ArrayList<>();
+            while(rs.next()){
+                String cliente = rs.getInt(1)+"-"+rs.getString(2)+" "+rs.getString(3)+" "+rs.getString(4);
+                surcursales.add(cliente);
+            }
+            
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            try{
+            if(st != null)st.close();
+            if(rs != null)rs.close();   
+           }catch(Exception e){}
+        }
+        return surcursales; 
+    }
+    
+    public int buscarFormaPago(String formapago){
+        String sqlBuscar = "SELECT codformapago FROM vta_formapago WHERE tipopago = '"+formapago+"'";
+        try{
+            st = con.createStatement();
+            rs = st.executeQuery(sqlBuscar);
+            if(rs.next()){
+                return rs.getInt(1);
+            } 
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            try{
+            if(st != null)st.close();
+            if(rs != null)rs.close();   
+           }catch(Exception e){}
+        }
+        return 0;
+    }
+    
+    public int guardarFactura(int codventa,String tipoventa,int id_personal,int codcliente,
+                String obsevacion,double subtotal,double descuento,double iva,double total,int codfrompago){
+        String sql = "insert into vta_ventas " +
+                     "  (codventa,tipoventa,id_personal,codcliente,obsevacion,subtotal,descuento,iva,total,codfrompago) " +
+                     " values (?,?,?,?,?,?,?,?,?,?)";
+        int result = 0;
+        try {
+            pst = con.prepareStatement(sql);
+            pst.setInt(1, codventa);
+            pst.setString(2, tipoventa);
+            pst.setInt(3, id_personal);
+            pst.setInt(4, codcliente);
+            pst.setString(5, obsevacion);
+            pst.setDouble(6, subtotal);
+            pst.setDouble(7, descuento);
+            pst.setDouble(8, iva);
+            pst.setDouble(9, total);
+            pst.setInt(10, codfrompago);
+            
+            result = pst.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally{
+            if(pst!=null)try {
+                pst.close();
+            } catch (SQLException ex) {
+                
+            }
+        }
+        
+        return 0;
+    }
     
     public void insterDetalleVenta(List<DetalleVentas> lista,int codVenta){
-        String sql = "";
+        String sql = " INSERT INTO vta_ventasdetalle(codventa,id_producto,secuencia,descripcion,codoferta,codpromocion,subtotal,descuento,iva,total) " +
+                     " VALUES (?,?,?,?,?,?,?,?,?,?)";
+        int seuencia = 1;
         
+        for (DetalleVentas list : lista) {
+            try {
+                pst = con.prepareStatement(sql);
+                pst.setInt(1, codVenta);
+                pst.setInt(2, list.getCodproducto());
+                pst.setInt(3, seuencia);
+                pst.setString(4, list.getDescripcion());
+                pst.setInt(5, list.getCodoferta());
+                pst.setInt(6, list.getCodpromocion());
+                pst.setDouble(7, list.getSubtotal());
+                pst.setDouble(8, list.getDescuento());
+                pst.setDouble(9, list.getIva());
+                pst.setDouble(10, list.getTotal());
+                
+                pst.executeUpdate();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }finally{
+            if(pst!=null)try {
+                pst.close();
+            } catch (SQLException ex) {
+                
+            }
+        }
+        }
+   }     
+       
+    
+    public int detallepago(FormaPago fp){
         
+        String sql = "insert into vta_pagodetalle(codformapago,secuencia,codventa,valor,numerocheque,nombrebanco,fecha,bono) values (?,?,?,?,?,?,?,?)";
+        double valor = 0 ;
+        int resul = 0;
+        for (int i = 0; i < (fp.getCouta()==0?1:fp.getCouta()); i++) {
+            if (i==0){
+                valor = fp.getValor()/fp.getCouta();
+            }
+            try {
+                pst = con.prepareStatement(sql);
+                pst.setInt(1, buscarFormaPago(fp.getTipoPago()));
+                pst.setInt(2, i+1);
+                pst.setInt(3, fp.getFactura());
+                pst.setDouble(4, valor);
+                pst.setString(5, fp.getNumeroCheque());
+                pst.setString(6, fp.getBanco());
+                pst.setString(7, fp.getFecha());
+                pst.setDouble(8, fp.getBono());
+                resul = pst.executeUpdate();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }finally{
+            if(pst!=null)try {
+                pst.close();
+            } catch (SQLException ex) {
+                
+            }
+            
+        }
     }
+        return resul;
+    }
+    
+    
+    
     
 }

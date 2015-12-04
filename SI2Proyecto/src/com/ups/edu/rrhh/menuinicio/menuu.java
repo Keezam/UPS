@@ -30,7 +30,7 @@ public class menuu extends javax.swing.JFrame {
      */
     
     private FrmVta_Ofertas frmVtaOferta = new FrmVta_Ofertas();
-    private FrmVta_Factura frmVtaFactura = new FrmVta_Factura();
+    private FrmVta_Factura frmVtaFactura;
     private FrmVta_Cliente frmVtaCliente = new FrmVta_Cliente();
     private FrmVta_Promocion frmVtaPromocion ;
     
@@ -43,6 +43,7 @@ public class menuu extends javax.swing.JFrame {
                 jMInventario.setVisible(false);
                 
     frmVtaPromocion = new FrmVta_Promocion(this.Escritorio);
+    //frmVtaFactura = new FrmVta_Factura(this.Escritorio);
     }
 Iframe1_2 objIFrame1=new Iframe1_2();
 
@@ -232,6 +233,9 @@ Iframe1_2 objIFrame1=new Iframe1_2();
     }//GEN-LAST:event_jMVta_ClienteActionPerformed
 
     private void jMVta_FacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMVta_FacturaActionPerformed
+        if(frmVtaFactura==null){
+            frmVtaFactura = new FrmVta_Factura(Escritorio);
+        }
         if(!frmVtaFactura.isShowing()){
             Escritorio.add(frmVtaFactura);
             frmVtaFactura.setLocation(280, 10);;
