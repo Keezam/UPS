@@ -516,7 +516,7 @@ public class Pruebas extends javax.swing.JFrame {
         // TODO add your handling code here:
         if(btnNuevoGuardar.getText().equals("NUEVO PROV.")){
             btnNuevoGuardar.setText("GUARDAR");
-            btnNuevoGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ups/edu/compras/resources/boton-guardar.png"))); // NOI18N
+            btnNuevoGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ups/edu/compras/resources/guardar.jpg"))); // NOI18N
             activarCamposInsert();
         }else if(btnNuevoGuardar.getText().equals("GUARDAR")){
             desactivarCamposInsert();
