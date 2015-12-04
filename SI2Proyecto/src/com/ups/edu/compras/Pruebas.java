@@ -8,6 +8,7 @@ package com.ups.edu.compras;
 import com.ups.edu.conexion.ConexionBD;
 import com.ups.edu.ventas.model.Validacion;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -48,6 +49,23 @@ public class Pruebas extends javax.swing.JFrame {
     private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
+        jDialog1 = new javax.swing.JDialog();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        rbtnEstado1 = new javax.swing.JRadioButton();
+        rbtnEstado2 = new javax.swing.JRadioButton();
+        txtTipo = new javax.swing.JTextField();
+        txtMarca = new javax.swing.JTextField();
+        txtModelo = new javax.swing.JTextField();
+        txtPrecio = new javax.swing.JTextField();
+        jLabel15 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        txtDetalles = new javax.swing.JTextArea();
+        btnAgrega2Jtable = new javax.swing.JButton();
+        buttonGroup2 = new javax.swing.ButtonGroup();
         direccion = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         telefono1 = new javax.swing.JTextField();
@@ -75,6 +93,112 @@ public class Pruebas extends javax.swing.JFrame {
         btnActualizar = new javax.swing.JButton();
         btnNuevoGuardar = new javax.swing.JButton();
         btnQuitar = new javax.swing.JButton();
+
+        jLabel10.setText("TIPO");
+
+        jLabel11.setText("MARCA");
+
+        jLabel12.setText("MODELO");
+
+        jLabel13.setText("PRECIO UNITARIO");
+
+        jLabel14.setText("ESTADO");
+
+        buttonGroup2.add(rbtnEstado1);
+        rbtnEstado1.setText("jRadioButton1");
+
+        buttonGroup2.add(rbtnEstado2);
+        rbtnEstado2.setText("jRadioButton2");
+        rbtnEstado2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtnEstado2ActionPerformed(evt);
+            }
+        });
+
+        jLabel15.setText("DETALLE");
+
+        txtDetalles.setColumns(20);
+        txtDetalles.setRows(5);
+        txtDetalles.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtDetallesKeyPressed(evt);
+            }
+        });
+        jScrollPane2.setViewportView(txtDetalles);
+
+        btnAgrega2Jtable.setText("AGREGAR");
+        btnAgrega2Jtable.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgrega2JtableActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jDialog1Layout = new javax.swing.GroupLayout(jDialog1.getContentPane());
+        jDialog1.getContentPane().setLayout(jDialog1Layout);
+        jDialog1Layout.setHorizontalGroup(
+            jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jDialog1Layout.createSequentialGroup()
+                .addGap(67, 67, 67)
+                .addGroup(jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel15)
+                    .addComponent(jLabel14)
+                    .addComponent(jLabel13)
+                    .addComponent(jLabel12)
+                    .addComponent(jLabel11)
+                    .addComponent(jLabel10))
+                .addGap(18, 18, 18)
+                .addGroup(jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jDialog1Layout.createSequentialGroup()
+                        .addGroup(jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(txtPrecio, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(rbtnEstado1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addComponent(rbtnEstado2))
+                    .addGroup(jDialog1Layout.createSequentialGroup()
+                        .addGroup(jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(txtTipo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
+                            .addComponent(txtMarca, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtModelo, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addGap(18, 18, 18)
+                        .addComponent(btnAgrega2Jtable)))
+                .addContainerGap(45, Short.MAX_VALUE))
+        );
+        jDialog1Layout.setVerticalGroup(
+            jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jDialog1Layout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addGroup(jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10)
+                    .addComponent(txtTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAgrega2Jtable))
+                .addGap(18, 18, 18)
+                .addGroup(jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel11)
+                    .addComponent(txtMarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel12)
+                    .addComponent(txtModelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel13)
+                    .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel14)
+                    .addComponent(rbtnEstado1)
+                    .addComponent(rbtnEstado2))
+                .addGroup(jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jDialog1Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel15)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jDialog1Layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE)
+                        .addContainerGap())))
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -197,6 +321,11 @@ public class Pruebas extends javax.swing.JFrame {
 
         btnAgregar.setText("AGREGAR");
         btnAgregar.setEnabled(false);
+        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarActionPerformed(evt);
+            }
+        });
 
         eliminar.setText("ELIMINAR");
         eliminar.setEnabled(false);
@@ -268,7 +397,7 @@ public class Pruebas extends javax.swing.JFrame {
                     .addComponent(btnActualizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(eliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnNuevoGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, 103, Short.MAX_VALUE))
-                .addGap(35, 35, 35))
+                .addGap(22, 22, 22))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -285,10 +414,11 @@ public class Pruebas extends javax.swing.JFrame {
                         .addComponent(btnCancelar))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(25, 25, 25)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1)
-                            .addComponent(id_proveedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(buscar))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(buscar, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel1)
+                                .addComponent(id_proveedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(18, 18, 18)
                         .addComponent(jLabel2)
                         .addGap(11, 11, 11)
@@ -364,7 +494,7 @@ public class Pruebas extends javax.swing.JFrame {
 
     private void txtCiudadKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCiudadKeyPressed
         // TODO add your handling code here:
-//        validar(evt, Validacion.SOLOLETRAS);
+        //validar(evt, Validacion.SOLOLETRAS);
     }//GEN-LAST:event_txtCiudadKeyPressed
 
     private void estado1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_estado1ActionPerformed
@@ -414,12 +544,37 @@ public class Pruebas extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnNuevoGuardarActionPerformed
 
+    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
+        // TODO add your handling code here:
+        jDialog1.setVisible(true);
+    }//GEN-LAST:event_btnAgregarActionPerformed
+
+    private void rbtnEstado2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnEstado2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rbtnEstado2ActionPerformed
+
+    private void btnAgrega2JtableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgrega2JtableActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_btnAgrega2JtableActionPerformed
+
+    private void txtDetallesKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDetallesKeyPressed
+        // TODO add your handling code here:
+        if(txtDetalles.getText().length() >= 50){
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtDetallesKeyPressed
+    
+    
+    
     private boolean insertarProveedores(){
         String insertaProveedores = "";
         String insertaProductos = "";
         try{
-            if(!consultarCiudad(txtCiudad.getText())){
+            if(consultarCiudad(txtCiudad.getText()) == false){
                 insertarCiudad(txtCiudad.getText());
+            }else{
+                
             }
             
             return true;
@@ -584,12 +739,15 @@ public class Pruebas extends javax.swing.JFrame {
 //            if (!String.valueOf(evt.getKeyChar()).matches(limite)) {
 //                evt.consume();
 //            } 
-    public void validar(KeyEvent evt, String limite) {
-        if (!String.valueOf(evt.getKeyChar()).matches(limite)) {
-            evt.consume();
-        }             
+    
+    public void validar(KeyEvent evt, String limite) {        
+        //if(!(evt.getKeyCode()==8 || evt.getKeyCode()==37 || evt.getKeyCode()==39 ||evt.getKeyCode()==127)){
+            if (!String.valueOf(evt.getKeyChar()).matches(limite)) {
+                evt.consume();
+            }             
+        //}
         System.out.println("Tecla: "+evt.getKeyCode());
-    }
+    } 
     
     /**
      * @param args the command line arguments
@@ -738,19 +896,28 @@ public class Pruebas extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizar;
+    private javax.swing.JButton btnAgrega2Jtable;
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnNuevoGuardar;
     private javax.swing.JButton btnQuitar;
     private javax.swing.JButton buscar;
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JTextField correo;
     private javax.swing.JTextField direccion;
     private javax.swing.JButton eliminar;
     private javax.swing.JRadioButton estado1;
     private javax.swing.JRadioButton estado2;
     private javax.swing.JTextField id_proveedor;
+    private javax.swing.JDialog jDialog1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -760,10 +927,18 @@ public class Pruebas extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField nombre;
+    private javax.swing.JRadioButton rbtnEstado1;
+    private javax.swing.JRadioButton rbtnEstado2;
     private javax.swing.JTable tableProductos;
     private javax.swing.JTextField telefono1;
     private javax.swing.JTextField telefono2;
     private javax.swing.JTextField txtCiudad;
+    private javax.swing.JTextArea txtDetalles;
+    private javax.swing.JTextField txtMarca;
+    private javax.swing.JTextField txtModelo;
+    private javax.swing.JTextField txtPrecio;
+    private javax.swing.JTextField txtTipo;
     // End of variables declaration//GEN-END:variables
 }
