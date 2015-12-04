@@ -551,7 +551,7 @@
     <Component class="javax.swing.JButton" name="btnQuitar">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/com/ups/edu/compras/resources/menos.png"/>
+          <Image iconType="3" name="/com/ups/edu/compras/resources/sacar.png"/>
         </Property>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>

@@ -323,7 +323,7 @@ public class Pruebas extends javax.swing.JFrame {
             }
         });
 
-        btnQuitar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ups/edu/compras/resources/menos.png"))); // NOI18N
+        btnQuitar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ups/edu/compras/resources/sacar.png"))); // NOI18N
         btnQuitar.setEnabled(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
