@@ -83,9 +83,10 @@ Iframe1_2 objIFrame1=new Iframe1_2();
         );
         EscritorioLayout.setVerticalGroup(
             EscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 358, Short.MAX_VALUE)
+            .addGap(0, 329, Short.MAX_VALUE)
         );
 
+        jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ups/edu/rrhh/menuinicio/logo-ups-home.png"))); // NOI18N
         jMenuBar1.add(jMenu1);
 
         jMenu2.setForeground(new java.awt.Color(0, 0, 102));
