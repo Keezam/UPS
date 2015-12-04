@@ -28,7 +28,6 @@ public class Pruebas extends javax.swing.JFrame {
     
     Connection conn;
     DefaultTableModel modelo;
-
     public Pruebas() {
         initComponents();
         conn = ConexionBD.GetConnection();
@@ -36,6 +35,18 @@ public class Pruebas extends javax.swing.JFrame {
             System.out.println("Conectado");
         }else{
             System.out.println("No conectado");
+        }
+        modelo = new DefaultTableModel();
+        tableProductos.setModel(modelo);
+        
+        Object parametros[] = new Object[4];
+        parametros[0]="Producto";
+        parametros[1]="Marca";
+        parametros[2]="Modelo";
+        parametros[3]="Precio";
+
+        for (int j = 0; j < parametros.length; j++) {
+            modelo.addColumn(parametros[j]);
         }
     }
 
@@ -574,28 +585,31 @@ public class Pruebas extends javax.swing.JFrame {
     
     
     private void agregarToTable(){
-        DefaultTableModel modelo = new DefaultTableModel();
-        tableProductos.setModel(modelo);
-        Object parametros[] = new Object[4];
-        parametros[0]="Producto";
-        parametros[1]="Marca";
-        parametros[2]="Modelo";
-        parametros[3]="Precio";
-
-        for (int j = 0; j < parametros.length; j++) {
-            modelo.addColumn(parametros[j]);
-        }
+        //DefaultTableModel modelo = new DefaultTableModel();
+        int filas = modelo.getRowCount();
+        System.out.println("Filas: "+filas);
+//        tableProductos.setModel(modelo);
+//        
+//        Object parametros[] = new Object[4];
+//        parametros[0]="Producto";
+//        parametros[1]="Marca";
+//        parametros[2]="Modelo";
+//        parametros[3]="Precio";
+//
+//        for (int j = 0; j < parametros.length; j++) {
+//            modelo.addColumn(parametros[j]);
+//        }
+        
         String datos [] = new String[4];
         datos[0] = txtTipo.getText();
         datos[1] = txtMarca.getText();
         datos[2] = txtModelo.getText();
         datos[3] = txtPrecio.getText();
-        int fila = modelo.getRowCount();
-        modelo.addRow(new Object[fila]);
+        modelo.addRow(new Object[filas]);
         for (int i = 0; i < modelo.getColumnCount(); i++) {
-            modelo.setValueAt(datos[i], fila, i);
+            modelo.setValueAt(datos[i], filas, i);
         }
-        fila++;
+        filas++;
     }
     
     private boolean insertarProveedores(){
@@ -613,6 +627,23 @@ public class Pruebas extends javax.swing.JFrame {
             System.out.println("Error en ingresar proveedor: "+e.getMessage());
             return false;
         }
+    }
+    
+    private boolean consultarMarca(){
+        try{
+            String consultaMarca = "select `id_modelo` from `inv_Modelo_Producto` where `nombre`='"+txtMarca.getText()+"'";
+            return true;
+        }catch(Exception e){
+            return false;
+        }
+    }
+    private boolean consultarTipo(){
+        String consultaTipo = "select `id_tipo` from `inv_Tipo_Producto` where `nombre`='"+txtTipo.getText()+"'";
+        return true;
+    }
+    private boolean consultarModelo(){
+        String consultaModelo = "select `id_marca` from `inv_Marca_Producto` where `nombre`='"+txtModelo.getText()+"'";
+        return true;
     }
     
     private void insertarCiudad(String ciudad){
@@ -649,7 +680,7 @@ public class Pruebas extends javax.swing.JFrame {
     private void getProveedor(String cedula_proveedor){
         cambiarEstadoBotones();
         int i = 0;
-        DefaultTableModel modelo = new DefaultTableModel();
+        //DefaultTableModel modelo = new DefaultTableModel();
         String consultaProveedor = 
                 "SELECT  `id_producto` , `id_ciudad` , `nombre`, `direccion` , `telefono1` , `telefono2` , `correo` , `estado` "
                 + "FROM  `cmprv_provedores` where `cedula_proveedor` = '"+cedula_proveedor+"'";
@@ -657,7 +688,7 @@ public class Pruebas extends javax.swing.JFrame {
         String [] dataProveedorString = new String[5];
         Integer [] dataProveedorInt = new Integer[4];
         try{
-            tableProductos.setModel(modelo);
+            //tableProductos.setModel(modelo);
             CallableStatement cs = conn.prepareCall(consultaProveedor);
             ResultSet rs = cs.executeQuery();
             while(rs.next()){
@@ -721,15 +752,15 @@ public class Pruebas extends javax.swing.JFrame {
                 }
                 datos[3] = precio[0];
                 
-                Object parametros[] = new Object[4];
-                parametros[0]="Producto";
-                parametros[1]="Marca";
-                parametros[2]="Modelo";
-                parametros[3]="Precio";
-                
-                for (int j = 0; j < parametros.length; j++) {
-                    modelo.addColumn(parametros[j]);
-                }
+//                Object parametros[] = new Object[4];
+//                parametros[0]="Producto";
+//                parametros[1]="Marca";
+//                parametros[2]="Modelo";
+//                parametros[3]="Precio";
+//                
+//                for (int j = 0; j < parametros.length; j++) {
+//                    modelo.addColumn(parametros[j]);
+//                }
                 modelo.addRow(datos);
             }
 
@@ -751,15 +782,15 @@ public class Pruebas extends javax.swing.JFrame {
             }
             
         }catch(Exception e){
-            Object parametros[] = new Object[4];
-            parametros[0]="Producto";
-            parametros[1]="Marca";
-            parametros[2]="Modelo";
-            parametros[3]="Precio";
-
-            for (int j = 0; j < parametros.length; j++) {
-                modelo.addColumn(parametros[j]);
-            }
+//            Object parametros[] = new Object[4];
+//            parametros[0]="Producto";
+//            parametros[1]="Marca";
+//            parametros[2]="Modelo";
+//            parametros[3]="Precio";
+//
+//            for (int j = 0; j < parametros.length; j++) {
+//                modelo.addColumn(parametros[j]);
+//            }
             JOptionPane.showMessageDialog(this, "El proveedor a consultar no se encuentra registrado o el valor ingresado es nulo", "Error", JOptionPane.WARNING_MESSAGE);
             cambiarConError();
         }
@@ -855,8 +886,8 @@ public class Pruebas extends javax.swing.JFrame {
             estado1.setEnabled(false);estado1.setSelected(false);
             estado2.setEnabled(false);estado2.setSelected(false);
 
-            for (int i = 0; i < modelo.getRowCount(); i++) {
-                modelo.removeRow(i);
+            while(modelo.getRowCount()>0){
+                 modelo.removeRow(0);
             }
 
             if(btnNuevoGuardar.getText().equals("GUARDAR")){
@@ -882,8 +913,8 @@ public class Pruebas extends javax.swing.JFrame {
             estado1.setEnabled(false);estado1.setSelected(false);
             estado2.setEnabled(false);estado2.setSelected(false);
             try{
-                for (int i = 0; i < modelo.getRowCount(); i++) {
-                    modelo.removeRow(i);
+                while(modelo.getRowCount()>0){
+                    modelo.removeRow(0);
                 }
             }catch(NullPointerException ex){}
             
