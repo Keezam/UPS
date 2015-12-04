@@ -24,7 +24,7 @@
                       <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Component id="txtPrecio" alignment="0" min="-2" pref="93" max="-2" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="1" max="-2" attributes="0">
@@ -33,11 +33,11 @@
                               <Component id="txtModelo" alignment="0" min="-2" pref="191" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="btnAgrega2Jtable" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnAgrega2Jtable" pref="0" max="32767" attributes="0"/>
                       </Group>
                       <Component id="jScrollPane2" alignment="0" min="-2" pref="235" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="15" max="32767" attributes="0"/>
+                  <EmptySpace pref="83" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -133,7 +133,9 @@
         </Container>
         <Component class="javax.swing.JButton" name="btnAgrega2Jtable">
           <Properties>
-            <Property name="text" type="java.lang.String" value="AGREGAR"/>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/com/ups/edu/compras/resources/anadir.png"/>
+            </Property>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAgrega2JtableActionPerformed"/>
@@ -376,8 +378,8 @@
               <Table columnCount="4" rowCount="0">
                 <Column editable="false" title="Producto" type="java.lang.Object"/>
                 <Column editable="false" title="Marca" type="java.lang.Object"/>
-                <Column editable="false" title="Precio" type="java.lang.Object"/>
                 <Column editable="false" title="Modelo" type="java.lang.Object"/>
+                <Column editable="false" title="Precio" type="java.lang.Object"/>
               </Table>
             </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">

@@ -37,7 +37,6 @@ public class Pruebas extends javax.swing.JFrame {
         }else{
             System.out.println("No conectado");
         }
-        modelo = new DefaultTableModel();
     }
 
     /**
@@ -117,7 +116,7 @@ public class Pruebas extends javax.swing.JFrame {
         jScrollPane2.setViewportView(txtDetalles);
         txtDetalles.setLineWrap(true);
 
-        btnAgrega2Jtable.setText("AGREGAR");
+        btnAgrega2Jtable.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ups/edu/compras/resources/anadir.png"))); // NOI18N
         btnAgrega2Jtable.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAgrega2JtableActionPerformed(evt);
@@ -137,7 +136,7 @@ public class Pruebas extends javax.swing.JFrame {
                     .addComponent(jLabel11)
                     .addComponent(jLabel10))
                 .addGap(18, 18, 18)
-                .addGroup(jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jDialog1Layout.createSequentialGroup()
                         .addGroup(jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -145,9 +144,9 @@ public class Pruebas extends javax.swing.JFrame {
                             .addComponent(txtMarca, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtModelo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addComponent(btnAgrega2Jtable))
+                        .addComponent(btnAgrega2Jtable, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(83, Short.MAX_VALUE))
         );
         jDialog1Layout.setVerticalGroup(
             jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -218,7 +217,7 @@ public class Pruebas extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Producto", "Marca", "Precio", "Modelo"
+                "Producto", "Marca", "Modelo", "Precio"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -575,14 +574,28 @@ public class Pruebas extends javax.swing.JFrame {
     
     
     private void agregarToTable(){
+        DefaultTableModel modelo = new DefaultTableModel();
+        tableProductos.setModel(modelo);
+        Object parametros[] = new Object[4];
+        parametros[0]="Producto";
+        parametros[1]="Marca";
+        parametros[2]="Modelo";
+        parametros[3]="Precio";
+
+        for (int j = 0; j < parametros.length; j++) {
+            modelo.addColumn(parametros[j]);
+        }
         String datos [] = new String[4];
         datos[0] = txtTipo.getText();
         datos[1] = txtMarca.getText();
         datos[2] = txtModelo.getText();
-        datos[3] = txtPrecio.getText();        
-        for (int j = 0; j < tableProductos.getColumnCount(); j++) {
-            
+        datos[3] = txtPrecio.getText();
+        int fila = modelo.getRowCount();
+        modelo.addRow(new Object[fila]);
+        for (int i = 0; i < modelo.getColumnCount(); i++) {
+            modelo.setValueAt(datos[i], fila, i);
         }
+        fila++;
     }
     
     private boolean insertarProveedores(){
@@ -636,7 +649,7 @@ public class Pruebas extends javax.swing.JFrame {
     private void getProveedor(String cedula_proveedor){
         cambiarEstadoBotones();
         int i = 0;
-        
+        DefaultTableModel modelo = new DefaultTableModel();
         String consultaProveedor = 
                 "SELECT  `id_producto` , `id_ciudad` , `nombre`, `direccion` , `telefono1` , `telefono2` , `correo` , `estado` "
                 + "FROM  `cmprv_provedores` where `cedula_proveedor` = '"+cedula_proveedor+"'";
@@ -848,6 +861,7 @@ public class Pruebas extends javax.swing.JFrame {
 
             if(btnNuevoGuardar.getText().equals("GUARDAR")){
                 btnNuevoGuardar.setText("NUEVO PROV.");
+                btnNuevoGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ups/edu/compras/resources/nuevousuario.png"))); // NOI18N
             }
 
             btnNuevoGuardar.setEnabled(true);
@@ -875,6 +889,7 @@ public class Pruebas extends javax.swing.JFrame {
             
             if(btnNuevoGuardar.getText().equals("GUARDAR")){
                 btnNuevoGuardar.setText("NUEVO PROV.");
+                btnNuevoGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ups/edu/compras/resources/nuevousuario.png"))); // NOI18N
             }
 
             btnNuevoGuardar.setEnabled(true);
