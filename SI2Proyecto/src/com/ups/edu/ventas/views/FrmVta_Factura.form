@@ -505,7 +505,7 @@
     <Component class="javax.swing.JButton" name="jButton6">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/com/ups/edu/compras/resources/a&#xf1;adir.png"/>
+          <Image iconType="3" name="/com/ups/edu/compras/resources/anadir.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Pagos"/>
       </Properties>

@@ -260,7 +260,7 @@ public class FrmVta_Factura extends javax.swing.JInternalFrame {
         txtObservacion.setRows(5);
         jScrollPane3.setViewportView(txtObservacion);
 
-        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ups/edu/compras/resources/añadir.png"))); // NOI18N
+        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ups/edu/compras/resources/anadir.png"))); // NOI18N
         jButton6.setText("Pagos");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
