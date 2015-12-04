@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.ups.edu.ventas.views;;
+package com.ups.edu.ventas.views;
 
 import com.ups.edu.conexion.ConexionBD;
 import com.ups.edu.ventas.model.Validacion;
@@ -18,24 +18,25 @@ import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.sql.rowset.CachedRowSet;
+import javax.swing.JDesktopPane;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * Proyecto SI2 Modulo Ventas - Ofertas
+ * @author Admin
  */
-public class Promocion extends javax.swing.JFrame {
+public class FrmVta_Promocion extends javax.swing.JInternalFrame {
 
     /**
-     *
+     * Creates new form FrmVta_Promocion
      */
-    
     Statement st;
     ResultSet rs ;
     DefaultTableModel model;
     Connection cn = ConexionBD.GetConnection();
-    
+    JDesktopPane escritorioPromo;
+    FrmVta_PromocionArticulo frmPromoArticulo ;
     
 
     public void validar(KeyEvent evt, String limite) {
@@ -56,13 +57,14 @@ public class Promocion extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }
-
-    public Promocion() {
+    
+    public FrmVta_Promocion(JDesktopPane escritorio) {
         initComponents();
-        this.setLocationRelativeTo(null);
+        escritorioPromo = escritorio;
         this.setTitle("Ingreso y Consulta de Promociones");
         cargarIdPromocion();
         cargarTabla();
+        frmPromoArticulo = new FrmVta_PromocionArticulo();
     }
 
     public void Limpiar() {
@@ -160,7 +162,7 @@ public class Promocion extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         lblPromocion = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setClosable(true);
 
         jLabel1.setText("Codigo Promoción:");
 
@@ -512,60 +514,14 @@ public class Promocion extends javax.swing.JFrame {
     }//GEN-LAST:event_cmbEstadoActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
-        
+        System.out.println(""+escritorioPromo);
+        if(!frmPromoArticulo.isShowing()){
+            escritorioPromo.add(frmPromoArticulo);
+            frmPromoArticulo.setLocation(280, 10);
+            frmPromoArticulo.show();
+        }
         
     }//GEN-LAST:event_jButton1ActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Promocion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Promocion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Promocion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Promocion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Promocion().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizar;

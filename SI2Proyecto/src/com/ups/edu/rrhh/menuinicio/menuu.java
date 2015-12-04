@@ -8,6 +8,7 @@ package com.ups.edu.rrhh.menuinicio;
 import com.ups.edu.ventas.views.FrmVta_Cliente;
 import com.ups.edu.ventas.views.FrmVta_Factura;
 import com.ups.edu.ventas.views.FrmVta_Ofertas;
+import com.ups.edu.ventas.views.FrmVta_Promocion;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -31,6 +32,7 @@ public class menuu extends javax.swing.JFrame {
     private FrmVta_Ofertas frmVtaOferta = new FrmVta_Ofertas();
     private FrmVta_Factura frmVtaFactura = new FrmVta_Factura();
     private FrmVta_Cliente frmVtaCliente = new FrmVta_Cliente();
+    private FrmVta_Promocion frmVtaPromocion ;
     
     public menuu() {
         initComponents();
@@ -39,6 +41,8 @@ public class menuu extends javax.swing.JFrame {
                 jMCompras.setVisible(false);
                 jMVentas.setVisible(false);
                 jMInventario.setVisible(false);
+                
+    frmVtaPromocion = new FrmVta_Promocion(this.Escritorio);
     }
 Iframe1_2 objIFrame1=new Iframe1_2();
 
@@ -83,9 +87,10 @@ Iframe1_2 objIFrame1=new Iframe1_2();
         );
         EscritorioLayout.setVerticalGroup(
             EscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 358, Short.MAX_VALUE)
+            .addGap(0, 329, Short.MAX_VALUE)
         );
 
+        jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ups/edu/rrhh/menuinicio/logo-ups-home.png"))); // NOI18N
         jMenuBar1.add(jMenu1);
 
         jMenu2.setForeground(new java.awt.Color(0, 0, 102));
@@ -151,6 +156,11 @@ Iframe1_2 objIFrame1=new Iframe1_2();
         jMVentas.add(jMVta_Oferta);
 
         jMVta_Promocion.setText("Promocion");
+        jMVta_Promocion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMVta_PromocionActionPerformed(evt);
+            }
+        });
         jMVentas.add(jMVta_Promocion);
 
         jMVta_Factura.setText("Factura");
@@ -232,10 +242,18 @@ Iframe1_2 objIFrame1=new Iframe1_2();
     private void jMVta_OfertaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMVta_OfertaActionPerformed
         if(!frmVtaOferta.isShowing()){
             Escritorio.add(frmVtaOferta);
-            frmVtaOferta.setLocation(280, 10);;
+            frmVtaOferta.setLocation(280, 10);
             frmVtaOferta.show();
         }
     }//GEN-LAST:event_jMVta_OfertaActionPerformed
+
+    private void jMVta_PromocionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMVta_PromocionActionPerformed
+        if(!frmVtaPromocion.isShowing()){
+            Escritorio.add(frmVtaPromocion);
+            frmVtaPromocion.setLocation(280, 10);
+            frmVtaPromocion.show();
+        }
+    }//GEN-LAST:event_jMVta_PromocionActionPerformed
 
     /**
      * @param args the command line arguments
