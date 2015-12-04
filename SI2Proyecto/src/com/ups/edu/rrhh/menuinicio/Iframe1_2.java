@@ -46,38 +46,36 @@ public class Iframe1_2 extends javax.swing.JInternalFrame {
             if(c.equalsIgnoreCase("1")){
                 JOptionPane.showMessageDialog(null, "Bienvenido Recursos Humanos");
                 this.setVisible(false);
-                jTextField1.setText("");
+                txtcuenta.setText("");
                 jPasswordField1.setText("");
                 jMRecHum.setVisible(true);
-                
-                                           
-            }else if(c.equalsIgnoreCase("2")){
+           }else if(c.equalsIgnoreCase("2")){
                 JOptionPane.showMessageDialog(null, "Bienvenido Financiero" );
                  this.setVisible(false);
-                 jTextField1.setText("");
+                 txtcuenta.setText("");
                   jPasswordField1.setText("");
                   jMFinanciero.setVisible(true);                
             } else if(c.equalsIgnoreCase("3")){
                 JOptionPane.showMessageDialog(null, "Bienvenido Compras" );
                  this.setVisible(false);
-                 jTextField1.setText("");
+                 txtcuenta.setText("");
                   jPasswordField1.setText("");
                   jMCompras.setVisible(true);
             } else if(c.equalsIgnoreCase("4")){
                 JOptionPane.showMessageDialog(null, "Bienvenido Ventas" );
                  this.setVisible(false);
-                 jTextField1.setText("");
+                 txtcuenta.setText("");
                   jPasswordField1.setText("");
                   jMVentas.setVisible(true);
             }else if(c.equalsIgnoreCase("5")){
                 JOptionPane.showMessageDialog(null, "Bienvenido Inventario" );
                  this.setVisible(false);
-                 jTextField1.setText("");
+                 txtcuenta.setText("");
                   jPasswordField1.setText("");
                   jMInventario.setVisible(true);
             } else{
             JOptionPane.showMessageDialog(null, "NO EXISTE CUENTA","Error",JOptionPane.WARNING_MESSAGE);
-            jTextField1.setText("");
+            txtcuenta.setText("");
             jPasswordField1.setText("");
             }
             
@@ -97,7 +95,7 @@ public class Iframe1_2 extends javax.swing.JInternalFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtcuenta = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jPasswordField1 = new javax.swing.JPasswordField();
@@ -113,9 +111,9 @@ public class Iframe1_2 extends javax.swing.JInternalFrame {
 
         jLabel2.setText("Cuenta:");
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        txtcuenta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                txtcuentaActionPerformed(evt);
             }
         });
 
@@ -150,7 +148,7 @@ public class Iframe1_2 extends javax.swing.JInternalFrame {
                                     .addComponent(jLabel2))
                                 .addGap(30, 30, 30)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextField1)
+                                    .addComponent(txtcuenta)
                                     .addComponent(jPasswordField1))))))
                 .addGap(50, 50, 50))
         );
@@ -162,7 +160,7 @@ public class Iframe1_2 extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtcuenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -175,15 +173,15 @@ public class Iframe1_2 extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        jTextField1.requestFocus();
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    private void txtcuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtcuentaActionPerformed
+        txtcuenta.requestFocus();
+    }//GEN-LAST:event_txtcuentaActionPerformed
 JPasswordField password = new JPasswordField();
 JPasswordField jtextField2 = new JPasswordField(10);
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         String c=""; 
-        String cuenta=jTextField1.getText(); 
+        String cuenta=txtcuenta.getText(); 
         String clave= jPasswordField1.getText();
         try{
             ingresar(cuenta,clave);
@@ -199,7 +197,7 @@ JPasswordField jtextField2 = new JPasswordField(10);
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPasswordField jPasswordField1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField txtcuenta;
     // End of variables declaration//GEN-END:variables
 ConexionBD cc = new ConexionBD();
 Connection cn=cc.GetConnection();
