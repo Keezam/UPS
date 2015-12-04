@@ -287,6 +287,7 @@ public class Iframe2_2 extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         txtnombre.setText("");
         txtapellido.setText("");
+        txtcedula.setText("");
         txtciudad.setText("");
         txtdireccion.setText("");
         txtemail.setText("");
@@ -325,14 +326,23 @@ public class Iframe2_2 extends javax.swing.JInternalFrame {
         }else if (txttelefono.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "INGRESE TELEFONO","Error",JOptionPane.WARNING_MESSAGE);
         }else{
-//        daoComputador obj = new daoComputador();
-//        Combo cb1 = (Combo) cmbMarcas.getSelectedItem();
-//        int idmarcas = cb1.getCodigo();
-//        Combo cb2 = (Combo) cmbOperador.getSelectedItem();
-//        int idoperador = cb2.getCodigo();
-//        obj.Insertar(new Computador(idmarcas,idoperador, txtComputador.getText(), txtDescripcion.getText(), txtModelo.getText()));
+        daoPersonal obj = new daoPersonal();
+        Combo cb1 = (Combo) jComboBox1.getSelectedItem();
+        int idcargo = cb1.getCodigo();
+        Combo cb2 = (Combo) jComboBox2.getSelectedItem();
+        int iddep = cb2.getCodigo();
+        Combo cb3 = (Combo) jComboBox3.getSelectedItem();
+        int idsueldo = cb3.getCodigo();
+        Combo cb4 = (Combo) jComboBox4.getSelectedItem();
+        int idbanco = cb4.getCodigo();
+//        obj.Insertar(new personal(idcargo, iddep, idsueldo,idbanco,txtnombre.getText(),
+//                txtapellido.getText(),txtcedula.getText(),txtciudad.getText(),
+//                txtdireccion.getText(),txttelefono.getText(),txtemail.getText(),
+//                txtestadocivil.getText(),txtgenero.getText(),
+//                txtfechanac.getText()));
         txtnombre.setText("");
         txtapellido.setText("");
+        txtcedula.setText("");
         txtciudad.setText("");
         txtdireccion.setText("");
         txtemail.setText("");
@@ -382,30 +392,37 @@ public class Iframe2_2 extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtnombre;
     private javax.swing.JTextField txttelefono;
     // End of variables declaration//GEN-END:variables
+        
+    private void dameCargo() throws SQLException {
         ConexionBD cn = new ConexionBD();
         Connection conn = cn.GetConnection();
         ResultSet rs;
-    private void dameCargo() throws SQLException {
         String sql = "SELECT nombre FROM rrhh_cargo";
         PreparedStatement sqls = conn.prepareStatement(sql);
         rs = sqls.executeQuery();
         while(rs.next()){
             cargo ca = new cargo();
-            ca.setNombre(rs.getString("Nombre"));
+            ca.setNombre(rs.getString("nombre"));
             jComboBox1.addItem(ca+"");
         }
     }
     private void dameDepartamento() throws SQLException {
+        ConexionBD cn = new ConexionBD();
+        Connection conn = cn.GetConnection();
+        ResultSet rs;
         String sql = "SELECT nombre FROM rrhh_departamento";
         PreparedStatement sqls = conn.prepareStatement(sql);
         rs = sqls.executeQuery();
         while(rs.next()){
             depa de = new depa();
-            de.setNombre(rs.getString("Nombre"));
+            de.setNombre(rs.getString("nombre"));
             jComboBox2.addItem(de+"");
         }
     }
     private void dameSueldo() throws SQLException {
+        ConexionBD cn = new ConexionBD();
+        Connection conn = cn.GetConnection();
+        ResultSet rs;
         String sql = "SELECT cantidad FROM rrhh_sueldo";
         PreparedStatement sqls = conn.prepareStatement(sql);
         rs = sqls.executeQuery();
@@ -416,6 +433,9 @@ public class Iframe2_2 extends javax.swing.JInternalFrame {
         }
     }   
     private void dameBanco() throws SQLException {
+        ConexionBD cn = new ConexionBD();
+        Connection conn = cn.GetConnection();
+        ResultSet rs;
         String sql = "SELECT nombre FROM rrhh_banco";
         PreparedStatement sqls = conn.prepareStatement(sql);
         rs = sqls.executeQuery();

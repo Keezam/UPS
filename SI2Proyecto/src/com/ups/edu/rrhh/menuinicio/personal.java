@@ -2,18 +2,10 @@
 package com.ups.edu.rrhh.menuinicio;
 
 public class personal {
-   private int id_personal,id_cargo,id_departamento,id_sueldo,id_banco;
+   private int id_cargo,id_departamento,id_sueldo,id_banco;
     private String nombre,apellido,cedula,ciudad,direccion,telefono,email,estado_civil,genero,fecha_nac;  
 
-    public int getId_personal() {
-        return id_personal;
-    }
-
-    public void setId_personal(int id_personal) {
-        this.id_personal = id_personal;
-    }
-
-    public int getId_cargo() {
+      public int getId_cargo() {
         return id_cargo;
     }
 
