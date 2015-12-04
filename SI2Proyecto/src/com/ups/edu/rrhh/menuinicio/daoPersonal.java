@@ -13,9 +13,9 @@ public class daoPersonal {
         try {
                 //Conectar a mysql
                 Connection con = ConexionBD.GetConnection();
-                String sql="INSERT INTO rrhh_datos_personales("
+                String sql="INSERT INTO rrhh_datos_personales(id_cargo,id_departamento,id_sueldo,id_banco,"
                         + "nombre,apellido,cedula,ciudad,direccion,telefono,"
-                        + "email,estado_civil,genero,fecha_nac,id_cargo,id_departamento,id_sueldo,id_banco) "
+                        + "email,estado_civil,genero,fecha_nac) "
                         + "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
                 PreparedStatement ps = con.prepareStatement(sql); //PreparedStatement permite trabajar con sent. SQL            
                 ps.setString(1, obj.getNombre());
@@ -27,11 +27,11 @@ public class daoPersonal {
                 ps.setString(7, obj.getEmail());
                 ps.setString(8, obj.getEstado_civil());
                 ps.setString(9, obj.getGenero());
-                ps.setString(9, obj.getFecha_nac());
-                ps.setInt(10, obj.getId_cargo());
-                ps.setInt(11, obj.getId_departamento());
-                ps.setInt(12, obj.getId_sueldo());
-                ps.setInt(13, obj.getId_banco());
+                ps.setString(10, obj.getFecha_nac());
+                ps.setInt(11, obj.getId_cargo());
+                ps.setInt(12, obj.getId_departamento());
+                ps.setInt(13, obj.getId_sueldo());
+                ps.setInt(14, obj.getId_banco());
                 
                 int id = ps.executeUpdate();// Insert, Delete, Update trabajo con esecuteUpdate, Select solo trabajo con execute
                 JOptionPane.showMessageDialog(null, "Guardado"+id);
