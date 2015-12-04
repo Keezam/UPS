@@ -421,8 +421,8 @@ public class Iframe2_2 extends javax.swing.JInternalFrame {
         rs = sqls.executeQuery();
         while(rs.next()){
             banco b = new banco();
-           b.setNombre(rs.getString("nombre"));
-            jComboBox4.addItem(rs.getInt("nombre")+"");
+            b.setNombre(rs.getString("nombre"));
+            jComboBox4.addItem(b+"");
         }
     } 
 }

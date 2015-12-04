@@ -10,7 +10,7 @@ public class banco {
 
     @Override
     public String toString() {
-        return tipo_cuenta;
+        return nombre;
     }
 
     public Integer getId_banco() {
