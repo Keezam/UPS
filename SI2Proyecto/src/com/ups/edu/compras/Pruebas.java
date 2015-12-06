@@ -12,6 +12,9 @@ import java.io.IOException;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -112,6 +115,12 @@ public class Pruebas extends javax.swing.JFrame {
 
         jLabel13.setText("PRECIO UNITARIO");
 
+        txtPrecio.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtPrecioKeyTyped(evt);
+            }
+        });
+
         jLabel15.setText("DETALLE");
 
         txtDetalles.setColumns(20);
@@ -193,6 +202,9 @@ public class Pruebas extends javax.swing.JFrame {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 direccionKeyPressed(evt);
             }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                direccionKeyTyped(evt);
+            }
         });
 
         jLabel7.setText("TELEFONO");
@@ -202,6 +214,9 @@ public class Pruebas extends javax.swing.JFrame {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 telefono1KeyPressed(evt);
             }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                telefono1KeyTyped(evt);
+            }
         });
 
         telefono2.setEnabled(false);
@@ -209,12 +224,18 @@ public class Pruebas extends javax.swing.JFrame {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 telefono2KeyPressed(evt);
             }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                telefono2KeyTyped(evt);
+            }
         });
 
         correo.setEnabled(false);
         correo.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 correoKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                correoKeyTyped(evt);
             }
         });
 
@@ -282,6 +303,9 @@ public class Pruebas extends javax.swing.JFrame {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 id_proveedorKeyPressed(evt);
             }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                id_proveedorKeyTyped(evt);
+            }
         });
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -295,6 +319,9 @@ public class Pruebas extends javax.swing.JFrame {
         nombre.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 nombreKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                nombreKeyTyped(evt);
             }
         });
 
@@ -324,6 +351,11 @@ public class Pruebas extends javax.swing.JFrame {
         btnActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ups/edu/compras/resources/actualizar.png"))); // NOI18N
         btnActualizar.setText("ACTUALIZAR");
         btnActualizar.setEnabled(false);
+        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarActionPerformed(evt);
+            }
+        });
 
         btnNuevoGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ups/edu/compras/resources/nuevousuario.png"))); // NOI18N
         btnNuevoGuardar.setText("NUEVO PROV.");
@@ -461,21 +493,24 @@ public class Pruebas extends javax.swing.JFrame {
     private void direccionKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_direccionKeyPressed
         // TODO add your handling code here:
 //        validar(evt, Validacion.NUMEROSLETRAS);
+        
     }//GEN-LAST:event_direccionKeyPressed
 
     private void telefono1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_telefono1KeyPressed
         // TODO add your handling code here:
-//        validar(evt, Validacion.SOLONUMEROS);
+        //isNumber(evt);
     }//GEN-LAST:event_telefono1KeyPressed
 
     private void telefono2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_telefono2KeyPressed
         // TODO add your handling code here:
 //        validar(evt, Validacion.SOLONUMEROS);
+        //isNumber(evt);
     }//GEN-LAST:event_telefono2KeyPressed
 
     private void correoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_correoKeyPressed
         // TODO add your handling code here:
 //        validar(evt, Validacion.CORREO);
+        
     }//GEN-LAST:event_correoKeyPressed
 
     private void buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarActionPerformed
@@ -489,7 +524,7 @@ public class Pruebas extends javax.swing.JFrame {
 
     private void txtCiudadKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCiudadKeyPressed
         // TODO add your handling code here:
-        //validar(evt, Validacion.SOLOLETRAS);
+        //isLetter(evt);
     }//GEN-LAST:event_txtCiudadKeyPressed
 
     private void estado1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_estado1ActionPerformed
@@ -502,8 +537,8 @@ public class Pruebas extends javax.swing.JFrame {
 
     private void id_proveedorKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_id_proveedorKeyPressed
         // TODO add your handling code here:
+        //isLetter(evt);
         try{
-//            validar(evt, Validacion.SOLONUMEROS);
             if(evt.getKeyCode() == 10){
                 getProveedor(id_proveedor.getText());
             }
@@ -515,6 +550,7 @@ public class Pruebas extends javax.swing.JFrame {
     private void nombreKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nombreKeyPressed
         // TODO add your handling code here:
 //        validar(evt, Validacion.SOLOLETRAS);
+        //isLetter(evt);
     }//GEN-LAST:event_nombreKeyPressed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
@@ -525,6 +561,7 @@ public class Pruebas extends javax.swing.JFrame {
     private void btnNuevoGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoGuardarActionPerformed
         // TODO add your handling code here:
         if(btnNuevoGuardar.getText().equals("NUEVO PROV.")){
+            id_proveedor.setText("");
             btnNuevoGuardar.setText("GUARDAR");
             btnNuevoGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ups/edu/compras/resources/guardar.jpg"))); // NOI18N
             activarCamposInsert();
@@ -536,7 +573,7 @@ public class Pruebas extends javax.swing.JFrame {
             if(resultado){
                 JOptionPane.showMessageDialog(this, "Dato ingresados correctamente","Información",JOptionPane.INFORMATION_MESSAGE);
             }else if(!resultado){
-                JOptionPane.showMessageDialog(this, "Error en la inerción, formato incorrecto","Error",JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Error en la inserción, formato incorrecto","Error",JOptionPane.WARNING_MESSAGE);
             }
         }
     }//GEN-LAST:event_btnNuevoGuardarActionPerformed
@@ -558,32 +595,115 @@ public class Pruebas extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_txtDetallesKeyPressed
 
+    ///Dede aaqui validacion correcta
+    
     private void txtCiudadKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCiudadKeyTyped
         // TODO add your handling code here:
-        if(isNumeric(String.valueOf(evt.getKeyChar()))){
-            evt.consume();
-        }
-        
+        isLetter(evt);
     }//GEN-LAST:event_txtCiudadKeyTyped
 
     private void txtDetallesKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDetallesKeyTyped
         // TODO add your handling code here:
-        if(txtDetalles.getText().length() >= 50){
+    }//GEN-LAST:event_txtDetallesKeyTyped
+
+    
+    private void id_proveedorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_id_proveedorKeyTyped
+        // TODO add your handling code here:
+        isNumber(evt);
+    }//GEN-LAST:event_id_proveedorKeyTyped
+
+    private void nombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nombreKeyTyped
+        // TODO add your handling code here:
+        isLetter(evt);
+    }//GEN-LAST:event_nombreKeyTyped
+
+    private void direccionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_direccionKeyTyped
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+        if(!Character.isDigit(c) || !Character.isLetter(c)){
+            getToolkit().beep();
             evt.consume();
         }
-    }//GEN-LAST:event_txtDetallesKeyTyped
-    private boolean isNumeric(String a ){      
-        try {
-            Integer.parseInt(a);
-            return true;
-         }catch(NumberFormatException ex){
-         
-    
-            return false;
+    }//GEN-LAST:event_direccionKeyTyped
+
+    private void telefono1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_telefono1KeyTyped
+        // TODO add your handling code here:
+        isNumber(evt);
+    }//GEN-LAST:event_telefono1KeyTyped
+
+    private void telefono2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_telefono2KeyTyped
+        // TODO add your handling code here:
+        isNumber(evt);
+    }//GEN-LAST:event_telefono2KeyTyped
+
+    private void correoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_correoKeyTyped
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_correoKeyTyped
+
+    private void txtPrecioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrecioKeyTyped
+        // TODO add your handling code here:
+        isDecimal(evt);
+    }//GEN-LAST:event_txtPrecioKeyTyped
+
+    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
+        // TODO add your handling code here:
+        if(btnActualizar.getText().equals("ACTUALIZAR")){
+            btnActualizar.setText("GUARDAR");
+            btnActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ups/edu/compras/resources/guardar.jpg"))); // NOI18N
+            activarCamposInsert();
+        }else if(btnActualizar.getText().equals("GUARDAR")){
+            desactivarCamposInsert();
+            btnActualizar.setText("NUEVO PROV.");
+            btnActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ups/edu/compras/resources/actualizar.png"))); // NOI18N
+            boolean resultado = insertarProveedores();
+            if(resultado){
+                JOptionPane.showMessageDialog(this, "Dato actualizados correctamente","Información",JOptionPane.INFORMATION_MESSAGE);
+            }else if(!resultado){
+                JOptionPane.showMessageDialog(this, "Error en la actualizacion, formato incorrecto","Error",JOptionPane.WARNING_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_btnActualizarActionPerformed
+
+    private void isDecimal(KeyEvent e){
+        char c = e.getKeyChar();
+        if(Character.isLetter(c)){
+            getToolkit().beep();
+            e.consume();
+        }
+        if( !(c == ',') || !(c == '.') ){
+            getToolkit().beep();
+            e.consume();
         }
     }
     
+    private void isLetter(KeyEvent e){
+        char c=e.getKeyChar(); 
+        if(Character.isDigit(c)) { 
+            getToolkit().beep(); 
+            e.consume(); 
+        } 
+    }
     
+    private void isNumber(KeyEvent e){
+        char c=e.getKeyChar(); 
+        if(Character.isLetter(c)) { 
+            getToolkit().beep();  
+            e.consume(); 
+        } 
+    }
+    
+//    private boolean isNumeric(String a ){      
+//        try {
+//            Integer.parseInt(a);
+//            return true;
+//         }catch(NumberFormatException ex){
+//         
+//    
+//            return false;
+//        }
+//    }
+//    
     private void agregarToTable(){
         //DefaultTableModel modelo = new DefaultTableModel();
         int filas = modelo.getRowCount();
@@ -614,13 +734,28 @@ public class Pruebas extends javax.swing.JFrame {
     
     private boolean insertarProveedores(){
         String insertaProveedores = "";
-        String insertaProductos = "";
         try{
-            if(consultarCiudad(txtCiudad.getText()) == false){
+            int ciudad =  consultarCiudad(txtCiudad.getText());
+            int marca =consultarMarca(txtMarca.getText());
+            int tipo = consultarTipo(txtTipo.getText());
+            int modeloP = consultarModelo(txtModelo.getText());
+            if( ciudad == 0){
                 insertarCiudad(txtCiudad.getText());
-            }else{
-                
             }
+            if(marca == 0){
+                insertarMarca(txtMarca.getText());
+            }
+            if(tipo == 0){
+                insertarTipo(txtTipo.getText());
+            }
+            if(modeloP == 0){
+                insertarModelo(txtModelo.getText());
+            }
+            ciudad =  consultarCiudad(txtCiudad.getText());
+            marca =consultarMarca(txtMarca.getText());
+            tipo = consultarTipo(txtTipo.getText());
+            modeloP = consultarModelo(txtModelo.getText());
+            
             
             return true;
         }catch(Exception e){
@@ -629,25 +764,128 @@ public class Pruebas extends javax.swing.JFrame {
         }
     }
     
-    private boolean consultarMarca(){
+    private void insertarProductos(){
+        
+    }
+    
+    private int consultarMarca(String marca){
+        int resultado = 0;
         try{
-            String consultaMarca = "select `id_modelo` from `inv_Modelo_Producto` where `nombre`='"+txtMarca.getText()+"'";
-            return true;
+            String consultaMarca = "select `id_marca`  from `inv_Marca_Producto` where `nombre`='"+marca+"'";
+            CallableStatement cs = conn.prepareCall(consultaMarca);
+            ResultSet rs = cs.executeQuery();
+            while(rs.next()){
+                resultado = rs.getInt(1);
+            }
+            return resultado;
         }catch(Exception e){
-            return false;
+            return 0;
         }
     }
-    private boolean consultarTipo(){
-        String consultaTipo = "select `id_tipo` from `inv_Tipo_Producto` where `nombre`='"+txtTipo.getText()+"'";
-        return true;
+    private int consultarTipo(String tipo){
+        int resultado = 0;
+        String consultaTipo = "select `id_tipo` from `inv_Tipo_Producto` where `nombre`='"+tipo+"'";
+        try{
+            CallableStatement cs = conn.prepareCall(consultaTipo);
+            ResultSet rs = cs.executeQuery();
+            while(rs.next()){
+                resultado = rs.getInt(1);
+            }
+            return resultado;
+        }catch(Exception e){
+            return 0;
+        }
     }
-    private boolean consultarModelo(){
-        String consultaModelo = "select `id_marca` from `inv_Marca_Producto` where `nombre`='"+txtModelo.getText()+"'";
-        return true;
+    private int consultarModelo(String modelo){
+        int resultado = 0;
+        String consultaModelo = "select `id_modelo` from `inv_Modelo_Producto` where `nombre`='"+modelo+"'";
+        try{
+            CallableStatement cs = conn.prepareCall(consultaModelo);
+            ResultSet rs = cs.executeQuery();
+            while(rs.next()){
+                resultado = rs.getInt(1);
+            }
+            return resultado;
+        }catch(Exception e){
+            return 0;
+        }
+    }
+    
+    private void insertarMarca(String marca){
+        try{
+            conn.setAutoCommit(false);
+            String insertaMarca = "INSERT INTO `inv_Marca_Producto`(`Nombre`) VALUES (?)";
+            CallableStatement call;
+            call = conn.prepareCall(insertaMarca);
+            call.setString(1, marca);
+            call.execute();
+            call.close();
+            try{
+                conn.commit();
+            }catch (Exception e){
+                System.out.println("Error en commit");
+            }
+        }catch(SQLException sql){
+            try{
+                conn.rollback();
+            }catch(SQLException sqlRoll){
+                System.out.println("Error rollback: "+sqlRoll);
+            }
+            System.out.println("Error en rollback: "+sql);
+        }
+    }
+    
+    private void insertarModelo(String modeloP){
+        try{
+            conn.setAutoCommit(false);
+            String insertaMarca = "INSERT INTO `inv_Modelo_Producto`(`Nombre`) VALUES (?)";
+            CallableStatement call;
+            call = conn.prepareCall(insertaMarca);
+            call.setString(1, modeloP);
+            call.execute();
+            call.close();
+            try{
+                conn.commit();
+            }catch (Exception e){
+                System.out.println("Error en commit");
+            }
+        }catch(SQLException sql){
+            try{
+                conn.rollback();
+            }catch(SQLException sqlRoll){
+                System.out.println("Error rollback: "+sqlRoll);
+            }
+            System.out.println("Error en rollback: "+sql);
+        }
+    }
+    
+    private void insertarTipo(String tipo){
+        try{
+            conn.setAutoCommit(false);
+            String insertaMarca = "INSERT INTO `inv_Tipo_Producto`(`Nombre`) VALUES (?)";
+            CallableStatement call;
+            call = conn.prepareCall(insertaMarca);
+            call.setString(1, tipo);
+            call.execute();
+            call.close();
+            try{
+                conn.commit();
+            }catch (Exception e){
+                System.out.println("Error en commit: "+e.getMessage());
+            }
+        }catch(SQLException sql){
+            try{
+                conn.rollback();
+            }catch(SQLException sqlRoll){
+                System.out.println("Error rollback: "+sqlRoll);
+            }
+            System.out.println("Error en rollback: "+sql);
+        }
     }
     
     private void insertarCiudad(String ciudad){
         try{
+            conn.setAutoCommit(false);
             String insertaCiudad = 
                     "INSERT INTO `cmprv_ciudad`(`descripcion`) VALUES (?)";
             CallableStatement call;
@@ -655,25 +893,35 @@ public class Pruebas extends javax.swing.JFrame {
             call.setString(1, ciudad);
             call.execute();
             call.close();
-        }catch(Exception e){
+            try{
+                conn.commit();
+            }catch(Exception e){
+                System.out.println("Error en commit: "+e.getMessage());
+            }
+        }catch(SQLException e){
+            try {
+                conn.rollback();
+            } catch (SQLException ex) {
+                System.out.println("Error en rollback: "+ex.getMessage());
+            }
             System.out.println("Error en insert: "+e.getMessage());
         }
     }
     
-    private boolean consultarCiudad(String ciudad){
+    private int consultarCiudad(String ciudad){
         int resultado = 0;
         try{
             String consultarCiudad = 
-                    "SELECT COUNT(`id_ciudad`) FROM `cmprv_ciudad` WHERE `descripcion` ='"+ciudad+"'";
+                    "SELECT `id_ciudad` FROM `cmprv_ciudad` WHERE `descripcion` ='"+ciudad+"'";
             CallableStatement cs = conn.prepareCall(consultarCiudad);
             ResultSet rs = cs.executeQuery();
             while(rs.next()){
                 resultado = rs.getInt(1);
             }
-            return resultado == 1;
+            return resultado;
         }catch(Exception e){
             System.out.println("Error en consulta: "+e.getMessage());
-            return false;
+            return 0;
         }
     }
     
@@ -791,6 +1039,7 @@ public class Pruebas extends javax.swing.JFrame {
 //            for (int j = 0; j < parametros.length; j++) {
 //                modelo.addColumn(parametros[j]);
 //            }
+            System.out.println("Error: "+e.getMessage());
             JOptionPane.showMessageDialog(this, "El proveedor a consultar no se encuentra registrado o el valor ingresado es nulo", "Error", JOptionPane.WARNING_MESSAGE);
             cambiarConError();
         }
@@ -942,15 +1191,15 @@ public class Pruebas extends javax.swing.JFrame {
         btnActualizar.setEnabled(true);
         btnQuitar.setEnabled(false);
         //Cambio en las cajas de textos cuando se trata de busquedas
-        nombre.setEnabled(true);
-        direccion.setEnabled(true);
-        telefono1.setEnabled(true);
-        telefono2.setEnabled(true);
-        txtCiudad.setEnabled(true);
-        correo.setEnabled(true);
-        estado1.setEnabled(true);
-        estado2.setEnabled(true);
-        tableProductos.setEnabled(true);
+        nombre.setEnabled(false);
+        direccion.setEnabled(false);
+        telefono1.setEnabled(false);
+        telefono2.setEnabled(false);
+        txtCiudad.setEnabled(false);
+        correo.setEnabled(false);
+        estado1.setEnabled(false);
+        estado2.setEnabled(false);
+        tableProductos.setEnabled(false);
     }
     
     private void cambiarConError(){
