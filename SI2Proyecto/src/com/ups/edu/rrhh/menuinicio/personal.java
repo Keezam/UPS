@@ -1,11 +1,22 @@
 
 package com.ups.edu.rrhh.menuinicio;
 
-public class personal {
-   private int id_cargo,id_departamento,id_sueldo,id_banco;
-    private String nombre,apellido,cedula,ciudad,direccion,telefono,email,estado_civil,genero,fecha_nac;  
+import java.sql.Date;
 
-      public int getId_cargo() {
+public class personal {
+   private int id_personal,id_cargo,id_departamento,id_sueldo,id_banco,telefono;
+   private String nombre,apellido,cedula,ciudad,direccion,e_mail,estado_civil,genero; 
+   private Date fecha_nac; 
+   
+    public int getId_personal() {
+        return id_personal;
+    }
+
+    public void setId_personal(int id_personal) {
+        this.id_personal = id_personal;
+    }
+
+    public int getId_cargo() {
         return id_cargo;
     }
 
@@ -35,6 +46,14 @@ public class personal {
 
     public void setId_banco(int id_banco) {
         this.id_banco = id_banco;
+    }
+
+    public int getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(int telefono) {
+        this.telefono = telefono;
     }
 
     public String getNombre() {
@@ -77,20 +96,12 @@ public class personal {
         this.direccion = direccion;
     }
 
-    public String getTelefono() {
-        return telefono;
+    public String getE_mail() {
+        return e_mail;
     }
 
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
+    public void setE_mail(String e_mail) {
+        this.e_mail = e_mail;
     }
 
     public String getEstado_civil() {
@@ -109,11 +120,29 @@ public class personal {
         this.genero = genero;
     }
 
-    public String getFecha_nac() {
+    public Date getFecha_nac() {
         return fecha_nac;
     }
 
-    public void setFecha_nac(String fecha_nac) {
+    public void setFecha_nac(Date fecha_nac) {
         this.fecha_nac = fecha_nac;
     }
+public personal(int id_personal,int id_cargo,int id_departamento,int id_sueldo,int id_banco, String nombre, String apellido, String cedula, String ciudad, String direccion,int telefono,String e_mail, String estado_civil,String genero,Date fecha_fin) {
+        this.id_personal = id_personal;
+        this.id_cargo = id_cargo;
+        this.id_departamento = id_departamento;
+        this.id_sueldo = id_sueldo;
+        this.id_banco = id_banco;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.cedula = cedula;
+        this.ciudad = ciudad;
+        this.direccion = direccion;
+        this.telefono = telefono;
+        this.e_mail = e_mail;
+        this.estado_civil = estado_civil;
+        this.genero = genero;
+        this.fecha_nac = fecha_nac;
+    }
+
 }

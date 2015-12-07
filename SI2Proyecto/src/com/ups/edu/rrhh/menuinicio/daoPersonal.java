@@ -13,26 +13,26 @@ public class daoPersonal {
         try {
                 //Conectar a mysql
                 Connection con = ConexionBD.GetConnection();
-                String sql="INSERT INTO rrhh_datos_personales(id_cargo,id_departamento,id_sueldo,id_banco,"
+                String sql="INSERT INTO rrhh_datos_personales(id_personal,id_cargo,id_departamento,id_sueldo,id_banco,"
                         + "nombre,apellido,cedula,ciudad,direccion,telefono,"
-                        + "email,estado_civil,genero,fecha_nac) "
-                        + "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                        + "e_mail,estado_civil,genero,fecha_nac) "
+                        + "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
                 PreparedStatement ps = con.prepareStatement(sql); //PreparedStatement permite trabajar con sent. SQL            
-                ps.setString(1, obj.getNombre());
-                ps.setString(2, obj.getApellido());
-                ps.setString(3, obj.getCedula());
-                ps.setString(4, obj.getCiudad());
-                ps.setString(5, obj.getDireccion());
-                ps.setString(6, obj.getTelefono());
-                ps.setString(7, obj.getEmail());
-                ps.setString(8, obj.getEstado_civil());
-                ps.setString(9, obj.getGenero());
-                ps.setString(10, obj.getFecha_nac());
-                ps.setInt(11, obj.getId_cargo());
-                ps.setInt(12, obj.getId_departamento());
-                ps.setInt(13, obj.getId_sueldo());
-                ps.setInt(14, obj.getId_banco());
-                
+                ps.setInt(1, obj.getId_personal());
+                ps.setInt(2, obj.getId_cargo());
+                ps.setInt(3, obj.getId_departamento());
+                ps.setInt(4, obj.getId_sueldo());
+                ps.setInt(5, obj.getId_banco());
+                ps.setString(6, obj.getNombre());
+                ps.setString(7, obj.getApellido());
+                ps.setString(8, obj.getCedula());
+                ps.setString(9, obj.getCiudad());
+                ps.setString(10, obj.getDireccion());
+                ps.setInt(11, obj.getTelefono());
+                ps.setString(12, obj.getE_mail());
+                ps.setString(13, obj.getEstado_civil());
+                ps.setString(14, obj.getGenero());
+                ps.setDate(15, obj.getFecha_nac());
                 int id = ps.executeUpdate();// Insert, Delete, Update trabajo con esecuteUpdate, Select solo trabajo con execute
                 JOptionPane.showMessageDialog(null, "Guardado"+id);
             

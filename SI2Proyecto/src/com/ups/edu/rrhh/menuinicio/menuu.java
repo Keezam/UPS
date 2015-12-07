@@ -61,11 +61,13 @@ Iframe1_2 objIFrame1=new Iframe1_2();
 
         Escritorio = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenu2 = new javax.swing.JMenu();
+        jMLogo = new javax.swing.JMenu();
+        jMInicio = new javax.swing.JMenu();
         jCheckBoxMenuItem1 = new javax.swing.JCheckBoxMenuItem();
         jMRecHum = new javax.swing.JMenu();
         jCheckBoxMenuItem2 = new javax.swing.JCheckBoxMenuItem();
+        jCheckBoxMenuItem3 = new javax.swing.JCheckBoxMenuItem();
+        jCheckBoxMenuItem4 = new javax.swing.JCheckBoxMenuItem();
         jMFinanciero = new javax.swing.JMenu();
         jMCompras = new javax.swing.JMenu();
         jMVentas = new javax.swing.JMenu();
@@ -91,14 +93,14 @@ Iframe1_2 objIFrame1=new Iframe1_2();
             .addGap(0, 329, Short.MAX_VALUE)
         );
 
-        jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ups/edu/rrhh/menuinicio/logo-ups-home.png"))); // NOI18N
-        jMenuBar1.add(jMenu1);
+        jMLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ups/edu/rrhh/menuinicio/logo-ups-home.png"))); // NOI18N
+        jMenuBar1.add(jMLogo);
 
-        jMenu2.setForeground(new java.awt.Color(0, 0, 102));
-        jMenu2.setText("ProduEntrega S.A.");
-        jMenu2.setBorderPainted(true);
-        jMenu2.setFont(new java.awt.Font("Franklin Gothic Demi Cond", 1, 18)); // NOI18N
-        jMenu2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jMInicio.setForeground(new java.awt.Color(0, 0, 102));
+        jMInicio.setText("ProduEntrega S.A.");
+        jMInicio.setBorderPainted(true);
+        jMInicio.setFont(new java.awt.Font("Franklin Gothic Demi Cond", 1, 18)); // NOI18N
+        jMInicio.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
 
         jCheckBoxMenuItem1.setSelected(true);
         jCheckBoxMenuItem1.setText("Inicio de Sesión");
@@ -107,9 +109,9 @@ Iframe1_2 objIFrame1=new Iframe1_2();
                 jCheckBoxMenuItem1ActionPerformed(evt);
             }
         });
-        jMenu2.add(jCheckBoxMenuItem1);
+        jMInicio.add(jCheckBoxMenuItem1);
 
-        jMenuBar1.add(jMenu2);
+        jMenuBar1.add(jMInicio);
 
         jMRecHum.setForeground(new java.awt.Color(0, 0, 102));
         jMRecHum.setText("RRHH");
@@ -123,6 +125,24 @@ Iframe1_2 objIFrame1=new Iframe1_2();
             }
         });
         jMRecHum.add(jCheckBoxMenuItem2);
+
+        jCheckBoxMenuItem3.setSelected(true);
+        jCheckBoxMenuItem3.setText("Rol de Pago");
+        jCheckBoxMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBoxMenuItem3ActionPerformed(evt);
+            }
+        });
+        jMRecHum.add(jCheckBoxMenuItem3);
+
+        jCheckBoxMenuItem4.setSelected(true);
+        jCheckBoxMenuItem4.setText("Vacaciones");
+        jCheckBoxMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBoxMenuItem4ActionPerformed(evt);
+            }
+        });
+        jMRecHum.add(jCheckBoxMenuItem4);
 
         jMenuBar1.add(jMRecHum);
 
@@ -259,6 +279,20 @@ Iframe1_2 objIFrame1=new Iframe1_2();
         }
     }//GEN-LAST:event_jMVta_PromocionActionPerformed
 
+    private void jCheckBoxMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxMenuItem3ActionPerformed
+        Iframe3 objIFrame3=new Iframe3();
+        Escritorio.add(objIFrame3);
+        objIFrame3.setLocation(450, 10);
+        objIFrame3.show();
+    }//GEN-LAST:event_jCheckBoxMenuItem3ActionPerformed
+
+    private void jCheckBoxMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxMenuItem4ActionPerformed
+        Iframe4 objIFrame4=new Iframe4();
+        Escritorio.add(objIFrame4);
+        objIFrame4.setLocation(450, 10);
+        objIFrame4.show();
+    }//GEN-LAST:event_jCheckBoxMenuItem4ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -310,17 +344,19 @@ Iframe1_2 objIFrame1=new Iframe1_2();
     private javax.swing.JDesktopPane Escritorio;
     private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem1;
     private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem2;
+    private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem3;
+    private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem4;
     public static javax.swing.JMenu jMCompras;
     public static javax.swing.JMenu jMFinanciero;
+    private javax.swing.JMenu jMInicio;
     public static javax.swing.JMenu jMInventario;
+    private javax.swing.JMenu jMLogo;
     public static javax.swing.JMenu jMRecHum;
     public static javax.swing.JMenu jMVentas;
     private javax.swing.JMenuItem jMVta_Cliente;
     private javax.swing.JMenuItem jMVta_Factura;
     private javax.swing.JMenuItem jMVta_Oferta;
     private javax.swing.JMenuItem jMVta_Promocion;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     // End of variables declaration//GEN-END:variables
 }
