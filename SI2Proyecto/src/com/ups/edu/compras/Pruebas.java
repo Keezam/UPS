@@ -7,6 +7,7 @@ package com.ups.edu.compras;
 
 import com.ups.edu.conexion.ConexionBD;
 import com.ups.edu.ventas.model.Validacion;
+import java.awt.HeadlessException;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.sql.CallableStatement;
@@ -18,6 +19,7 @@ import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 /**
  *
@@ -628,7 +630,7 @@ public class Pruebas extends javax.swing.JFrame {
             }else{
                 JOptionPane.showMessageDialog(this, "No se inserto el producto en la DB", "Error", JOptionPane.WARNING_MESSAGE);
             }
-        }catch(Exception e){
+        }catch(NumberFormatException | HeadlessException e){
             
         }
     }                                                
@@ -795,17 +797,36 @@ public class Pruebas extends javax.swing.JFrame {
             
             CallableStatement call;
             call = conn.prepareCall(insertaProveedores);
-            call.setString(1, cedula);
-            call.setInt(2,consultarCiudad(ciudad));
-            call.setString(3, nombre);
-            call.setString(4, direccion);
-            call.setInt(5, telefono1);
-            call.setInt(6, telefono2);
-            call.setString(7, correo);
-            call.setString(8, estado);
-            call.setString(9, cedula);
-            call.execute();
-            call.close();
+            int tipo;
+            int marca;
+            int modeloP;
+            Object datos [] = new Object[4];
+            TableModel tableModel = tableProductos.getModel(); 
+            int cols = tableModel.getColumnCount(); 
+            int fils = tableModel.getRowCount(); 
+            for(int i=0; i<fils; i++) { 
+                for(int j=0; j<cols; j++) {
+                    System.out.print(tableModel.getValueAt(i,j)); 
+                    datos[i] = tableModel.getValueAt(i, j);
+                }
+                tipo = consultarTipo(datos[0].toString());
+                marca = consultarMarca(datos[1].toString());
+                modeloP = consultarModelo(datos[2].toString());
+                call.setInt(1, consultarProductos(tipo, marca, modeloP));
+                call.setInt(2,consultarCiudad(ciudad));
+                call.setString(3, nombre);
+                call.setString(4, direccion);
+                call.setInt(5, telefono1);
+                call.setInt(6, telefono2);
+                call.setString(7, correo);
+                call.setString(8, estado);
+                call.setString(9, cedula);
+                call.execute();
+                call.close();
+            }
+            
+
+            
             try{
              conn.commit();   
             }catch(Exception e){
@@ -814,14 +835,40 @@ public class Pruebas extends javax.swing.JFrame {
             }
             return true;
         }catch(Exception e){
+            try{
+                conn.rollback();
+            }catch(Exception ex){
+                System.out.println("Error en rollback: "+ex.getMessage());
+                return false;
+            }
             System.out.println("Error en ingresar proveedor: "+e.getMessage());
             
             return false;
         }
     }
     
+    private int consultarProductos(int tipo, int marca, int modelo){
+        int codigo = 0;
+        
+        try{
+            String cosultaProduc = "SELECT  `id_producto` " +
+                                    "FROM  `inv_Producto` " +
+                                    "WHERE  `id_tipo` ="+ tipo+
+                                    " AND  `id_marca` =4"+ marca +
+                                    " AND  `id_modelo` =4"+ modelo;
+            CallableStatement cs = conn.prepareCall(cosultaProduc);
+            ResultSet rs = cs.executeQuery();
+            while(rs.next()){
+                codigo = rs.getInt(1);
+            }
+            return codigo;
+        }catch(Exception e){
+            return 0;
+        }
+    }
+    
     private boolean insertarProductos(int marca, int tipo, int modeloP, double precio, String detalle){
-        String insertarProductos = "INSERT INTO "
+        String insertaProductos = "INSERT INTO "
                 + "`inv_Producto`(`id_tipo`, `id_marca`, `id_modelo`, `Precio_unitario`, `Estado`, `Detalle`) VALUES ("
                 + "?,"  //tipo
                 + "?,"  //marca
@@ -832,7 +879,7 @@ public class Pruebas extends javax.swing.JFrame {
         try{
             conn.setAutoCommit(false);
             CallableStatement call;
-            call = conn.prepareCall(insertarProductos);
+            call = conn.prepareCall(insertaProductos);
             call.setInt(1, tipo);
             call.setInt(2, marca);
             call.setInt(3, modeloP);
