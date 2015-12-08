@@ -11,13 +11,13 @@ import javax.swing.JOptionPane;
  *
  * @author Admin
  */
-public class FrmVta_FormPago extends javax.swing.JInternalFrame {
+public class FrmVta_FormaPagoDetalle extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form FrmVta_FormPago
      */
     private FormaPago formaPago;
-    public FrmVta_FormPago(FormaPago formaPagos) {
+    public FrmVta_FormaPagoDetalle(FormaPago formaPagos) {
         initComponents();
         formaPago = formaPagos;
         lblFactura.setText(""+((formaPago==null)?"0":formaPago.getFactura()));

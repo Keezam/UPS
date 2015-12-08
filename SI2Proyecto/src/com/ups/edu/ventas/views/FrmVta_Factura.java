@@ -36,7 +36,7 @@ public class FrmVta_Factura extends javax.swing.JInternalFrame {
     private double ivafactura = 0;
     private double totalfactura = 0;
     private JDesktopPane escritorioFac;
-    private FrmVta_FormPago frmFormaPago;
+    private FrmVta_FormaPagoDetalle frmFormaPago;
     private FormaPago formaPago;
     private List<DetalleVentas> listDetalleVta = new ArrayList<>();
     private final String[] nombreColumna = new String[]{"Codigo","Produto","Cantida","Precio","Descuento","Promocion","Oferta","Subtotal","IVA","Total",""};
@@ -622,7 +622,7 @@ public class FrmVta_Factura extends javax.swing.JInternalFrame {
         formaPago.setValor(Double.parseDouble(lblTotal.getText()));
         formaPago.setFactura(Integer.parseInt(lblSecuenciaFactura.getText()));
         if(frmFormaPago==null){
-            frmFormaPago = new FrmVta_FormPago(formaPago);
+            frmFormaPago = new FrmVta_FormaPagoDetalle(formaPago);
         }
         if(!frmFormaPago.isShowing()){
             escritorioFac.add(frmFormaPago);

@@ -53,6 +53,7 @@ public class FrmVta_Cliente extends javax.swing.JInternalFrame {
         txtbuscar.setText("");
         txtDireccion.setText("");
         cagarcCodigo();
+        modificar = false;
     }
             
     /**
@@ -84,7 +85,7 @@ public class FrmVta_Cliente extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tbtClientes = new javax.swing.JTable();
         txtbuscar = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        btnBuscar = new javax.swing.JButton();
         lblCiudad1 = new javax.swing.JLabel();
         cmbTipoIdent = new javax.swing.JComboBox();
         cmbEstado = new javax.swing.JComboBox();
@@ -194,11 +195,11 @@ public class FrmVta_Cliente extends javax.swing.JInternalFrame {
             }
         });
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ups/edu/compras/resources/search.png"))); // NOI18N
-        jButton1.setText("Buscar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ups/edu/compras/resources/search.png"))); // NOI18N
+        btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnBuscarActionPerformed(evt);
             }
         });
 
@@ -270,7 +271,7 @@ public class FrmVta_Cliente extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(txtbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton1)
+                        .addComponent(btnBuscar)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
@@ -320,7 +321,7 @@ public class FrmVta_Cliente extends javax.swing.JInternalFrame {
                 .addGap(53, 53, 53)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -391,6 +392,7 @@ public class FrmVta_Cliente extends javax.swing.JInternalFrame {
                 limpiar();
                 cagarcCodigo();
                 cargarTabla();
+                
             }
 
         }
@@ -407,6 +409,7 @@ public class FrmVta_Cliente extends javax.swing.JInternalFrame {
                 limpiar();
                 cagarcCodigo();
                 cargarTabla();
+                modificar = false;
             }
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
@@ -420,7 +423,7 @@ public class FrmVta_Cliente extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtbuscarActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         String codigo = txtbuscar.getText();
         String [] cliente;
         if(!codigo.equals("")){
@@ -438,16 +441,16 @@ public class FrmVta_Cliente extends javax.swing.JInternalFrame {
             txtbuscar.setText("");
             modificar = true;
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnBuscarActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizar;
+    private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnInsertar;
     private javax.swing.JButton btnLimpiar;
     private javax.swing.JComboBox cmbCiudad;
     private javax.swing.JComboBox cmbEstado;
     private javax.swing.JComboBox cmbTipoIdent;
-    private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblApellido;

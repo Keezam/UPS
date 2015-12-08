@@ -591,10 +591,10 @@ public class FrmVta_Ofertas extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane;
     private javax.swing.JLabel lblCodOferta;
-    public static javax.swing.JTable tbdatos;
-    public static javax.swing.JTextField txtDescripcion;
-    public static javax.swing.JTextField txtDescuento;
-    public static javax.swing.JTextField txtValor;
+    public javax.swing.JTable tbdatos;
+    public javax.swing.JTextField txtDescripcion;
+    public javax.swing.JTextField txtDescuento;
+    public javax.swing.JTextField txtValor;
     private javax.swing.JTextField txtbuscar;
     // End of variables declaration//GEN-END:variables
 }
