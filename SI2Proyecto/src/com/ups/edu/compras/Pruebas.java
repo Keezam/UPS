@@ -562,39 +562,43 @@ public class Pruebas extends javax.swing.JFrame {
 
     private void btnNuevoGuardarActionPerformed(java.awt.event.ActionEvent evt) {                                                
         // TODO add your handling code here:
-        String cedula = id_proveedor.getText();
-        String nombreP = nombre.getText();
-        String direccionP = direccion.getText();
-        int telefonoPrp = Integer.parseInt(telefono1.getText());
-        int telefonoScn = Integer.parseInt(telefono2.getText());
-        String ciudad = txtCiudad.getText();
-        String correoP = correo.getText();
         String estado = "";
-        
-        if(btnNuevoGuardar.getText().equals("NUEVO PROV.")){
-            id_proveedor.setText("");
-            btnNuevoGuardar.setText("GUARDAR");
-            btnNuevoGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ups/edu/compras/resources/guardar.jpg"))); // NOI18N
-            activarCamposInsert();
-        }else if(btnNuevoGuardar.getText().equals("GUARDAR")){
-            if(estado1.isSelected()){
-                estado = estado1.getText();
-            }else 
-            if(estado2.isSelected()){
-                estado = estado2.getText();
+        conn = ConexionBD.GetConnection();
+        if(conn != null){
+            if(btnNuevoGuardar.getText().equals("NUEVO PROV.")){
+                id_proveedor.setText("");
+                btnNuevoGuardar.setText("GUARDAR");
+                btnNuevoGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ups/edu/compras/resources/guardar.jpg"))); // NOI18N
+                activarCamposInsert();
+            }else if(btnNuevoGuardar.getText().equals("GUARDAR")){
+                if(estado1.isSelected()){
+                    estado = estado1.getText();
+                }else 
+                if(estado2.isSelected()){
+                    estado = estado2.getText();
+                }
+                String cedula = id_proveedor.getText();
+                String nombreP = nombre.getText();
+                String direccionP = direccion.getText();
+                int telefonoPrp = Integer.parseInt(telefono1.getText());
+                int telefonoScn = Integer.parseInt(telefono2.getText());
+                String ciudad = txtCiudad.getText();
+                String correoP = correo.getText();
+                desactivarCamposInsert();
+                btnNuevoGuardar.setText("NUEVO PROV.");
+                btnNuevoGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ups/edu/compras/resources/nuevousuario.png"))); // NOI18N
+                boolean resultado = insertarProveedores(cedula, nombreP, direccionP, telefonoPrp, telefonoScn, ciudad, correoP, estado);
+                if(resultado){
+                    JOptionPane.showMessageDialog(this, "Dato ingresados correctamente","Información",JOptionPane.INFORMATION_MESSAGE);
+                }else if(!resultado){
+                    JOptionPane.showMessageDialog(this, "Error en la inserción, formato incorrecto","Error",JOptionPane.WARNING_MESSAGE);
+                }
             }
-            desactivarCamposInsert();
-            btnNuevoGuardar.setText("NUEVO PROV.");
-            btnNuevoGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ups/edu/compras/resources/nuevousuario.png"))); // NOI18N
-            boolean resultado = insertarProveedores(cedula, nombreP, direccionP, telefonoPrp, telefonoScn, ciudad, correoP, estado);
-            if(resultado){
-                JOptionPane.showMessageDialog(this, "Dato ingresados correctamente","Información",JOptionPane.INFORMATION_MESSAGE);
-            }else if(!resultado){
-                JOptionPane.showMessageDialog(this, "Error en la inserción, formato incorrecto","Error",JOptionPane.WARNING_MESSAGE);
-            }
+        }else{
+            JOptionPane.showMessageDialog(this, "Conexion Perdida. Revise su conexion a red.","Información",JOptionPane.INFORMATION_MESSAGE);
         }
-    }                                               
-
+    }                    
+        
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {                                           
         // TODO add your handling code here:
         jDialog1.setVisible(true);
@@ -624,12 +628,20 @@ public class Pruebas extends javax.swing.JFrame {
             modeloP = consultarModelo(txtModelo.getText());
             double precio = Double.parseDouble(txtPrecio.getText());
             String detalle = txtDetalles.getText();
-            boolean flagProductos = insertarProductos(marca, tipo, modeloP, precio, detalle);
-            if(!flagProductos){
-                agregarToTable();
-            }else{
-                JOptionPane.showMessageDialog(this, "No se inserto el producto en la DB", "Error", JOptionPane.WARNING_MESSAGE);
+            if(consultarProductos(tipo, marca, modeloP) == 0){
+                boolean flagProductos = insertarProductos(marca, tipo, modeloP, precio, detalle);
+                if(flagProductos){
+                    agregarToTable();
+                }else{
+                    JOptionPane.showMessageDialog(this, "No se inserto el producto en la DB", "Error", JOptionPane.WARNING_MESSAGE);
+                }
             }
+            txtTipo.setText("");
+            txtPrecio.setText("");
+            txtModelo.setText("");
+            txtDetalles.setText("");
+            txtMarca.setText("");
+            
         }catch(NumberFormatException | HeadlessException e){
             
         }
@@ -666,11 +678,11 @@ public class Pruebas extends javax.swing.JFrame {
 
     private void direccionKeyTyped(java.awt.event.KeyEvent evt) {                                   
         // TODO add your handling code here:
-        char c = evt.getKeyChar();
-        if(!Character.isDigit(c) || !Character.isLetter(c)){
+        /*char c = evt.getKeyChar();
+        if( !(Character.isDigit(c) || Character.isLetter(c)) ){
             getToolkit().beep();
             evt.consume();
-        }
+        }*/
     }                                  
 
     private void telefono1KeyTyped(java.awt.event.KeyEvent evt) {                                   
@@ -714,14 +726,14 @@ public class Pruebas extends javax.swing.JFrame {
 
     private void isDecimal(KeyEvent e){
         char c = e.getKeyChar();
-        if(Character.isLetter(c)){
+        if(Character.isLetter(c) /*|| (c!=',') || (c!='.')*/){
             getToolkit().beep();
             e.consume();
         }
-        if( !(c == ',') || !(c == '.') ){
-            getToolkit().beep();
-            e.consume();
-        }
+//        if( !(c == ',') || !(c == '.') ){
+//            getToolkit().beep();
+//            e.consume();
+//        }
     }
     
     private void isLetter(KeyEvent e){
@@ -824,11 +836,9 @@ public class Pruebas extends javax.swing.JFrame {
                 call.execute();
                 call.close();
             }
-            
 
-            
             try{
-             conn.commit();   
+                conn.commit();   
             }catch(Exception e){
                 System.out.println("Error en commit: "+e.getMessage());
                 return false;
@@ -888,7 +898,7 @@ public class Pruebas extends javax.swing.JFrame {
             call.setString(6, detalle);
             call.execute();
             call.close();
-            conn.commit();
+            //conn.commit();
             return true;
         }catch(SQLException e){
             try{
@@ -954,11 +964,11 @@ public class Pruebas extends javax.swing.JFrame {
             call.setString(1, marca);
             call.execute();
             call.close();
-            try{
-                conn.commit();
-            }catch (Exception e){
-                System.out.println("Error en commit");
-            }
+//            try{
+//                conn.commit();
+//            }catch (Exception e){
+//                System.out.println("Error en commit");
+//            }
         }catch(SQLException sql){
             try{
                 conn.rollback();
@@ -978,11 +988,11 @@ public class Pruebas extends javax.swing.JFrame {
             call.setString(1, modeloP);
             call.execute();
             call.close();
-            try{
-                conn.commit();
-            }catch (Exception e){
-                System.out.println("Error en commit");
-            }
+//            try{
+//                conn.commit();
+//            }catch (Exception e){
+//                System.out.println("Error en commit");
+//            }
         }catch(SQLException sql){
             try{
                 conn.rollback();
@@ -1002,11 +1012,11 @@ public class Pruebas extends javax.swing.JFrame {
             call.setString(1, tipo);
             call.execute();
             call.close();
-            try{
-                conn.commit();
-            }catch (Exception e){
-                System.out.println("Error en commit: "+e.getMessage());
-            }
+//            try{
+//                conn.commit();
+//            }catch (Exception e){
+//                System.out.println("Error en commit: "+e.getMessage());
+//            }
         }catch(SQLException sql){
             try{
                 conn.rollback();
@@ -1027,11 +1037,11 @@ public class Pruebas extends javax.swing.JFrame {
             call.setString(1, ciudad);
             call.execute();
             call.close();
-            try{
-                conn.commit();
-            }catch(Exception e){
-                System.out.println("Error en commit: "+e.getMessage());
-            }
+//            try{
+//                conn.commit();
+//            }catch(Exception e){
+//                System.out.println("Error en commit: "+e.getMessage());
+//            }
         }catch(SQLException e){
             try {
                 conn.rollback();
@@ -1255,6 +1265,9 @@ public class Pruebas extends javax.swing.JFrame {
         correo.setEnabled(false);correo.setText("");
         estado1.setEnabled(false);estado1.setSelected(false);
         estado2.setEnabled(false);estado2.setSelected(false);
+        while(modelo.getRowCount()>0){
+            modelo.removeRow(0);
+        }
     }
     
     private void cancelar(){
