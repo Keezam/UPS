@@ -570,12 +570,6 @@ public class Pruebas extends javax.swing.JFrame {
         String ciudad = txtCiudad.getText();
         String correoP = correo.getText();
         String estado = "";
-        if(estado1.isSelected()){
-            estado = estado1.getText();
-        }else 
-        if(estado2.isSelected()){
-            estado = estado2.getText();
-        }
         
         if(btnNuevoGuardar.getText().equals("NUEVO PROV.")){
             id_proveedor.setText("");
@@ -583,6 +577,12 @@ public class Pruebas extends javax.swing.JFrame {
             btnNuevoGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ups/edu/compras/resources/guardar.jpg"))); // NOI18N
             activarCamposInsert();
         }else if(btnNuevoGuardar.getText().equals("GUARDAR")){
+            if(estado1.isSelected()){
+                estado = estado1.getText();
+            }else 
+            if(estado2.isSelected()){
+                estado = estado2.getText();
+            }
             desactivarCamposInsert();
             btnNuevoGuardar.setText("NUEVO PROV.");
             btnNuevoGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ups/edu/compras/resources/nuevousuario.png"))); // NOI18N
