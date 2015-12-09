@@ -93,8 +93,8 @@ public class FrmVta_Comisiones extends javax.swing.JInternalFrame {
                 model.addRow(registros);
             }
             lblCodigo.setText(registros[0]);
-            txtDescripcion.setText(registros[1]);
-            txtNombre.setText(registros[2]);
+            txtDescripcion.setText(registros[2]);
+            txtNombre.setText(registros[1]);
             txtValor.setText(registros[3]);
             modificar = true;
             tbtComision.setModel(model);
@@ -108,6 +108,7 @@ public class FrmVta_Comisiones extends javax.swing.JInternalFrame {
         txtDescripcion.setText("");
         txtNombre.setText("");
         txtValor.setText("");
+        txtbuscar.setText("");
     }
     
     /**
@@ -152,6 +153,9 @@ public class FrmVta_Comisiones extends javax.swing.JInternalFrame {
             }
         ));
         jScrollPane1.setViewportView(jTable1);
+
+        setClosable(true);
+        setTitle("Comisiones");
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Opciones"));
 
@@ -325,9 +329,9 @@ public class FrmVta_Comisiones extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnInsertarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertarActionPerformed
-        if(modificar){
+        /*if(modificar){
             JOptionPane.showMessageDialog(null, "Error, No Existe ese Codigo");
-        } else if (txtNombre.getText().isEmpty()) {
+        } else */if (txtNombre.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Error al Registrar, campo Descripci�n Vacio");
         } else if (txtValor.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Error al Registrar, campo Valor Vacio");
@@ -406,7 +410,7 @@ public class FrmVta_Comisiones extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void txtValorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtValorKeyTyped
-       validar(evt, Validacion.SOLONUMEROS);
+       validar(evt, Validacion.SOLONUMEROSDEC);
     }//GEN-LAST:event_txtValorKeyTyped
 
 

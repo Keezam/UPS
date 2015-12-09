@@ -6,7 +6,10 @@
 package com.ups.edu.rrhh.menuinicio;
 
 import com.ups.edu.ventas.views.FrmVta_Cliente;
+import com.ups.edu.ventas.views.FrmVta_Comisiones;
 import com.ups.edu.ventas.views.FrmVta_Factura;
+import com.ups.edu.ventas.views.FrmVta_FormaPago;
+import com.ups.edu.ventas.views.FrmVta_Garantias;
 import com.ups.edu.ventas.views.FrmVta_Ofertas;
 import com.ups.edu.ventas.views.FrmVta_Promocion;
 import java.sql.Connection;
@@ -33,6 +36,9 @@ public class menuu extends javax.swing.JFrame {
     private FrmVta_Factura frmVtaFactura;
     private FrmVta_Cliente frmVtaCliente = new FrmVta_Cliente();
     private FrmVta_Promocion frmVtaPromocion ;
+    private FrmVta_Comisiones frmVtaComisones ;
+    private FrmVta_FormaPago frmVtaPago;
+    private FrmVta_Garantias frmVtaGarantia;
     
     public menuu() {
         initComponents();
@@ -75,6 +81,10 @@ Iframe1_2 objIFrame1=new Iframe1_2();
         jMVta_Oferta = new javax.swing.JMenuItem();
         jMVta_Promocion = new javax.swing.JMenuItem();
         jMVta_Factura = new javax.swing.JMenuItem();
+        jMVta_Garantias = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
+        jMvta_FormaPago = new javax.swing.JMenuItem();
+        jMVta_Comision = new javax.swing.JMenuItem();
         jMInventario = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -192,6 +202,34 @@ Iframe1_2 objIFrame1=new Iframe1_2();
         });
         jMVentas.add(jMVta_Factura);
 
+        jMVta_Garantias.setText("Garantias");
+        jMVta_Garantias.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMVta_GarantiasActionPerformed(evt);
+            }
+        });
+        jMVentas.add(jMVta_Garantias);
+
+        jMenu1.setText("Pago");
+
+        jMvta_FormaPago.setText("Formas Pago");
+        jMvta_FormaPago.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMvta_FormaPagoActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMvta_FormaPago);
+
+        jMVta_Comision.setText("Comision");
+        jMVta_Comision.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMVta_ComisionActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMVta_Comision);
+
+        jMVentas.add(jMenu1);
+
         jMenuBar1.add(jMVentas);
 
         jMInventario.setForeground(new java.awt.Color(0, 0, 102));
@@ -293,6 +331,39 @@ Iframe1_2 objIFrame1=new Iframe1_2();
         objIFrame4.show();
     }//GEN-LAST:event_jCheckBoxMenuItem4ActionPerformed
 
+    private void jMvta_FormaPagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMvta_FormaPagoActionPerformed
+        if(frmVtaPago==null){
+            frmVtaPago = new FrmVta_FormaPago();
+        }
+        if(!frmVtaPago.isShowing()){
+            Escritorio.add(frmVtaPago);
+            frmVtaPago.setLocation(280, 10);;
+            frmVtaPago.show();
+        }
+    }//GEN-LAST:event_jMvta_FormaPagoActionPerformed
+
+    private void jMVta_ComisionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMVta_ComisionActionPerformed
+        if(frmVtaComisones==null){
+            frmVtaComisones = new FrmVta_Comisiones();
+        }
+        if(!frmVtaComisones.isShowing()){
+            Escritorio.add(frmVtaComisones);
+            frmVtaComisones.setLocation(280, 10);;
+            frmVtaComisones.show();
+        }
+    }//GEN-LAST:event_jMVta_ComisionActionPerformed
+
+    private void jMVta_GarantiasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMVta_GarantiasActionPerformed
+        if(frmVtaGarantia==null){
+            frmVtaGarantia = new FrmVta_Garantias();
+        }
+        if(!frmVtaGarantia.isShowing()){
+            Escritorio.add(frmVtaGarantia);
+            frmVtaGarantia.setLocation(280, 10);;
+            frmVtaGarantia.show();
+        }
+    }//GEN-LAST:event_jMVta_GarantiasActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -354,9 +425,13 @@ Iframe1_2 objIFrame1=new Iframe1_2();
     public static javax.swing.JMenu jMRecHum;
     public static javax.swing.JMenu jMVentas;
     private javax.swing.JMenuItem jMVta_Cliente;
+    private javax.swing.JMenuItem jMVta_Comision;
     private javax.swing.JMenuItem jMVta_Factura;
+    private javax.swing.JMenuItem jMVta_Garantias;
     private javax.swing.JMenuItem jMVta_Oferta;
     private javax.swing.JMenuItem jMVta_Promocion;
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMvta_FormaPago;
     // End of variables declaration//GEN-END:variables
 }

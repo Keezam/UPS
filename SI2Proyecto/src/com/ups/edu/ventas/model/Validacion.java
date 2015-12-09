@@ -17,5 +17,6 @@ public class Validacion {
     public static String PASS = "[0-9a-zA-Z]";
     public static String CORREO = "[0-9a-zA-Z@.]";
     public static String MENSAJE = "[0-9a-zA-Z!'()=@., ]";
+    public static String FECHA = "[0-9{2}/{1}0-9{2}/{1}0-9{4}]";
 
 }

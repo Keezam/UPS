@@ -7,9 +7,16 @@ package com.ups.edu.ventas.views;
 
 import com.ups.edu.conexion.ConexionBD;
 import com.ups.edu.ventas.model.FormaPagoModel;
+import com.ups.edu.ventas.model.Validacion;
+import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -31,8 +38,93 @@ public class FrmVta_FormaPago extends javax.swing.JInternalFrame {
     
     public FrmVta_FormaPago() {
         initComponents();
+        cargarComision();
+        cargarTabla();
+        cargarCodigo();
     }
 
+    public void cargarCodigo(){
+        lblCodigo.setText(""+fpModel.secuenciaFormaPago());
+    }
+    
+    public void cargarComision(){
+        List<String> comisiones = fpModel.cargarCmbComision();
+        cmbComisiones.removeAllItems();
+        for (String comision : comisiones) {
+            cmbComisiones.addItem(comision);
+        }
+    }
+    
+    public void cargarTabla(){
+        String sqlBuscar = "SELECT * FROM vta_formapago ";
+        String[] campos = {"Codigo", "Forma Pago", "Sigla", "Interes", "Comision"};
+        String[] registros = new String[5];
+        
+        model = new DefaultTableModel(campos, 0);
+
+        try {
+            st = cn.createStatement();
+            rs = st.executeQuery(sqlBuscar);
+            while (rs.next()) {
+                registros[0] = rs.getString(1);
+                registros[1] = rs.getString(2);
+                registros[2] = rs.getString(3);
+                registros[3] = rs.getString(4);
+                registros[4] = rs.getString(5);
+                model.addRow(registros);
+            }
+            tbtComision.setModel(model);
+        } catch (SQLException ex) {
+            Logger.getLogger(FrmVta_Ofertas.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void buscar(String formapago){
+        String sqlBuscar = "SELECT * FROM vta_formapago where codformapago = "+formapago+"";
+        String[] campos = {"Codigo", "Forma Pago", "Sigla", "Interes", "Comision"};
+        String[] registros = new String[5];
+        
+        model = new DefaultTableModel(campos, 0);
+
+        try {
+            st = cn.createStatement();
+            rs = st.executeQuery(sqlBuscar);
+            while (rs.next()) {
+                registros[0] = rs.getString(1);
+                registros[1] = rs.getString(2);
+                registros[2] = rs.getString(3);
+                registros[3] = rs.getString(4);
+                registros[4] = rs.getString(5);
+                model.addRow(registros);
+            }
+            lblCodigo.setText(registros[0]);
+            txtSigla.setText(registros[2]);
+            txtDescripcion.setText(registros[1]);
+            txtInteres.setText(registros[3]);
+            cmbComisiones.setSelectedItem(fpModel.busacrComision(registros[4]));
+            modificar = true;
+            tbtComision.setModel(model);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+    
+    public void limpiar(){
+        txtDescripcion.setText("");
+        txtInteres.setText("");
+        txtSigla.setText("");
+        txtbuscar.setText("");
+        cargarComision();
+        cargarCodigo();
+        
+    }
+    
+    public void validar(KeyEvent evt, String limite) {
+        if (!String.valueOf(evt.getKeyChar()).matches(limite)) {
+            evt.consume();
+        }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -48,9 +140,9 @@ public class FrmVta_FormaPago extends javax.swing.JInternalFrame {
         btnEliminar = new javax.swing.JButton();
         btnLimpiar = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
-        txtValor = new javax.swing.JTextField();
+        txtInteres = new javax.swing.JTextField();
+        txtSigla = new javax.swing.JTextField();
         txtDescripcion = new javax.swing.JTextField();
-        txtNombre = new javax.swing.JTextField();
         lblCodigo = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tbtComision = new javax.swing.JTable();
@@ -61,7 +153,10 @@ public class FrmVta_FormaPago extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox();
+        cmbComisiones = new javax.swing.JComboBox();
+
+        setClosable(true);
+        setTitle("Forma pago");
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Opciones"));
 
@@ -125,9 +220,9 @@ public class FrmVta_FormaPago extends javax.swing.JInternalFrame {
 
         jLabel4.setText("Para ingresar, llenar todos los campos.");
 
-        txtValor.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtInteres.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtValorKeyTyped(evt);
+                txtInteresKeyTyped(evt);
             }
         });
 
@@ -194,10 +289,10 @@ public class FrmVta_FormaPago extends javax.swing.JInternalFrame {
                                         .addGap(18, 18, 18)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                             .addComponent(lblCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(txtNombre)
-                                            .addComponent(txtDescripcion, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
-                                            .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                            .addComponent(txtDescripcion)
+                                            .addComponent(txtSigla, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
+                                            .addComponent(txtInteres, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(cmbComisiones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                 .addGap(18, 18, 18)))
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(13, Short.MAX_VALUE))
@@ -217,18 +312,18 @@ public class FrmVta_FormaPago extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
-                            .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
                             .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel5)
-                            .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel3)
+                            .addComponent(txtSigla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5)
+                            .addComponent(txtInteres, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cmbComisiones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel6))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -243,87 +338,89 @@ public class FrmVta_FormaPago extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnInsertarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertarActionPerformed
-        /*if(modificar){
+        if(modificar){
             JOptionPane.showMessageDialog(null, "Error, No Existe ese Codigo");
-        } else if (txtNombre.getText().isEmpty()) {
+        } else if (txtDescripcion.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Error al Registrar, campo Descripci�n Vacio");
-        } else if (txtValor.getText().isEmpty()) {
+        } else if (txtInteres.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Error al Registrar, campo Valor Vacio");
         } else {
-            String nombre = txtNombre.getText();
+            String sigla = txtSigla.getText();
             String descripcion = txtDescripcion.getText();
-            int codigo  = Integer.parseInt(lblCodigo.getText());
-            double valor = Double.parseDouble(txtValor.getText());
+            String comision =  cmbComisiones.getSelectedItem().toString();
+            comision = comision.substring(0, comision.indexOf("-"));
+            int codcomision  = Integer.parseInt(comision);
+            double intereses = Double.parseDouble(txtInteres.getText());
 
-            int insert = fpModel.insertComision(nombre,descripcion,valor);
+            int insert = fpModel.insertFormapago(descripcion, sigla, intereses, codcomision);
             if (insert > 0){
                 JOptionPane.showMessageDialog(null, "Se guarda Correctamente");
                 limpiar();
-                cagarcCodigo();
+                cargarCodigo();
                 cargarTabla();
                 modificar = false;
             }
-
-        }*/
-        //            JOptionPane.showMessageDialog(null, "Error al Registrar, todos los campos deben ser llenados");
+        }
     }//GEN-LAST:event_btnInsertarActionPerformed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
-        /*if(!modificar){
+        if(!modificar){
             JOptionPane.showMessageDialog(null, "Error, No Existe ese Codigo");
-        } else if (txtNombre.getText().isEmpty()) {
+        } else if (txtDescripcion.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Error al Registrar, campo Descripci�n Vacio");
-        } else if (txtValor.getText().isEmpty()) {
+        } else if (txtSigla.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Error al Registrar, campo Valor Vacio");
         } else {
-            String nombre = txtNombre.getText();
+            String sigla = txtSigla.getText();
             String descripcion = txtDescripcion.getText();
+            String comision =  cmbComisiones.getSelectedItem().toString();
+            comision = comision.substring(0, comision.indexOf("-"));
+            int codcomision  = Integer.parseInt(comision);
             int codigo  = Integer.parseInt(lblCodigo.getText());
-            double valor = Double.parseDouble(txtValor.getText());
+            double intereses = Double.parseDouble(txtInteres.getText());
 
-            int update = fpModel.updateComision(codigo,nombre,descripcion,valor);
+            int update = fpModel.updateFormaPago(codigo, descripcion, sigla, intereses, codcomision);
             if (update > 0){
                 JOptionPane.showMessageDialog(null, "Se Actualizo Correctamente");
                 limpiar();
-                cagarcCodigo();
+                cargarCodigo();
                 cargarTabla();
                 modificar = false;
             }
-
-        }*/
+        }
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-       /* if (!modificar) {
+        if (!modificar) {
             JOptionPane.showMessageDialog(null, "Error, No Existe ese Codigo");
         } else {
             int codigo = Integer.parseInt(lblCodigo.getText());
-            int delete = fpModel.deleteComision(codigo);
+            int delete = fpModel.deleteFormaPago(codigo);
             if (delete > 0){
                 JOptionPane.showMessageDialog(null, "Se Elimino Correctamente");
                 limpiar();
-                cagarcCodigo();
+                cargarCodigo();
                 cargarTabla();
                 modificar = false;
             }
-        }*/
+        }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
-        //limpiar();
-        //cargarTabla();
+        limpiar();
+        cargarTabla();
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
-    private void txtValorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtValorKeyTyped
-        //validar(evt, Validacion.SOLONUMEROS);
-    }//GEN-LAST:event_txtValorKeyTyped
+    private void txtInteresKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtInteresKeyTyped
+        validar(evt, Validacion.SOLONUMEROSDEC);
+    }//GEN-LAST:event_txtInteresKeyTyped
 
     private void txtbuscarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtbuscarKeyTyped
-        //validar(evt, Validacion.SOLONUMEROS);
+        validar(evt, Validacion.SOLONUMEROS);
     }//GEN-LAST:event_txtbuscarKeyTyped
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-      // buscar(txtbuscar.getText());
+       buscar(txtbuscar.getText());
     }//GEN-LAST:event_btnBuscarActionPerformed
 
 
@@ -333,7 +430,7 @@ public class FrmVta_FormaPago extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnInsertar;
     private javax.swing.JButton btnLimpiar;
-    private javax.swing.JComboBox jComboBox1;
+    private javax.swing.JComboBox cmbComisiones;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -345,8 +442,8 @@ public class FrmVta_FormaPago extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblCodigo;
     private javax.swing.JTable tbtComision;
     private javax.swing.JTextField txtDescripcion;
-    private javax.swing.JTextField txtNombre;
-    private javax.swing.JTextField txtValor;
+    private javax.swing.JTextField txtInteres;
+    private javax.swing.JTextField txtSigla;
     private javax.swing.JTextField txtbuscar;
     // End of variables declaration//GEN-END:variables
 }
