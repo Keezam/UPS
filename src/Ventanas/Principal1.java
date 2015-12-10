@@ -5,25 +5,33 @@
  */
 package Ventanas;
 
+import Otros_codigos.Combos;
+import Otros_codigos.ConexionBD;
 import java.awt.Dimension;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.Statement;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author JeanPierre
  */
 public class Principal1 extends javax.swing.JInternalFrame {
-
+Connection conn = (Connection) ConexionBD.GetConnection();
     /**
      * Creates new form Principal1
      */
+    ConexionBD con = new ConexionBD();
     public Principal1() {
          ((BasicInternalFrameUI) this.getUI()).setNorthPane(null);
         initComponents();
            buttonGroup1.add(RadioButton_Producto);
         buttonGroup1.add(RadioButton_Proveedor);
-        buttonGroup1.add(RadioButton_Sucursal);
         buttonGroup1.add(RadioButton_Fecha);
+        Cargar_combo_ciudad_direccion();
     }
 
     /**
@@ -41,8 +49,9 @@ public class Principal1 extends javax.swing.JInternalFrame {
         RadioButton_Fecha = new javax.swing.JRadioButton();
         panel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        RadioButton_Sucursal = new javax.swing.JRadioButton();
+        tabla = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+        combo_ciudad_direccion = new javax.swing.JComboBox();
 
         RadioButton_Producto.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         RadioButton_Producto.setText("Producto");
@@ -79,24 +88,15 @@ public class Principal1 extends javax.swing.JInternalFrame {
             .addGap(0, 92, Short.MAX_VALUE)
         );
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tabla);
 
-        RadioButton_Sucursal.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        RadioButton_Sucursal.setText("Sucursal");
-        RadioButton_Sucursal.addActionListener(new java.awt.event.ActionListener() {
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel1.setText("Ciudad / Sector: ");
+
+        combo_ciudad_direccion.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        combo_ciudad_direccion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                RadioButton_SucursalActionPerformed(evt);
+                combo_ciudad_direccionActionPerformed(evt);
             }
         });
 
@@ -105,45 +105,91 @@ public class Principal1 extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jScrollPane1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(53, 53, 53)
-                        .addComponent(RadioButton_Sucursal)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(RadioButton_Producto)
-                        .addGap(88, 88, 88)
-                        .addComponent(RadioButton_Proveedor)
-                        .addGap(87, 87, 87)
-                        .addComponent(RadioButton_Fecha)
-                        .addGap(55, 55, 55))
-                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGap(44, 44, 44)
                         .addComponent(panel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 23, Short.MAX_VALUE)))
+                        .addGap(0, 23, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(66, 66, 66)
+                        .addComponent(RadioButton_Producto)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(RadioButton_Proveedor)
+                        .addGap(180, 180, 180)
+                        .addComponent(RadioButton_Fecha)
+                        .addGap(93, 93, 93))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(combo_ciudad_direccion, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(37, 37, 37)
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(combo_ciudad_direccion, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(RadioButton_Producto)
                     .addComponent(RadioButton_Proveedor)
-                    .addComponent(RadioButton_Fecha)
-                    .addComponent(RadioButton_Sucursal))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                    .addComponent(RadioButton_Fecha))
+                .addGap(41, 41, 41)
                 .addComponent(panel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    public void Cargar_combo_ciudad_direccion(){
+           Combos cmbP = new Combos();
+       cmbP.conn = this.conn;
+        combo_ciudad_direccion.setModel(cmbP.Llenar_Combo_Ciudad_Direccion());
+    }
+    
+    public void Cargar_Todo_Tabla(int id){
+           try {
+            DefaultTableModel modelo = new DefaultTableModel();
 
+            tabla.setModel(modelo);
+       
+            Statement s = conn.createStatement();
+
+            ResultSet rs = s.executeQuery("select tp.Nombre as Producto, mp.Nombre as Marca, mop.Nombre as Modelo, ing.Cantidad as Can_Ingreso, eg.Cantidad as Can_Egreso, inv.cantidad_total " +
+"from inv_Inventario inv, inv_Producto p, inv_Ingreso ing, inv_Egreso eg, inv_Tipo_Producto tp, inv_Marca_Producto mp, inv_Modelo_Producto mop " +
+"where inv.id_producto=p.id_producto and p.id_tipo=tp.id_tipo and p.id_marca=mp.id_marca and  p.id_modelo=mop.id_modelo and inv.id_sucursal='"+id+"' and " +
+"inv.id_ingreso=ing.id_ingreso and inv.id_egreso=eg.id_egreso and ing.id_producto=p.id_producto and eg.id_producto=p.id_producto;");
+
+            ResultSetMetaData rsMd = rs.getMetaData();
+
+            int cantidadColumnas = rsMd.getColumnCount();
+
+            for (int i = 1; i <= cantidadColumnas; i++) {
+                modelo.addColumn(rsMd.getColumnLabel(i));
+            }
+
+            while (rs.next()) {
+                Object[] fila = new Object[cantidadColumnas];
+                for (int i = 0; i < cantidadColumnas; i++) {
+                    fila[i] = rs.getObject(i + 1);
+                }
+                modelo.addRow(fila);
+            }
+            rs.close();
+        
+        } catch (Exception ex) {
+            System.out.println("ERROR CARGAR TABLA "+ex);
+        }
+    }
+    
      public void Cargar_Panel_P_P_M(){
         Principal1.panel1.removeAll();
             Principal1.panel1.repaint();
@@ -187,19 +233,26 @@ public class Principal1 extends javax.swing.JInternalFrame {
         Cargar_Panel_Fecha();
     }//GEN-LAST:event_RadioButton_FechaActionPerformed
 
-    private void RadioButton_SucursalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RadioButton_SucursalActionPerformed
-      Cargar_Panel_Sucursal();
-    }//GEN-LAST:event_RadioButton_SucursalActionPerformed
+    private void combo_ciudad_direccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_combo_ciudad_direccionActionPerformed
+        if(combo_ciudad_direccion.getSelectedIndex() == 0){
+             DefaultTableModel modelo = new DefaultTableModel();
+            tabla.setModel(modelo);
+        }  else {
+            Cargar_Todo_Tabla(combo_ciudad_direccion.getSelectedIndex());
+                    }
+        
+    }//GEN-LAST:event_combo_ciudad_direccionActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JRadioButton RadioButton_Fecha;
     private javax.swing.JRadioButton RadioButton_Producto;
     private javax.swing.JRadioButton RadioButton_Proveedor;
-    private javax.swing.JRadioButton RadioButton_Sucursal;
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JComboBox combo_ciudad_direccion;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private static javax.swing.JPanel panel1;
+    private javax.swing.JTable tabla;
     // End of variables declaration//GEN-END:variables
 }

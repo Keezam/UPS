@@ -5,6 +5,9 @@
  */
 package Ventanas;
 
+import Otros_codigos.Combos;
+import Otros_codigos.ConexionBD;
+import java.sql.Connection;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 
 /**
@@ -12,13 +15,14 @@ import javax.swing.plaf.basic.BasicInternalFrameUI;
  * @author JeanPierre
  */
 public class Panel_Sucursal extends javax.swing.JInternalFrame {
-
+ Connection conn = (Connection) ConexionBD.GetConnection();
     /**
      * Creates new form Panel_Sucursal
      */
     public Panel_Sucursal() {
           ((BasicInternalFrameUI) this.getUI()).setNorthPane(null);
         initComponents();
+      
     }
 
     /**
@@ -32,8 +36,8 @@ public class Panel_Sucursal extends javax.swing.JInternalFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox();
-        jComboBox2 = new javax.swing.JComboBox();
+        combo_sector = new javax.swing.JComboBox();
+        combo_ciudad = new javax.swing.JComboBox();
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setText("Sector:  ");
@@ -41,9 +45,16 @@ public class Panel_Sucursal extends javax.swing.JInternalFrame {
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setText("Ciudad:  ");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { " " }));
+        combo_sector.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        combo_sector.setModel(new javax.swing.DefaultComboBoxModel(new String[] { " " }));
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { " " }));
+        combo_ciudad.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        combo_ciudad.setModel(new javax.swing.DefaultComboBoxModel(new String[] { " " }));
+        combo_ciudad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                combo_ciudadActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -53,32 +64,39 @@ public class Panel_Sucursal extends javax.swing.JInternalFrame {
                 .addGap(57, 57, 57)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(combo_ciudad, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 142, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(56, 56, 56))
+                .addComponent(combo_sector, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(71, 71, 71))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(38, Short.MAX_VALUE)
+                .addContainerGap(43, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(combo_ciudad, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(combo_sector, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(32, 32, 32))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void combo_ciudadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_combo_ciudadActionPerformed
+          Combos cmbP = new Combos();
+       cmbP.conn = this.conn;
+        int id_ciudad = combo_ciudad.getSelectedIndex()+1;
+     
+    }//GEN-LAST:event_combo_ciudadActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox jComboBox1;
-    private javax.swing.JComboBox jComboBox2;
+    private javax.swing.JComboBox combo_ciudad;
+    private javax.swing.JComboBox combo_sector;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     // End of variables declaration//GEN-END:variables

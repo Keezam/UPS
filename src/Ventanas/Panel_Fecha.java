@@ -125,14 +125,13 @@ public class Panel_Fecha extends javax.swing.JInternalFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
        try{
-        if(date1.getCalendar().after(date2.getCalendar())){
+        if(date1.getCalendar().after(date2.getCalendar()) || date2.getCalendar() == null){
            JOptionPane.showMessageDialog(null, "VERIFICAR CAMPOS", "ERROR", JOptionPane.ERROR_MESSAGE);
      }else{
         String dia = Integer.toString(date1.getCalendar().get(Calendar.DAY_OF_MONTH));
 String mes = Integer.toString(date1.getCalendar().get(Calendar.MONTH) + 1);
 String year = Integer.toString(date1.getCalendar().get(Calendar.YEAR));
 String fecha = (year + "-" + mes+ "-" + dia);
-        System.out.println(fecha);
         } 
        }catch (Exception e) {
                  JOptionPane.showMessageDialog(null, "VERIFICAR CAMPOS", "ERROR", JOptionPane.ERROR_MESSAGE);
