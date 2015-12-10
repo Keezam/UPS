@@ -33,6 +33,7 @@ public class Pruebas extends javax.swing.JFrame {
     
     Connection conn;
     DefaultTableModel modelo;
+    TableModel modelTable;
     public Pruebas() {
         initComponents();
         conn = ConexionBD.GetConnection();
@@ -42,7 +43,7 @@ public class Pruebas extends javax.swing.JFrame {
             System.out.println("No conectado");
         }
         modelo = new DefaultTableModel();
-        
+        modelTable = tableProductos.getModel();
         Object parametros[] = new Object[4];
         parametros[0]="Producto";
         parametros[1]="Marca";
@@ -599,7 +600,6 @@ public class Pruebas extends javax.swing.JFrame {
                 }
                 String ciudad = txtCiudad.getText();
                 String correoP = correo.getText();
-                desactivarCamposInsert();
                 btnNuevoGuardar.setText("NUEVO PROV.");
                 btnNuevoGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ups/edu/compras/resources/nuevousuario.png"))); // NOI18N
                 boolean resultado = insertarProveedores(cedula, nombreP, direccionP, telefonoPrp, telefonoScn, ciudad, correoP, estado);
@@ -608,6 +608,7 @@ public class Pruebas extends javax.swing.JFrame {
                 }else if(!resultado){
                     JOptionPane.showMessageDialog(this, "Error en la inserción","Error",JOptionPane.WARNING_MESSAGE);
                 }
+                desactivarCamposInsert();
             }
         }else{
             JOptionPane.showMessageDialog(this, "Conexion Perdida. Revise su conexion a red.","Información",JOptionPane.INFORMATION_MESSAGE);
@@ -795,26 +796,27 @@ public class Pruebas extends javax.swing.JFrame {
 //        }
 //    }
 //    
+    int filas;
+    int columnas;
     private void agregarToTable(){
         //DefaultTableModel modelo = new DefaultTableModel();
         tableProductos.setModel(modelo);
-        int filas = modelo.getRowCount();
+        filas = modelo.getRowCount();
+        columnas = modelo.getColumnCount();
         String datos [] = new String[4];
         datos[0] = txtTipo.getText();
         datos[1] = txtMarca.getText();
         datos[2] = txtModelo.getText();
         datos[3] = txtPrecio.getText();
         modelo.addRow(new Object[filas]);
-        for (int i = 0; i < modelo.getColumnCount(); i++) {
+        for (int i = 0; i < columnas; i++) {
             modelo.setValueAt(datos[i], filas, i);
         }
         System.out.println("Filas: "+filas);
-        filas++;
     }
     
     private boolean insertarProveedores(String cedula, String nombre, String direccion, Long telefono1, Long telefono2, String ciudad, String correo, String estado){
         String insertaProveedores = "";
-        tableProductos.setModel(modelo);
         try{
             conn.setAutoCommit(false);
             insertaProveedores =
@@ -835,16 +837,15 @@ public class Pruebas extends javax.swing.JFrame {
             int tipo;
             int marca;
             int modeloP;
-            double precio;
+            double precio;           
             //TableModel tableModel = tableProductos.getModel(); 
-            int cols = tableProductos.getColumnCount(); 
-            int fils = tableProductos.getRowCount(); 
-            Object datos[] = new Object[cols];
-            System.out.println("Filas: "+fils+", Columnas: "+cols);
-            for(int i=0; i<=fils; i++) { 
-                for(int j=0; j<cols; j++) {
-                    System.out.print(tableProductos.getModel().getValueAt(i,j)); 
-                    datos[j] = (Object) tableProductos.getModel().getValueAt(i, j);
+            System.out.println("Get row count: "+modelo.getRowCount());
+            Object datos[] = new Object[columnas];
+            System.out.println("Filas: "+filas+", Columnas: "+columnas);
+            for(int i=0; i <=filas; i++) { 
+                for(int j=0; j<columnas; j++) {
+                    System.out.print(modelo.getValueAt(i,j)); 
+                    datos[j] = (Object) modelo.getValueAt(i, j);
                 }
                 tipo = consultarTipo(datos[0].toString());
                 System.out.println("Tipo: "+tipo);
@@ -852,17 +853,26 @@ public class Pruebas extends javax.swing.JFrame {
                 System.out.println("Marca: "+marca);
                 modeloP = consultarModelo(datos[2].toString());
                 System.out.println("Modelo: "+modeloP);
-                precio = (double) datos[3];
-                System.out.println("Producto: "+consultarProductos(tipo, marca, modeloP, precio));
+                precio = Double.parseDouble(datos[3].toString());
+                System.out.println("Precio: "+precio);
                 call.setInt(1, consultarProductos(tipo, marca, modeloP, precio));
-                call.setInt(2,consultarCiudad(ciudad));
+                System.out.println("Producto: "+consultarProductos(tipo, marca, modeloP, precio));
+                call.setInt(2, consultarCiudad(ciudad));
+                System.out.println("Ciudad: "+consultarCiudad(ciudad));
                 call.setString(3, nombre);
+                System.out.println("Nombre: "+nombre);
                 call.setString(4, direccion);
+                System.out.println("direccion: "+direccion);
                 call.setLong(5, telefono1);
+                System.out.println("telefono1: "+telefono1);
                 call.setLong(6, telefono2);
+                System.out.println("telefono2: "+telefono2);
                 call.setString(7, correo);
+                System.out.println("correo: "+correo);
                 call.setString(8, estado);
+                System.out.println("estado: "+estado);
                 call.setString(9, cedula);
+                System.out.println("Cedula: "+cedula);
                 call.execute();
                 call.close();
                 conn.commit();   
