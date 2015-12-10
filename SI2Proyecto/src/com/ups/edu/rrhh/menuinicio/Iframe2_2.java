@@ -8,7 +8,6 @@ import com.ups.edu.conexion.ConexionBD;
 import com.ups.edu.ventas.model.Validacion;
 import java.awt.event.KeyEvent;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
@@ -113,6 +112,12 @@ public class Iframe2_2 extends javax.swing.JInternalFrame {
         jLabel12.setText("Genero:");
 
         jLabel13.setText("Teléfono:");
+
+        txtfechanac.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtfechanacKeyTyped(evt);
+            }
+        });
 
         txttelefono.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -364,61 +369,15 @@ public class Iframe2_2 extends javax.swing.JInternalFrame {
         }else if (txtcodigo.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "INGRESE CODIGO","Error",JOptionPane.WARNING_MESSAGE);
         }else{{
-        daoPersonal obj = new daoPersonal();
-//        Combo cb1 = (Combo) jComboBox1.getSelectedItem();
-//        int idcargo = cb1.getCodigo();
-//        Combo cb2 = (Combo) jComboBox2.getSelectedItem();
-//        int iddep = cb2.getCodigo();
-//        Combo cb3 = (Combo) jComboBox3.getSelectedItem();
-//        int idsueldo = cb3.getCodigo();
-//        Combo cb4 = (Combo) jComboBox4.getSelectedItem();
-//        int idbanco = cb4.getCodigo();
+        daoPersonal obj = new daoPersonal();    
         int catCargo = (int) cmbCargo.getSelectedIndex();
         int catDep = (int) cmbDep.getSelectedIndex();
         int catSueldo = (int) cmbSueldo.getSelectedIndex();
         int catBanco = (int) cmbBanco.getSelectedIndex();
         int a = Integer.parseInt(txtcodigo.getText());
         int b = Integer.parseInt(txttelefono.getText());
-        //Date c = Date.valueOf(txtfechanac.getText());
         obj.Insertar(new personal(a,catCargo,catDep,catSueldo,catBanco,txtnombre.getText(),txtapellido.getText(),txtcedula.getText(),txtciudad.getText(),txtdireccion.getText(),b,txtemail.getText(),txtestadocivil.getText(),txtgenero.getText(),txtfechanac.getText()));
-//        try {
-//            PreparedStatement pst = cn.prepareStatement("INSERT INTO rrhh_datos_personales("
-//                    + "id_personal,id_cargo,id_departamento,id_sueldo,id_banco,"
-//                    + "nombre,apellido,cedula,ciudad,direccion,telefono,e_mail,"
-//                    + "estado_civil,genero,fecha_nac) "
-//                    + "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"); //PreparedStatement permite trabajar con sent. SQL            
-//            pst.setString(1, txtcodigo.getText());
-//            pst.setInt(2, idcargo);
-//            pst.setInt(3, iddep);
-//            pst.setInt(4, idsueldo);
-//            pst.setInt(5, idbanco);
-//            pst.setString(6, txtnombre.getText());
-//            pst.setString(7, txtapellido.getText());
-//            pst.setString(8, txtcedula.getText());
-//            pst.setString(9, txtciudad.getText());
-//            pst.setString(10, txtdireccion.getText());
-//            pst.setString(11, txttelefono.getText());
-//            pst.setString(12, txtemail.getText());
-//            pst.setString(13, txtestadocivil.getText());
-//            pst.setString(14, txtgenero.getText());
-//            pst.setString(15, txtfechanac.getText());
-//            pst.executeUpdate();
-//            JOptionPane.showMessageDialog(null, "Grabación Exitosa");
-//            
-//        } catch (SQLException ex) {
-//            Logger.getLogger(Iframe2_2.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-        txtnombre.setText("");
-        txtapellido.setText("");
-        txtcedula.setText("");
-        txtciudad.setText("");
-        txtdireccion.setText("");
-        txtemail.setText("");
-        txtestadocivil.setText("");
-        txtfechanac.setText("");
-        txtgenero.setText("");
-        txttelefono.setText("");
-        txtcodigo.setText("");
+
         
         }        
         }
@@ -439,6 +398,13 @@ public class Iframe2_2 extends javax.swing.JInternalFrame {
         if(txttelefono.getText().length()>=10 ) evt.consume();
         if(( car<'0' || car>'9' )) evt.consume();
     }//GEN-LAST:event_txttelefonoKeyTyped
+
+    private void txtfechanacKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtfechanacKeyTyped
+        // TODO add your handling code here:
+        char car = evt.getKeyChar();
+        if(txtfechanac.getText().length()>=10 ) evt.consume();
+
+    }//GEN-LAST:event_txtfechanacKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -10,13 +10,19 @@ Connection cn= cc.GetConnection();
     /**
      * Creates new form Iframe3
      */
-    public Iframe3() {
+    public Iframe3() throws SQLException {
         initComponents();
+        this.setVisible(true);
         int he = Integer.parseInt(txtHorasExtras.getText()); 
-        double nhe = he * (5.75);
+        int com = Integer.parseInt(txtComisiones.getText()); 
+        int nhe = he * (6);
         jLabel9.setText(nhe+"");
         int categoria1 = (int) cmbSueldo.getSelectedItem();
-        
+        int z = nhe + categoria1 + com ;
+        jLabel10.setText(z+"");
+        dameCargo();
+        dameSueldo();
+        dameBanco();
         
     }
 
@@ -292,4 +298,44 @@ Connection cn= cc.GetConnection();
     private javax.swing.JTextField txtIdRol;
     private javax.swing.JTextField txtidemp;
     // End of variables declaration//GEN-END:variables
+private void dameCargo() throws SQLException {
+        ConexionBD cn = new ConexionBD();
+        Connection conn = cn.GetConnection();
+        ResultSet rs;
+        String sql = "SELECT nombre FROM rrhh_cargo";
+        PreparedStatement sqls = conn.prepareStatement(sql);
+        rs = sqls.executeQuery();
+        while(rs.next()){
+            cargo ca = new cargo();
+            ca.setNombre(rs.getString("nombre"));
+            cmbCargo.addItem(ca+"");
+        }
+    }
+   
+    private void dameSueldo() throws SQLException {
+        ConexionBD cn = new ConexionBD();
+        Connection conn = cn.GetConnection();
+        ResultSet rs;
+        String sql = "SELECT cantidad FROM rrhh_sueldo";
+        PreparedStatement sqls = conn.prepareStatement(sql);
+        rs = sqls.executeQuery();
+        while(rs.next()){
+            sueldo su = new sueldo();
+           su.setCantidad(rs.getInt("cantidad"));
+            cmbSueldo.addItem(rs.getInt("cantidad")+"");
+        }
+    }   
+    private void dameBanco() throws SQLException {
+        ConexionBD cn = new ConexionBD();
+        Connection conn = cn.GetConnection();
+        ResultSet rs;
+        String sql = "SELECT nombre FROM rrhh_banco";
+        PreparedStatement sqls = conn.prepareStatement(sql);
+        rs = sqls.executeQuery();
+        while(rs.next()){
+            banco b = new banco();
+            b.setNombre(rs.getString("nombre"));
+            cmbBanco.addItem(b+"");
+        }
+    } 
 }

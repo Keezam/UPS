@@ -318,10 +318,14 @@ Iframe1_2 objIFrame1=new Iframe1_2();
     }//GEN-LAST:event_jMVta_PromocionActionPerformed
 
     private void jCheckBoxMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxMenuItem3ActionPerformed
-        Iframe3 objIFrame3=new Iframe3();
-        Escritorio.add(objIFrame3);
-        objIFrame3.setLocation(450, 10);
-        objIFrame3.show();
+        try {
+            Iframe3 objIFrame3=new Iframe3();
+            Escritorio.add(objIFrame3);
+            objIFrame3.setLocation(450, 10);
+            objIFrame3.show();
+        } catch (SQLException ex) {
+            Logger.getLogger(menuu.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jCheckBoxMenuItem3ActionPerformed
 
     private void jCheckBoxMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxMenuItem4ActionPerformed

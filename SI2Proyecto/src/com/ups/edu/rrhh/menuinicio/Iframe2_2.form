@@ -309,6 +309,9 @@
     <Component class="javax.swing.JTextField" name="txtestadocivil">
     </Component>
     <Component class="javax.swing.JTextField" name="txtfechanac">
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtfechanacKeyTyped"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="txtgenero">
     </Component>
