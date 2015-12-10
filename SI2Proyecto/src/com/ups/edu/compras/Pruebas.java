@@ -42,7 +42,6 @@ public class Pruebas extends javax.swing.JFrame {
             System.out.println("No conectado");
         }
         modelo = new DefaultTableModel();
-        tableProductos.setModel(modelo);
         
         Object parametros[] = new Object[4];
         parametros[0]="Producto";
@@ -345,11 +344,16 @@ public class Pruebas extends javax.swing.JFrame {
                 btnAgregarActionPerformed(evt);
             }
         });
-
+        
         eliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ups/edu/compras/resources/borrar.png"))); // NOI18N
         eliminar.setText("ELIMINAR");
         eliminar.setEnabled(false);
-
+        eliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
+        
         btnActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ups/edu/compras/resources/actualizar.png"))); // NOI18N
         btnActualizar.setText("ACTUALIZAR");
         btnActualizar.setEnabled(false);
@@ -369,6 +373,11 @@ public class Pruebas extends javax.swing.JFrame {
 
         btnQuitar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ups/edu/compras/resources/sacar.png"))); // NOI18N
         btnQuitar.setEnabled(false);
+        btnQuitar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnQuitarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -572,16 +581,22 @@ public class Pruebas extends javax.swing.JFrame {
                 activarCamposInsert();
             }else if(btnNuevoGuardar.getText().equals("GUARDAR")){
                 if(estado1.isSelected()){
-                    estado = estado1.getText();
+                    estado = "A";
                 }else 
                 if(estado2.isSelected()){
-                    estado = estado2.getText();
+                    estado = "I";
                 }
                 String cedula = id_proveedor.getText();
                 String nombreP = nombre.getText();
                 String direccionP = direccion.getText();
-                int telefonoPrp = Integer.parseInt(telefono1.getText());
-                int telefonoScn = Integer.parseInt(telefono2.getText());
+                Long telefonoPrp = null;
+                Long telefonoScn = null;
+                if(!(telefono1.getText().equals(""))){
+                    telefonoPrp = Long.parseLong(telefono1.getText());
+                }
+                if(!(telefono2.getText().equals(""))){
+                     telefonoScn = Long.parseLong(telefono2.getText());
+                }
                 String ciudad = txtCiudad.getText();
                 String correoP = correo.getText();
                 desactivarCamposInsert();
@@ -591,7 +606,7 @@ public class Pruebas extends javax.swing.JFrame {
                 if(resultado){
                     JOptionPane.showMessageDialog(this, "Dato ingresados correctamente","Información",JOptionPane.INFORMATION_MESSAGE);
                 }else if(!resultado){
-                    JOptionPane.showMessageDialog(this, "Error en la inserción, formato incorrecto","Error",JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Error en la inserción","Error",JOptionPane.WARNING_MESSAGE);
                 }
             }
         }else{
@@ -604,6 +619,18 @@ public class Pruebas extends javax.swing.JFrame {
         jDialog1.setVisible(true);
     }                                          
 
+    private void btnQuitarActionPerformed(java.awt.event.ActionEvent evt){
+        if(tableProductos.getSelectedRow()>=0){
+            modelo.removeRow(tableProductos.getSelectedRow());
+        }else{
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un registro","Información",JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
+    
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt){
+        
+    }
+    
     private void btnAgrega2JtableActionPerformed(java.awt.event.ActionEvent evt) {                                                 
         // TODO add your handling code here:
         try{
@@ -628,13 +655,18 @@ public class Pruebas extends javax.swing.JFrame {
             modeloP = consultarModelo(txtModelo.getText());
             double precio = Double.parseDouble(txtPrecio.getText());
             String detalle = txtDetalles.getText();
-            if(consultarProductos(tipo, marca, modeloP) == 0){
+            if(consultarProductos(tipo, marca, modeloP, precio) == 0){
+                System.out.println("Inserto a productos");
                 boolean flagProductos = insertarProductos(marca, tipo, modeloP, precio, detalle);
                 if(flagProductos){
+                    System.out.println("Paso a insertar a la tabla");
                     agregarToTable();
                 }else{
                     JOptionPane.showMessageDialog(this, "No se inserto el producto en la DB", "Error", JOptionPane.WARNING_MESSAGE);
                 }
+            }else{
+                agregarToTable();
+                System.out.println("No inserte en productos");
             }
             txtTipo.setText("");
             txtPrecio.setText("");
@@ -765,19 +797,8 @@ public class Pruebas extends javax.swing.JFrame {
 //    
     private void agregarToTable(){
         //DefaultTableModel modelo = new DefaultTableModel();
+        tableProductos.setModel(modelo);
         int filas = modelo.getRowCount();
-//        tableProductos.setModel(modelo);
-//        
-//        Object parametros[] = new Object[4];
-//        parametros[0]="Producto";
-//        parametros[1]="Marca";
-//        parametros[2]="Modelo";
-//        parametros[3]="Precio";
-//
-//        for (int j = 0; j < parametros.length; j++) {
-//            modelo.addColumn(parametros[j]);
-//        }
-        
         String datos [] = new String[4];
         datos[0] = txtTipo.getText();
         datos[1] = txtMarca.getText();
@@ -787,11 +808,13 @@ public class Pruebas extends javax.swing.JFrame {
         for (int i = 0; i < modelo.getColumnCount(); i++) {
             modelo.setValueAt(datos[i], filas, i);
         }
+        System.out.println("Filas: "+filas);
         filas++;
     }
     
-    private boolean insertarProveedores(String cedula, String nombre, String direccion, int telefono1, int telefono2, String ciudad, String correo, String estado){
+    private boolean insertarProveedores(String cedula, String nombre, String direccion, Long telefono1, Long telefono2, String ciudad, String correo, String estado){
         String insertaProveedores = "";
+        tableProductos.setModel(modelo);
         try{
             conn.setAutoCommit(false);
             insertaProveedores =
@@ -812,37 +835,39 @@ public class Pruebas extends javax.swing.JFrame {
             int tipo;
             int marca;
             int modeloP;
-            Object datos [] = new Object[4];
-            TableModel tableModel = tableProductos.getModel(); 
-            int cols = tableModel.getColumnCount(); 
-            int fils = tableModel.getRowCount(); 
-            for(int i=0; i<fils; i++) { 
+            double precio;
+            //TableModel tableModel = tableProductos.getModel(); 
+            int cols = tableProductos.getColumnCount(); 
+            int fils = tableProductos.getRowCount(); 
+            Object datos[] = new Object[cols];
+            System.out.println("Filas: "+fils+", Columnas: "+cols);
+            for(int i=0; i<=fils; i++) { 
                 for(int j=0; j<cols; j++) {
-                    System.out.print(tableModel.getValueAt(i,j)); 
-                    datos[i] = tableModel.getValueAt(i, j);
+                    System.out.print(tableProductos.getModel().getValueAt(i,j)); 
+                    datos[j] = (Object) tableProductos.getModel().getValueAt(i, j);
                 }
                 tipo = consultarTipo(datos[0].toString());
+                System.out.println("Tipo: "+tipo);
                 marca = consultarMarca(datos[1].toString());
+                System.out.println("Marca: "+marca);
                 modeloP = consultarModelo(datos[2].toString());
-                call.setInt(1, consultarProductos(tipo, marca, modeloP));
+                System.out.println("Modelo: "+modeloP);
+                precio = (double) datos[3];
+                System.out.println("Producto: "+consultarProductos(tipo, marca, modeloP, precio));
+                call.setInt(1, consultarProductos(tipo, marca, modeloP, precio));
                 call.setInt(2,consultarCiudad(ciudad));
                 call.setString(3, nombre);
                 call.setString(4, direccion);
-                call.setInt(5, telefono1);
-                call.setInt(6, telefono2);
+                call.setLong(5, telefono1);
+                call.setLong(6, telefono2);
                 call.setString(7, correo);
                 call.setString(8, estado);
                 call.setString(9, cedula);
                 call.execute();
                 call.close();
-            }
-
-            try{
                 conn.commit();   
-            }catch(Exception e){
-                System.out.println("Error en commit: "+e.getMessage());
-                return false;
             }
+            System.out.println("Salgo del for");
             return true;
         }catch(Exception e){
             try{
@@ -857,15 +882,17 @@ public class Pruebas extends javax.swing.JFrame {
         }
     }
     
-    private int consultarProductos(int tipo, int marca, int modelo){
+    private int consultarProductos(int tipo, int marca, int modelo, double precio){
         int codigo = 0;
         
         try{
             String cosultaProduc = "SELECT  `id_producto` " +
                                     "FROM  `inv_Producto` " +
                                     "WHERE  `id_tipo` ="+ tipo+
-                                    " AND  `id_marca` =4"+ marca +
-                                    " AND  `id_modelo` =4"+ modelo;
+                                    " AND  `id_marca` ="+ marca +
+                                    " AND  `id_modelo` ="+ modelo+
+                                    " AND `Precio_unitario` ="+precio;
+            
             CallableStatement cs = conn.prepareCall(cosultaProduc);
             ResultSet rs = cs.executeQuery();
             while(rs.next()){
@@ -873,6 +900,7 @@ public class Pruebas extends javax.swing.JFrame {
             }
             return codigo;
         }catch(Exception e){
+            System.out.println("Error de consulta de producto. No existe los datos");
             return 0;
         }
     }
@@ -898,7 +926,7 @@ public class Pruebas extends javax.swing.JFrame {
             call.setString(6, detalle);
             call.execute();
             call.close();
-            //conn.commit();
+            conn.commit();
             return true;
         }catch(SQLException e){
             try{
@@ -923,6 +951,7 @@ public class Pruebas extends javax.swing.JFrame {
             }
             return resultado;
         }catch(Exception e){
+            System.out.println("Error en cosnultar marca");
             return 0;
         }
     }
@@ -937,6 +966,7 @@ public class Pruebas extends javax.swing.JFrame {
             }
             return resultado;
         }catch(Exception e){
+            System.out.println("Error en consultar tipo");
             return 0;
         }
     }
@@ -951,6 +981,7 @@ public class Pruebas extends javax.swing.JFrame {
             }
             return resultado;
         }catch(Exception e){
+            System.out.println("Error en consultar modelo");
             return 0;
         }
     }
@@ -964,11 +995,8 @@ public class Pruebas extends javax.swing.JFrame {
             call.setString(1, marca);
             call.execute();
             call.close();
-//            try{
-//                conn.commit();
-//            }catch (Exception e){
-//                System.out.println("Error en commit");
-//            }
+            System.out.println("Insercion de marca correcta");
+            conn.commit();
         }catch(SQLException sql){
             try{
                 conn.rollback();
@@ -988,11 +1016,8 @@ public class Pruebas extends javax.swing.JFrame {
             call.setString(1, modeloP);
             call.execute();
             call.close();
-//            try{
-//                conn.commit();
-//            }catch (Exception e){
-//                System.out.println("Error en commit");
-//            }
+            System.out.println("Insercion de modelo correcta");
+            conn.commit();
         }catch(SQLException sql){
             try{
                 conn.rollback();
@@ -1012,11 +1037,8 @@ public class Pruebas extends javax.swing.JFrame {
             call.setString(1, tipo);
             call.execute();
             call.close();
-//            try{
-//                conn.commit();
-//            }catch (Exception e){
-//                System.out.println("Error en commit: "+e.getMessage());
-//            }
+            System.out.println("Insercion de tipo correcta");
+            conn.commit();
         }catch(SQLException sql){
             try{
                 conn.rollback();
@@ -1037,11 +1059,8 @@ public class Pruebas extends javax.swing.JFrame {
             call.setString(1, ciudad);
             call.execute();
             call.close();
-//            try{
-//                conn.commit();
-//            }catch(Exception e){
-//                System.out.println("Error en commit: "+e.getMessage());
-//            }
+            System.out.println("Insercion de ciudad correcta");
+            conn.commit();
         }catch(SQLException e){
             try {
                 conn.rollback();
@@ -1071,6 +1090,7 @@ public class Pruebas extends javax.swing.JFrame {
     
     private void getProveedor(String cedula_proveedor){
         cambiarEstadoBotones();
+        tableProductos.setModel(modelo);
         int i = 0;
         //DefaultTableModel modelo = new DefaultTableModel();
         String consultaProveedor = 
@@ -1356,7 +1376,6 @@ public class Pruebas extends javax.swing.JFrame {
         telefono1.setText("");
         telefono2.setText("");
         
-        modelo = new DefaultTableModel();
         //Cambio en los botones cuando se trata de busquedas
         btnNuevoGuardar.setEnabled(true);
         btnAgregar.setEnabled(false);
