@@ -9,7 +9,7 @@ public class daoRol {
         try {
                 //Conectar a mysql
                 Connection con = ConexionBD.GetConnection();
-                String sql="INSERT INTO rrhh_reg_vacaciones(id_vacaciones,id_personal,dias,fecha_inicio,fecha_fin) VALUES(?,?,?,?,?)";
+                String sql="INSERT INTO rrhh_rol_de_pagos(id_rol,id_personal,id_cargo, id_sueldo,id_banco, horas_extras,comisiones,total) VALUES(?,?,?,?,?,?,?,?)";
                 PreparedStatement ps = con.prepareStatement(sql); //PreparedStatement permite trabajar con sent. SQL
               
                 ps.setInt(1, obj.getId_rol());

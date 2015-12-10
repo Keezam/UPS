@@ -13,13 +13,13 @@ Connection cn= cc.GetConnection();
     public Iframe3() throws SQLException {
         initComponents();
         this.setVisible(true);
-        int he = Integer.parseInt(txtHorasExtras.getText()); 
-        int com = Integer.parseInt(txtComisiones.getText()); 
-        int nhe = he * (6);
-        jLabel9.setText(nhe+"");
-        int categoria1 = (int) cmbSueldo.getSelectedItem();
-        int z = nhe + categoria1 + com ;
-        jLabel10.setText(z+"");
+         
+//        int nhe = he * (6);
+//        jLabel9.setText(nhe+"");
+//        int categoria1 = (int) cmbSueldo.getSelectedItem();
+//        int z = nhe + categoria1 + com ;
+//        jLabel10.setText(z+"");
+        
         dameCargo();
         dameSueldo();
         dameBanco();
@@ -47,14 +47,15 @@ Connection cn= cc.GetConnection();
         cmbCargo = new javax.swing.JComboBox<>();
         cmbSueldo = new javax.swing.JComboBox<>();
         txtHorasExtras = new javax.swing.JTextField();
-        jLabel9 = new javax.swing.JLabel();
+        lblHe = new javax.swing.JLabel();
         txtComisiones = new javax.swing.JTextField();
-        jLabel10 = new javax.swing.JLabel();
+        lblTotal = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         cmbBanco = new javax.swing.JComboBox<>();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         txtIdRol = new javax.swing.JTextField();
+        jButton2 = new javax.swing.JButton();
 
         setClosable(true);
         setTitle("Rol de Pago");
@@ -73,7 +74,7 @@ Connection cn= cc.GetConnection();
 
         jLabel6.setText("Comisiones:");
 
-        jLabel7.setText("Horas Extras:");
+        jLabel7.setText("Horas Extras:         $");
 
         jLabel8.setText("Total");
 
@@ -89,7 +90,7 @@ Connection cn= cc.GetConnection();
             }
         });
 
-        jLabel9.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        lblHe.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         txtComisiones.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -97,7 +98,7 @@ Connection cn= cc.GetConnection();
             }
         });
 
-        jLabel10.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        lblTotal.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         jButton1.setText("Guardar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -116,6 +117,13 @@ Connection cn= cc.GetConnection();
             }
         });
 
+        jButton2.setText("Limpiar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -131,11 +139,11 @@ Connection cn= cc.GetConnection();
                                     .addComponent(jLabel7)
                                     .addComponent(jLabel6)
                                     .addComponent(jLabel8))
-                                .addGap(23, 23, 23)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtHorasExtras, javax.swing.GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE)
-                                    .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addGap(5, 5, 5)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(lblHe, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(txtHorasExtras)
+                                    .addComponent(lblTotal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
@@ -159,7 +167,9 @@ Connection cn= cc.GetConnection();
                                 .addComponent(txtComisiones))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(159, 159, 159)
-                        .addComponent(jButton1)))
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton2)))
                 .addContainerGap(79, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 113, Short.MAX_VALUE)
@@ -198,25 +208,28 @@ Connection cn= cc.GetConnection();
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 21, Short.MAX_VALUE)
-                    .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(lblHe, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(txtComisiones, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtComisiones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel8)
-                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jButton1)
-                .addContainerGap(38, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButton2))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
     
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-      if (txtIdRol.getText().equals("")) {
+      
+        if (txtIdRol.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "INGRESE CODIGO DE ROL DE PAGO","Error",JOptionPane.WARNING_MESSAGE);
         }else if (txtidemp.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "INGRESE CODIGO PERSONAL","Error",JOptionPane.WARNING_MESSAGE);
@@ -225,23 +238,26 @@ Connection cn= cc.GetConnection();
         }else if (txtComisiones.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "INGRESE VALOR DE COMISIONES","Error",JOptionPane.WARNING_MESSAGE);
         }else{
+            int he = Integer.parseInt(txtHorasExtras.getText()); 
+            int com = Integer.parseInt(txtComisiones.getText());
+            int nhe = he * (6);
+            String categoria1 = (String) cmbSueldo.getSelectedItem();
+            int cat1 = Integer.parseInt(categoria1);
             daoRol obj = new daoRol();
-            Combo cb1 = (Combo) cmbCargo.getSelectedItem();
-            int idcargo = cb1.getCodigo();
-            Combo cb2 = (Combo) cmbSueldo.getSelectedItem();
-            int idsueldo = cb2.getCodigo();
-            Combo cb3 = (Combo) cmbBanco.getSelectedItem();
-            int idbanco = cb3.getCodigo();
+            int catCargo = (int) cmbCargo.getSelectedIndex();
+            int catSueldo = (int) cmbSueldo.getSelectedIndex();
+            int catBanco = (int) cmbBanco.getSelectedIndex();
             int a = Integer.parseInt(txtIdRol.getText()); 
             int b = Integer.parseInt(txtidemp.getText()); 
-            int c = Integer.parseInt(jLabel9.getText());
+//            int c = Integer.parseInt(jLabel9.getText());
             int d = Integer.parseInt(txtComisiones.getText());
-            int e = Integer.parseInt(jLabel10.getText());
-           obj.Insertar(new roldepagos(a,b,idcargo,idsueldo,idbanco,c,d,e));
-            txtIdRol.setText("");
-            txtidemp.setText("");
-            txtHorasExtras.setText("");
-            txtComisiones.setText("");
+            int e = nhe + d + cat1;
+            lblHe.setText(nhe+"");
+            lblTotal.setText(e+"");
+            int f = Integer.parseInt(lblHe.getText());
+            int g = Integer.parseInt(lblTotal.getText());
+           obj.Insertar(new roldepagos(a,b,catCargo,catSueldo,catBanco,f,d,g));
+            
                
         }  
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -275,14 +291,24 @@ Connection cn= cc.GetConnection();
         if(( car<'0' || car>'9' )) evt.consume();
     }//GEN-LAST:event_txtComisionesKeyTyped
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        txtIdRol.setText("");
+            txtidemp.setText("");
+            txtHorasExtras.setText("");
+            txtComisiones.setText("");
+            lblHe.setText("");
+            lblTotal.setText("");
+    }//GEN-LAST:event_jButton2ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> cmbBanco;
     private javax.swing.JComboBox<String> cmbCargo;
     private javax.swing.JComboBox<String> cmbSueldo;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
@@ -292,7 +318,8 @@ Connection cn= cc.GetConnection();
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel lblHe;
+    private javax.swing.JLabel lblTotal;
     private javax.swing.JTextField txtComisiones;
     private javax.swing.JTextField txtHorasExtras;
     private javax.swing.JTextField txtIdRol;
