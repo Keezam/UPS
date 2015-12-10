@@ -405,7 +405,7 @@ public class orden extends javax.swing.JFrame {
     
     private static String fechaActual(){
         Date fecha=new Date();
-        SimpleDateFormat sdf=new SimpleDateFormat("YYY/MM/dd"); 
+        SimpleDateFormat sdf=new SimpleDateFormat("YYYY/MM/dd"); 
         return sdf.format(fecha);
     }
     
