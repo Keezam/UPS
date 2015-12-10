@@ -5,8 +5,16 @@ import java.sql.Date;
 
 public class personal {
    private int id_personal,id_cargo,id_departamento,id_sueldo,id_banco,telefono;
-   private String nombre,apellido,cedula,ciudad,direccion,e_mail,estado_civil,genero; 
-   private Date fecha_nac; 
+   private String nombre,apellido,cedula,ciudad,direccion,e_mail,estado_civil,genero,fecha_nac; 
+//   private Date fecha_nac; 
+
+    public String getFecha_nac() {
+        return fecha_nac;
+    }
+
+    public void setFecha_nac(String fecha_nac) {
+        this.fecha_nac = fecha_nac;
+    }
    
     public int getId_personal() {
         return id_personal;
@@ -120,14 +128,14 @@ public class personal {
         this.genero = genero;
     }
 
-    public Date getFecha_nac() {
-        return fecha_nac;
-    }
-
-    public void setFecha_nac(Date fecha_nac) {
-        this.fecha_nac = fecha_nac;
-    }
-public personal(int id_personal,int id_cargo,int id_departamento,int id_sueldo,int id_banco, String nombre, String apellido, String cedula, String ciudad, String direccion,int telefono,String e_mail, String estado_civil,String genero,Date fecha_fin) {
+//    public Date getFecha_nac() {
+//        return fecha_nac;
+//    }
+//
+//    public void setFecha_nac(Date fecha_nac) {
+//        this.fecha_nac = fecha_nac;}
+    
+public personal(int id_personal,int id_cargo,int id_departamento,int id_sueldo,int id_banco, String nombre, String apellido, String cedula, String ciudad, String direccion,int telefono,String e_mail, String estado_civil,String genero,String fecha_nac) {
         this.id_personal = id_personal;
         this.id_cargo = id_cargo;
         this.id_departamento = id_departamento;

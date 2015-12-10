@@ -1,21 +1,23 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.ups.edu.rrhh.menuinicio;
+import com.ups.edu.conexion.ConexionBD;
+import java.sql.*;
+import javax.swing.JOptionPane;
 
-/**
- *
- * @author SERVIDOR
- */
 public class Iframe3 extends javax.swing.JInternalFrame {
-
+ConexionBD cc = new ConexionBD();
+Connection cn= cc.GetConnection();
     /**
      * Creates new form Iframe3
      */
     public Iframe3() {
         initComponents();
+        int he = Integer.parseInt(txtHorasExtras.getText()); 
+        double nhe = he * (5.75);
+        jLabel9.setText(nhe+"");
+        int categoria1 = (int) cmbSueldo.getSelectedItem();
+        
+        
     }
 
     /**
@@ -35,18 +37,18 @@ public class Iframe3 extends javax.swing.JInternalFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jComboBox2 = new javax.swing.JComboBox<>();
-        jTextField2 = new javax.swing.JTextField();
+        txtidemp = new javax.swing.JTextField();
+        cmbCargo = new javax.swing.JComboBox<>();
+        cmbSueldo = new javax.swing.JComboBox<>();
+        txtHorasExtras = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        txtComisiones = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        jComboBox3 = new javax.swing.JComboBox<>();
+        cmbBanco = new javax.swing.JComboBox<>();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
+        txtIdRol = new javax.swing.JTextField();
 
         setClosable(true);
         setTitle("Rol de Pago");
@@ -69,15 +71,44 @@ public class Iframe3 extends javax.swing.JInternalFrame {
 
         jLabel8.setText("Total");
 
-        jLabel9.setText("jLabel9");
+        txtidemp.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtidempKeyTyped(evt);
+            }
+        });
 
-        jLabel10.setText("jLabel10");
+        txtHorasExtras.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtHorasExtrasKeyTyped(evt);
+            }
+        });
+
+        jLabel9.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        txtComisiones.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtComisionesKeyTyped(evt);
+            }
+        });
+
+        jLabel10.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         jButton1.setText("Guardar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jLabel11.setText("Banco:");
 
         jLabel12.setText("Rol n°:");
+
+        txtIdRol.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtIdRolKeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -96,9 +127,9 @@ public class Iframe3 extends javax.swing.JInternalFrame {
                                     .addComponent(jLabel8))
                                 .addGap(23, 23, 23)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel10)))
+                                    .addComponent(txtHorasExtras, javax.swing.GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE)
+                                    .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
@@ -112,20 +143,20 @@ public class Iframe3 extends javax.swing.JInternalFrame {
                                         .addComponent(jLabel1)
                                         .addGap(18, 18, 18)))
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jComboBox1, 0, 177, Short.MAX_VALUE)
-                                    .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jComboBox3, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jTextField4)))
+                                    .addComponent(cmbCargo, 0, 177, Short.MAX_VALUE)
+                                    .addComponent(cmbSueldo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(cmbBanco, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(txtidemp, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(txtIdRol)))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGap(104, 104, 104)
-                                .addComponent(jTextField3))))
+                                .addComponent(txtComisiones))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(159, 159, 159)
                         .addComponent(jButton1)))
                 .addContainerGap(79, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
+                .addGap(0, 113, Short.MAX_VALUE)
                 .addComponent(jLabel2)
                 .addGap(107, 107, 107))
         );
@@ -137,53 +168,113 @@ public class Iframe3 extends javax.swing.JInternalFrame {
                 .addGap(14, 14, 14)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel12)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtIdRol, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtidemp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
                 .addGap(8, 8, 8)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmbCargo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cmbSueldo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(14, 14, 14)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmbBanco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel11))
                 .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtHorasExtras, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(jLabel9))
-                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 21, Short.MAX_VALUE)
+                    .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(37, 37, 37)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtComisiones, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(28, 28, 28)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel8)
-                    .addComponent(jLabel10))
+                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jButton1)
-                .addContainerGap(34, Short.MAX_VALUE))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+      if (txtIdRol.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "INGRESE CODIGO DE ROL DE PAGO","Error",JOptionPane.WARNING_MESSAGE);
+        }else if (txtidemp.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "INGRESE CODIGO PERSONAL","Error",JOptionPane.WARNING_MESSAGE);
+        }else if (txtHorasExtras.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "INGRESE NUMERO DE HORAS EXTRAS","Error",JOptionPane.WARNING_MESSAGE);
+        }else if (txtComisiones.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "INGRESE VALOR DE COMISIONES","Error",JOptionPane.WARNING_MESSAGE);
+        }else{
+            daoRol obj = new daoRol();
+            Combo cb1 = (Combo) cmbCargo.getSelectedItem();
+            int idcargo = cb1.getCodigo();
+            Combo cb2 = (Combo) cmbSueldo.getSelectedItem();
+            int idsueldo = cb2.getCodigo();
+            Combo cb3 = (Combo) cmbBanco.getSelectedItem();
+            int idbanco = cb3.getCodigo();
+            int a = Integer.parseInt(txtIdRol.getText()); 
+            int b = Integer.parseInt(txtidemp.getText()); 
+            int c = Integer.parseInt(jLabel9.getText());
+            int d = Integer.parseInt(txtComisiones.getText());
+            int e = Integer.parseInt(jLabel10.getText());
+           obj.Insertar(new roldepagos(a,b,idcargo,idsueldo,idbanco,c,d,e));
+            txtIdRol.setText("");
+            txtidemp.setText("");
+            txtHorasExtras.setText("");
+            txtComisiones.setText("");
+               
+        }  
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void txtIdRolKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdRolKeyTyped
+        char car = evt.getKeyChar();
+        if(txtIdRol.getText().length()>=10 ) evt.consume();
+        if(( car<'0' || car>'9' )) evt.consume();
+   // TODO add your handling code here:
+    }//GEN-LAST:event_txtIdRolKeyTyped
+
+    private void txtidempKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtidempKeyTyped
+        // TODO add your handling code here:
+        char car = evt.getKeyChar();
+        if(txtidemp.getText().length()>=10 ) evt.consume();
+        if(( car<'0' || car>'9' )) evt.consume();
+   
+    }//GEN-LAST:event_txtidempKeyTyped
+
+    private void txtHorasExtrasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtHorasExtrasKeyTyped
+        // TODO add your handling code here:
+        char car = evt.getKeyChar();
+        if(txtHorasExtras.getText().length()>=2 ) evt.consume();
+        if(( car<'0' || car>'9' )) evt.consume();
+   
+    }//GEN-LAST:event_txtHorasExtrasKeyTyped
+
+    private void txtComisionesKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtComisionesKeyTyped
+        char car = evt.getKeyChar();
+        if(txtHorasExtras.getText().length()>=3 ) evt.consume();
+        if(( car<'0' || car>'9' )) evt.consume();
+    }//GEN-LAST:event_txtComisionesKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> cmbBanco;
+    private javax.swing.JComboBox<String> cmbCargo;
+    private javax.swing.JComboBox<String> cmbSueldo;
     private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
-    private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -196,9 +287,9 @@ public class Iframe3 extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
+    private javax.swing.JTextField txtComisiones;
+    private javax.swing.JTextField txtHorasExtras;
+    private javax.swing.JTextField txtIdRol;
+    private javax.swing.JTextField txtidemp;
     // End of variables declaration//GEN-END:variables
 }

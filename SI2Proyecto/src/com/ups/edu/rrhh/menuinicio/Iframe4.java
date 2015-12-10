@@ -149,7 +149,7 @@ Connection cn= cc.GetConnection();
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         if (txtIdVac.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "CODIGO DE VACACIONES","Error",JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "INGRESE CODIGO DE VACACIONES","Error",JOptionPane.WARNING_MESSAGE);
         }else if (txtIdPers.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "INGRESE CODIGO PERSONAL","Error",JOptionPane.WARNING_MESSAGE);
         }else if (txtdias.getText().equals("")) {

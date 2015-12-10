@@ -71,15 +71,15 @@ public class Iframe2_2 extends javax.swing.JInternalFrame {
         txtgenero = new javax.swing.JTextField();
         txttelefono = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jComboBox2 = new javax.swing.JComboBox<>();
-        jComboBox3 = new javax.swing.JComboBox<>();
+        cmbCargo = new javax.swing.JComboBox<>();
+        cmbDep = new javax.swing.JComboBox<>();
+        cmbSueldo = new javax.swing.JComboBox<>();
         jButton2 = new javax.swing.JButton();
         jLabel14 = new javax.swing.JLabel();
         txtcedula = new javax.swing.JTextField();
         jButton3 = new javax.swing.JButton();
         jLabel15 = new javax.swing.JLabel();
-        jComboBox4 = new javax.swing.JComboBox<>();
+        cmbBanco = new javax.swing.JComboBox<>();
         jLabel16 = new javax.swing.JLabel();
         txtcodigo = new javax.swing.JTextField();
 
@@ -222,10 +222,10 @@ public class Iframe2_2 extends javax.swing.JInternalFrame {
                                         .addComponent(jLabel15)))
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jComboBox3, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(cmbCargo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(cmbDep, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(cmbSueldo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(cmbBanco, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(83, 83, 83)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -248,19 +248,19 @@ public class Iframe2_2 extends javax.swing.JInternalFrame {
                         .addGap(16, 16, 16)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(cmbCargo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
-                            .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(cmbDep, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
-                            .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(cmbSueldo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel15)
-                            .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(cmbBanco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -365,18 +365,22 @@ public class Iframe2_2 extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "INGRESE CODIGO","Error",JOptionPane.WARNING_MESSAGE);
         }else{{
         daoPersonal obj = new daoPersonal();
-        Combo cb1 = (Combo) jComboBox1.getSelectedItem();
-        int idcargo = cb1.getCodigo();
-        Combo cb2 = (Combo) jComboBox2.getSelectedItem();
-        int iddep = cb2.getCodigo();
-        Combo cb3 = (Combo) jComboBox3.getSelectedItem();
-        int idsueldo = cb3.getCodigo();
-        Combo cb4 = (Combo) jComboBox4.getSelectedItem();
-        int idbanco = cb4.getCodigo();
+//        Combo cb1 = (Combo) jComboBox1.getSelectedItem();
+//        int idcargo = cb1.getCodigo();
+//        Combo cb2 = (Combo) jComboBox2.getSelectedItem();
+//        int iddep = cb2.getCodigo();
+//        Combo cb3 = (Combo) jComboBox3.getSelectedItem();
+//        int idsueldo = cb3.getCodigo();
+//        Combo cb4 = (Combo) jComboBox4.getSelectedItem();
+//        int idbanco = cb4.getCodigo();
+        int catCargo = (int) cmbCargo.getSelectedIndex();
+        int catDep = (int) cmbDep.getSelectedIndex();
+        int catSueldo = (int) cmbSueldo.getSelectedIndex();
+        int catBanco = (int) cmbBanco.getSelectedIndex();
         int a = Integer.parseInt(txtcodigo.getText());
         int b = Integer.parseInt(txttelefono.getText());
-        Date c = Date.valueOf(txtfechanac.getText());
-         obj.Insertar(new personal(a,idcargo,iddep,idsueldo,idbanco,txtnombre.getText(),txtapellido.getText(),txtcedula.getText(),txtciudad.getText(),txtdireccion.getText(),b,txtemail.getText(),txtestadocivil.getText(),txtgenero.getText(),c));
+        //Date c = Date.valueOf(txtfechanac.getText());
+        obj.Insertar(new personal(a,catCargo,catDep,catSueldo,catBanco,txtnombre.getText(),txtapellido.getText(),txtcedula.getText(),txtciudad.getText(),txtdireccion.getText(),b,txtemail.getText(),txtestadocivil.getText(),txtgenero.getText(),txtfechanac.getText()));
 //        try {
 //            PreparedStatement pst = cn.prepareStatement("INSERT INTO rrhh_datos_personales("
 //                    + "id_personal,id_cargo,id_departamento,id_sueldo,id_banco,"
@@ -414,6 +418,8 @@ public class Iframe2_2 extends javax.swing.JInternalFrame {
         txtfechanac.setText("");
         txtgenero.setText("");
         txttelefono.setText("");
+        txtcodigo.setText("");
+        
         }        
         }
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -436,13 +442,13 @@ public class Iframe2_2 extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> cmbBanco;
+    private javax.swing.JComboBox<String> cmbCargo;
+    private javax.swing.JComboBox<String> cmbDep;
+    private javax.swing.JComboBox<String> cmbSueldo;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
-    private javax.swing.JComboBox<String> jComboBox3;
-    private javax.swing.JComboBox<String> jComboBox4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -482,7 +488,7 @@ public class Iframe2_2 extends javax.swing.JInternalFrame {
         while(rs.next()){
             cargo ca = new cargo();
             ca.setNombre(rs.getString("nombre"));
-            jComboBox1.addItem(ca+"");
+            cmbCargo.addItem(ca+"");
         }
     }
     private void dameDepartamento() throws SQLException {
@@ -495,7 +501,7 @@ public class Iframe2_2 extends javax.swing.JInternalFrame {
         while(rs.next()){
             depa de = new depa();
             de.setNombre(rs.getString("nombre"));
-            jComboBox2.addItem(de+"");
+            cmbDep.addItem(de+"");
         }
     }
     private void dameSueldo() throws SQLException {
@@ -508,7 +514,7 @@ public class Iframe2_2 extends javax.swing.JInternalFrame {
         while(rs.next()){
             sueldo su = new sueldo();
            su.setCantidad(rs.getInt("cantidad"));
-            jComboBox3.addItem(rs.getInt("cantidad")+"");
+            cmbSueldo.addItem(rs.getInt("cantidad")+"");
         }
     }   
     private void dameBanco() throws SQLException {
@@ -521,7 +527,7 @@ public class Iframe2_2 extends javax.swing.JInternalFrame {
         while(rs.next()){
             banco b = new banco();
             b.setNombre(rs.getString("nombre"));
-            jComboBox4.addItem(b+"");
+            cmbBanco.addItem(b+"");
         }
     } 
  ConexionBD cc = new ConexionBD();

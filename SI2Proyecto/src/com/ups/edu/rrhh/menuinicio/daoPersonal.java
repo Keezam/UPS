@@ -32,7 +32,7 @@ public class daoPersonal {
                 ps.setString(12, obj.getE_mail());
                 ps.setString(13, obj.getEstado_civil());
                 ps.setString(14, obj.getGenero());
-                ps.setDate(15, obj.getFecha_nac());
+                ps.setString(15, obj.getFecha_nac());
                 int id = ps.executeUpdate();// Insert, Delete, Update trabajo con esecuteUpdate, Select solo trabajo con execute
                 JOptionPane.showMessageDialog(null, "Guardado"+id);
             
