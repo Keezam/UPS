@@ -21,7 +21,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import static javaapplication2.Facturacion.llenar_tabla;
+import static com.ups.edu.financiero.Facturacion.llenar_tabla;
 import javax.accessibility.AccessibleContext;
 import javax.swing.ButtonModel;
 import javax.swing.ImageIcon;

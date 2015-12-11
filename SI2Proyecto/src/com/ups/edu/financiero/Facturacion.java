@@ -418,7 +418,7 @@ sql = "SELECT id,numeracion,cod_venta,fecha,reemplazo,estado,clientes,subtotal12
     
     }
  
-   private int ingresar_acepta(int pre,int id_orden,double total,double iva ,String fecha) {
+ /*  private int ingresar_acepta(int pre,int id_orden,double total,double iva ,String fecha) {
 
         int n = 0;
         conexionBD con;
@@ -446,7 +446,7 @@ sql = "SELECT id,numeracion,cod_venta,fecha,reemplazo,estado,clientes,subtotal12
         }
         return n;
     }
- 
+ */
  
  static class ButtonsPanel2 extends JPanel {
 

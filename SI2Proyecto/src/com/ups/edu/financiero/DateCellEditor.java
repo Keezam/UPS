@@ -25,7 +25,7 @@ import java.text.ParseException;
 import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import static javaapplication2.Facturacion.cargartabla;
+import static com.ups.edu.financiero.Facturacion.cargartabla;
 import javax.swing.JOptionPane;
 
 /**
