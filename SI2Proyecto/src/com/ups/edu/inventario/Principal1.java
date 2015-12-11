@@ -14,11 +14,6 @@ import java.sql.ResultSetMetaData;
 import java.sql.Statement;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
-import net.sf.jasperreports.engine.JasperCompileManager;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.view.JasperViewer;
 
 public class Principal1 extends javax.swing.JInternalFrame {
 Connection conn = (Connection) ConexionBD.GetConnection();
@@ -34,7 +29,6 @@ Connection conn = (Connection) ConexionBD.GetConnection();
         buttonGroup1.add(rb_egresos);
         rb_egresos.setEnabled(false);
         rb_ingresos.setEnabled(false);
-          btn_reporte.setEnabled(false);
         Cargar_combo_ciudad_direccion();
        
     }
@@ -56,7 +50,6 @@ Connection conn = (Connection) ConexionBD.GetConnection();
         rb_ingresos = new javax.swing.JRadioButton();
         rb_egresos = new javax.swing.JRadioButton();
         panel1 = new javax.swing.JPanel();
-        btn_reporte = new javax.swing.JButton();
 
         jScrollPane1.setViewportView(tabla);
 
@@ -94,16 +87,8 @@ Connection conn = (Connection) ConexionBD.GetConnection();
         );
         panel1Layout.setVerticalGroup(
             panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 204, Short.MAX_VALUE)
+            .addGap(0, 211, Short.MAX_VALUE)
         );
-
-        btn_reporte.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        btn_reporte.setText("REPORTE");
-        btn_reporte.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_reporteActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -117,9 +102,7 @@ Connection conn = (Connection) ConexionBD.GetConnection();
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(btn_reporte, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
                             .addGroup(layout.createSequentialGroup()
@@ -141,8 +124,7 @@ Connection conn = (Connection) ConexionBD.GetConnection();
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(combo_ciudad_direccion, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_reporte, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(combo_ciudad_direccion, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(42, 42, 42)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rb_ingresos)
@@ -247,7 +229,6 @@ Connection conn = (Connection) ConexionBD.GetConnection();
             tabla.setModel(modelo);
              rb_egresos.setEnabled(false);
             rb_ingresos.setEnabled(false);
-            btn_reporte.setEnabled(false);
             
              Principal1.panel1.removeAll();
            Principal1.panel1.repaint();
@@ -258,7 +239,6 @@ Connection conn = (Connection) ConexionBD.GetConnection();
            Principal1.panel1.repaint();
             rb_egresos.setEnabled(true);
             rb_ingresos.setEnabled(true);
-              btn_reporte.setEnabled(true);
                     }
         
     }//GEN-LAST:event_combo_ciudad_direccionActionPerformed
@@ -273,28 +253,6 @@ Connection conn = (Connection) ConexionBD.GetConnection();
         Cargar_Todo_Tabla_egreso(combo_ciudad_direccion.getSelectedIndex());
         Cargar_panel_consultas();
     }//GEN-LAST:event_rb_egresosActionPerformed
-
-    private void btn_reporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_reporteActionPerformed
-      try{
-        if (rb_ingresos.isSelected()){
-           String dir = "C:\\Users\\JeanPierre\\Documents\\NetBeansProjects\\Proyecto_Interciclo_SI2_Inventario\\src\\Reportes\\Reporte_ingreso.jrxml";
-              JasperReport reporteJasper = JasperCompileManager.compileReport(dir);
-              JasperPrint mostrarReporte = JasperFillManager.fillReport(reporteJasper, null,conn);
-              JasperViewer visor = new JasperViewer(mostrarReporte,false);
-              visor.setVisible(true);    
-       }
-          if (rb_egresos.isSelected()){
-          String dir = "C:\\Users\\JeanPierre\\Documents\\NetBeansProjects\\Proyecto_Interciclo_SI2_Inventario\\src\\Reportes\\Reporte_egreso.jrxml";
-              JasperReport reporteJasper = JasperCompileManager.compileReport(dir);
-              JasperPrint mostrarReporte = JasperFillManager.fillReport(reporteJasper, null,conn);
-              JasperViewer visor = new JasperViewer(mostrarReporte,false);
-              visor.setVisible(true);    
-       }
-      } catch (Exception ex) {
-           System.out.println("ERROR2 "+ex);
-          }
-      
-    }//GEN-LAST:event_btn_reporteActionPerformed
 public void Cargar_panel_consultas(){
        Principal1.panel1.removeAll();
            Principal1.panel1.repaint();
@@ -307,7 +265,6 @@ public void Cargar_panel_consultas(){
    } 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btn_reporte;
     private javax.swing.ButtonGroup buttonGroup1;
     public static javax.swing.JComboBox combo_ciudad_direccion;
     private javax.swing.JLabel jLabel1;
