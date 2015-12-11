@@ -4,13 +4,13 @@ import com.ups.edu.conexion.ConexionBD;
 import java.sql.*;
 import javax.swing.JOptionPane;
 
-public class Iframe3 extends javax.swing.JInternalFrame {
+public class IfRol extends javax.swing.JInternalFrame {
 ConexionBD cc = new ConexionBD();
 Connection cn= cc.GetConnection();
     /**
      * Creates new form Iframe3
      */
-    public Iframe3() throws SQLException {
+    public IfRol() throws SQLException {
         initComponents();
         this.setVisible(true);
          
@@ -60,46 +60,63 @@ Connection cn= cc.GetConnection();
         setClosable(true);
         setTitle("Rol de Pago");
 
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setText("Codigo Empleado:");
 
-        jLabel2.setFont(new java.awt.Font("Georgia", 1, 18)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Georgia", 1, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(0, 0, 102));
         jLabel2.setText("ProduEntrega S.A.");
 
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel3.setText("Cargo:");
 
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel4.setText("Sueldo Básico:");
 
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel5.setText("N° Horas Extras:");
 
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel6.setText("Comisiones:");
 
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel7.setText("Horas Extras:         $");
 
+        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel8.setText("Total");
 
+        txtidemp.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         txtidemp.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtidempKeyTyped(evt);
             }
         });
 
+        cmbCargo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+
+        cmbSueldo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+
+        txtHorasExtras.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         txtHorasExtras.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtHorasExtrasKeyTyped(evt);
             }
         });
 
+        lblHe.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lblHe.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
+        txtComisiones.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         txtComisiones.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtComisionesKeyTyped(evt);
             }
         });
 
+        lblTotal.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lblTotal.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
+        jButton1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButton1.setText("Guardar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -107,16 +124,22 @@ Connection cn= cc.GetConnection();
             }
         });
 
+        cmbBanco.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+
+        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel11.setText("Banco:");
 
+        jLabel12.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel12.setText("Rol n°:");
 
+        txtIdRol.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         txtIdRol.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtIdRolKeyTyped(evt);
             }
         });
 
+        jButton2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButton2.setText("Limpiar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -143,7 +166,8 @@ Connection cn= cc.GetConnection();
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(lblHe, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(txtHorasExtras)
-                                    .addComponent(lblTotal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                    .addComponent(lblTotal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(txtComisiones)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
@@ -161,20 +185,17 @@ Connection cn= cc.GetConnection();
                                     .addComponent(cmbSueldo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(cmbBanco, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(txtidemp, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(txtIdRol)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(104, 104, 104)
-                                .addComponent(txtComisiones))))
+                                    .addComponent(txtIdRol)))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(159, 159, 159)
                         .addComponent(jButton1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton2)))
-                .addContainerGap(79, Short.MAX_VALUE))
+                .addContainerGap(39, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 113, Short.MAX_VALUE)
+                .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jLabel2)
-                .addGap(107, 107, 107))
+                .addGap(80, 80, 80))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -221,7 +242,7 @@ Connection cn= cc.GetConnection();
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2))
-                .addContainerGap(42, Short.MAX_VALUE))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         pack();

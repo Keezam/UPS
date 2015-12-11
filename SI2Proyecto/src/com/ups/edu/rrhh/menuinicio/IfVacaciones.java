@@ -18,13 +18,13 @@ import javax.swing.JOptionPane;
  *
  * @author SERVIDOR
  */
-public class Iframe4 extends javax.swing.JInternalFrame {
+public class IfVacaciones extends javax.swing.JInternalFrame {
 ConexionBD cc = new ConexionBD();
 Connection cn= cc.GetConnection();
     /**
      * Creates new form Iframe4
      */
-    public Iframe4() {
+    public IfVacaciones() {
         initComponents();
     }
 
@@ -51,21 +51,28 @@ Connection cn= cc.GetConnection();
         txtfechafin = new javax.swing.JTextField();
 
         setClosable(true);
+        setTitle("Vacaciones");
 
-        jLabel1.setFont(new java.awt.Font("Georgia", 1, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Georgia", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 0, 102));
         jLabel1.setText("ProduEntrega S.A.");
 
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setText("Codigo Vacaciones:");
 
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel3.setText("Codigo Personal:");
 
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel4.setText("Numero de días:");
 
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel5.setText("Fecha de inicio:");
 
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel6.setText("Fecha de culminación:");
 
+        jButton1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButton1.setText("Guardar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -73,17 +80,25 @@ Connection cn= cc.GetConnection();
             }
         });
 
+        txtIdVac.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         txtIdVac.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtIdVacKeyTyped(evt);
             }
         });
 
+        txtIdPers.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         txtIdPers.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtIdPersKeyTyped(evt);
             }
         });
+
+        txtdias.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+
+        txtfechainicio.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+
+        txtfechafin.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -112,7 +127,7 @@ Connection cn= cc.GetConnection();
                     .addGroup(layout.createSequentialGroup()
                         .addGap(102, 102, 102)
                         .addComponent(jButton1)))
-                .addContainerGap(89, Short.MAX_VALUE))
+                .addContainerGap(93, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -139,7 +154,7 @@ Connection cn= cc.GetConnection();
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(txtfechafin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
                 .addComponent(jButton1)
                 .addGap(38, 38, 38))
         );

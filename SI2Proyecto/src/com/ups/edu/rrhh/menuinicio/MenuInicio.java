@@ -21,7 +21,7 @@ import javax.swing.JOptionPane;
  *
  * @author SERVIDOR
  */
-public class menuu extends javax.swing.JFrame {
+public class MenuInicio extends javax.swing.JFrame {
 
     /**
      * Creates new form menu
@@ -35,7 +35,7 @@ public class menuu extends javax.swing.JFrame {
     private FrmVta_FormaPago frmVtaPago;
     private FrmVta_Garantias frmVtaGarantia;
     
-    public menuu() {
+    public MenuInicio() {
         initComponents();
                 jMFinanciero.setVisible(false);
                 jMRecHum.setVisible(false);
@@ -46,7 +46,7 @@ public class menuu extends javax.swing.JFrame {
     frmVtaPromocion = new FrmVta_Promocion(this.Escritorio);
     //frmVtaFactura = new FrmVta_Factura(this.Escritorio);
     }
-Iframe1_2 objIFrame1=new Iframe1_2();
+IfLogin objIFrame1=new IfLogin();
 
 
 
@@ -65,10 +65,12 @@ Iframe1_2 objIFrame1=new Iframe1_2();
         jMLogo = new javax.swing.JMenu();
         jMInicio = new javax.swing.JMenu();
         jCheckBoxMenuItem1 = new javax.swing.JCheckBoxMenuItem();
+        jCheckBoxMenuItem5 = new javax.swing.JCheckBoxMenuItem();
         jMRecHum = new javax.swing.JMenu();
         jCheckBoxMenuItem2 = new javax.swing.JCheckBoxMenuItem();
         jCheckBoxMenuItem3 = new javax.swing.JCheckBoxMenuItem();
         jCheckBoxMenuItem4 = new javax.swing.JCheckBoxMenuItem();
+        jCheckBoxMenuItem6 = new javax.swing.JCheckBoxMenuItem();
         jMFinanciero = new javax.swing.JMenu();
         jMCompras = new javax.swing.JMenu();
         jMVentas = new javax.swing.JMenu();
@@ -93,14 +95,14 @@ Iframe1_2 objIFrame1=new Iframe1_2();
         Escritorio.setLayout(EscritorioLayout);
         EscritorioLayout.setHorizontalGroup(
             EscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 757, Short.MAX_VALUE)
+            .addGap(0, 806, Short.MAX_VALUE)
         );
         EscritorioLayout.setVerticalGroup(
             EscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 329, Short.MAX_VALUE)
+            .addGap(0, 419, Short.MAX_VALUE)
         );
 
-        jMLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ups/edu/rrhh/menuinicio/logo-ups-home.png"))); // NOI18N
+        jMLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/logo-ups-home.png"))); // NOI18N
         jMenuBar1.add(jMLogo);
 
         jMInicio.setForeground(new java.awt.Color(0, 0, 102));
@@ -118,9 +120,19 @@ Iframe1_2 objIFrame1=new Iframe1_2();
         });
         jMInicio.add(jCheckBoxMenuItem1);
 
+        jCheckBoxMenuItem5.setSelected(true);
+        jCheckBoxMenuItem5.setText("Cerrar Sesión");
+        jCheckBoxMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBoxMenuItem5ActionPerformed(evt);
+            }
+        });
+        jMInicio.add(jCheckBoxMenuItem5);
+
         jMenuBar1.add(jMInicio);
 
         jMRecHum.setForeground(new java.awt.Color(0, 0, 102));
+        jMRecHum.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/rh.gif"))); // NOI18N
         jMRecHum.setText("RRHH");
         jMRecHum.setFont(new java.awt.Font("Franklin Gothic Demi Cond", 1, 18)); // NOI18N
 
@@ -151,19 +163,31 @@ Iframe1_2 objIFrame1=new Iframe1_2();
         });
         jMRecHum.add(jCheckBoxMenuItem4);
 
+        jCheckBoxMenuItem6.setSelected(true);
+        jCheckBoxMenuItem6.setText("Entrada & Salida");
+        jCheckBoxMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBoxMenuItem6ActionPerformed(evt);
+            }
+        });
+        jMRecHum.add(jCheckBoxMenuItem6);
+
         jMenuBar1.add(jMRecHum);
 
         jMFinanciero.setForeground(new java.awt.Color(0, 0, 102));
+        jMFinanciero.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/finanzas.jpg"))); // NOI18N
         jMFinanciero.setText("Financiero");
         jMFinanciero.setFont(new java.awt.Font("Franklin Gothic Medium Cond", 1, 18)); // NOI18N
         jMenuBar1.add(jMFinanciero);
 
         jMCompras.setForeground(new java.awt.Color(0, 0, 102));
+        jMCompras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/compras.png"))); // NOI18N
         jMCompras.setText("Compras");
         jMCompras.setFont(new java.awt.Font("Franklin Gothic Demi Cond", 1, 18)); // NOI18N
         jMenuBar1.add(jMCompras);
 
         jMVentas.setForeground(new java.awt.Color(0, 0, 102));
+        jMVentas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/ventas.jpg"))); // NOI18N
         jMVentas.setText("Ventas");
         jMVentas.setFont(new java.awt.Font("Franklin Gothic Demi Cond", 1, 18)); // NOI18N
 
@@ -230,6 +254,7 @@ Iframe1_2 objIFrame1=new Iframe1_2();
         jMenuBar1.add(jMVentas);
 
         jMInventario.setForeground(new java.awt.Color(0, 0, 102));
+        jMInventario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/inventario.png"))); // NOI18N
         jMInventario.setText("Inventario");
         jMInventario.setFont(new java.awt.Font("Franklin Gothic Demi Cond", 1, 18)); // NOI18N
 
@@ -268,30 +293,32 @@ Iframe1_2 objIFrame1=new Iframe1_2();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jCheckBoxMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxMenuItem1ActionPerformed
-        // TODO add your handling code here:
-//        iframe1 ses = new iframe1();
-//        this.Escritorio.add(ses);
-//        ses.show();
+                
        if(objIFrame1.isShowing())
 	{
 	    JOptionPane.showMessageDialog(null,"LA VENTANA YA ESTA ABIERTA");
         }
 	else
 	{
-	Escritorio.add(objIFrame1);
-        objIFrame1.setLocation(500, 80);
-	objIFrame1.show();
+                Escritorio.add(objIFrame1);
+                objIFrame1.setLocation(500, 80);
+                objIFrame1.show();
+                jMFinanciero.setVisible(false);
+                jMRecHum.setVisible(false);
+                jMCompras.setVisible(false);
+                jMVentas.setVisible(false);
+                jMInventario.setVisible(false);
    }
     }//GEN-LAST:event_jCheckBoxMenuItem1ActionPerformed
 
     private void jCheckBoxMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxMenuItem2ActionPerformed
         try {
-            Iframe2_2 objIFrame2=new Iframe2_2();
+            IfDatos objIFrame2=new IfDatos();
             Escritorio.add(objIFrame2);
             objIFrame2.setLocation(280, 10);
             objIFrame2.show();
         } catch (SQLException ex) {
-            Logger.getLogger(menuu.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MenuInicio.class.getName()).log(Level.SEVERE, null, ex);
         }
         
     }//GEN-LAST:event_jCheckBoxMenuItem2ActionPerformed
@@ -333,17 +360,17 @@ Iframe1_2 objIFrame1=new Iframe1_2();
 
     private void jCheckBoxMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxMenuItem3ActionPerformed
         try {
-            Iframe3 objIFrame3=new Iframe3();
+            IfRol objIFrame3=new IfRol();
             Escritorio.add(objIFrame3);
             objIFrame3.setLocation(450, 10);
             objIFrame3.show();
         } catch (SQLException ex) {
-            Logger.getLogger(menuu.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MenuInicio.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jCheckBoxMenuItem3ActionPerformed
 
     private void jCheckBoxMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxMenuItem4ActionPerformed
-        Iframe4 objIFrame4=new Iframe4();
+        IfVacaciones objIFrame4=new IfVacaciones();
         Escritorio.add(objIFrame4);
         objIFrame4.setLocation(450, 10);
         objIFrame4.show();
@@ -389,13 +416,31 @@ try {
             Inventario.setLocation(280, 10);
             Inventario.show();
         } catch (Exception ex) {
-            Logger.getLogger(menuu.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MenuInicio.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jCheckBoxMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxMenuItem5ActionPerformed
+        // TODO add your handling code here:
+        System.exit(0);
+
+    }//GEN-LAST:event_jCheckBoxMenuItem5ActionPerformed
+
+    private void jCheckBoxMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxMenuItem6ActionPerformed
+        try {
+            // TODO add your handling code here:
+            IfRegistro objIFrame5=new IfRegistro();
+            Escritorio.add(objIFrame5);
+            objIFrame5.setLocation(450, 10);
+            objIFrame5.show();
+        } catch (SQLException ex) {
+            Logger.getLogger(MenuInicio.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jCheckBoxMenuItem6ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -414,14 +459,22 @@ try {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(menuu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MenuInicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(menuu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MenuInicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(menuu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MenuInicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(menuu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MenuInicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -434,8 +487,8 @@ try {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                //new menuu().setVisible(true);
-                menuu men = new menuu();
+                //new MenuInicio().setVisible(true);
+                MenuInicio men = new MenuInicio();
                 men.setExtendedState(MAXIMIZED_BOTH);
                 
                 men.setVisible(true);
@@ -450,6 +503,8 @@ try {
     private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem2;
     private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem3;
     private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem4;
+    private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem5;
+    private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem6;
     public static javax.swing.JMenu jMCompras;
     public static javax.swing.JMenu jMFinanciero;
     private javax.swing.JMenu jMInicio;

@@ -1,11 +1,11 @@
 
 package com.ups.edu.rrhh.menuinicio;
 import com.ups.edu.conexion.ConexionBD;
-import static com.ups.edu.rrhh.menuinicio.menuu.jMCompras;
-import static com.ups.edu.rrhh.menuinicio.menuu.jMFinanciero;
-import static com.ups.edu.rrhh.menuinicio.menuu.jMInventario;
-import static com.ups.edu.rrhh.menuinicio.menuu.jMRecHum;
-import static com.ups.edu.rrhh.menuinicio.menuu.jMVentas;
+import static com.ups.edu.rrhh.menuinicio.MenuInicio.jMCompras;
+import static com.ups.edu.rrhh.menuinicio.MenuInicio.jMFinanciero;
+import static com.ups.edu.rrhh.menuinicio.MenuInicio.jMInventario;
+import static com.ups.edu.rrhh.menuinicio.MenuInicio.jMRecHum;
+import static com.ups.edu.rrhh.menuinicio.MenuInicio.jMVentas;
 import java.sql.*;
 import javax.swing.JOptionPane;
 import java.util.logging.Level;
@@ -14,9 +14,9 @@ import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JMenu;
 import javax.swing.JPasswordField;
 
-public class Iframe1_2 extends javax.swing.JInternalFrame {
+public class IfLogin extends javax.swing.JInternalFrame {
 
-    public Iframe1_2() {
+    public IfLogin() {
         initComponents();
         this.setLocation(350, 300);
         this.requestFocus();
@@ -105,10 +105,11 @@ public class Iframe1_2 extends javax.swing.JInternalFrame {
         setMaximizable(true);
         setTitle("Inicio de Sesion");
 
-        jLabel1.setFont(new java.awt.Font("Georgia", 1, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Georgia", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 0, 102));
         jLabel1.setText("ProduEntrega S.A.");
 
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setText("Cuenta:");
 
         txtcuenta.addActionListener(new java.awt.event.ActionListener() {
@@ -117,8 +118,10 @@ public class Iframe1_2 extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel3.setText("Clave:");
 
+        jButton1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButton1.setText("Ingresar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -141,7 +144,7 @@ public class Iframe1_2 extends javax.swing.JInternalFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(34, 34, 34)
                                 .addComponent(jLabel1)
-                                .addGap(0, 25, Short.MAX_VALUE))
+                                .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel3)
@@ -167,7 +170,7 @@ public class Iframe1_2 extends javax.swing.JInternalFrame {
                     .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(27, 27, 27)
                 .addComponent(jButton1)
-                .addContainerGap(36, Short.MAX_VALUE))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
 
         pack();
