@@ -6,7 +6,6 @@
 package com.ups.edu.inventario;
 
 import java.awt.Dimension;
-import javax.swing.plaf.basic.BasicInternalFrameUI;
 
 /**
  *
@@ -42,6 +41,8 @@ public class Principal1 extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         RadioButton_Sucursal = new javax.swing.JRadioButton();
+
+        setClosable(true);
 
         RadioButton_Producto.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         RadioButton_Producto.setText("Producto");
