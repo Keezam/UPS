@@ -553,6 +553,7 @@ public class FrmVta_Factura extends javax.swing.JInternalFrame {
             detalle.setIva(iva);
             detalle.setSubtotal(subtotal);
             detalle.setTotal(total);
+            detalle.setCantidad(cantidad);
             
             subtotalFactura = subtotalFactura + subtotal;
             descuentoFactura = descuentoFactura+(descuento+((chboxPromocion.isSelected())?promocion:0)+((chboxOferta.isSelected())?oferta:0));
@@ -700,8 +701,10 @@ public class FrmVta_Factura extends javax.swing.JInternalFrame {
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
        String sucursal = cmbSucursal.getSelectedItem().toString();
        formaPago = frmFormaPago.getFormaPago();
+       int cdsucursal = 0;
        if(!sucursal.equals("Selecionar Sucursal")){
            sucursal= sucursal.substring(0, sucursal.indexOf("-"));
+           cdsucursal = Integer.parseInt(sucursal);
        }else{
            JOptionPane.showMessageDialog(null, "Selecionar una sucursal", "Sucursal", JOptionPane.ERROR_MESSAGE);
            return;
@@ -721,11 +724,14 @@ public class FrmVta_Factura extends javax.swing.JInternalFrame {
            return;
        }
        int dato=0;
+       
+       
+       
        cdocliente = cdocliente.substring(0,cdocliente.indexOf("-"));
        dato = Integer.parseInt(cdocliente);
        int ins1 = facturaModel.guardarFactura(Integer.parseInt(lblSecuenciaFactura.getText()), "FAC",1, dato,txtObservacion.getText(), subtotalFactura, descuentoFactura, ivafactura, totalfactura, facturaModel.buscarFormaPago(formaPago.getTipoPago()));
        System.out.println("aqui" + ins1);
-       facturaModel.insterDetalleVenta(listDetalleVta, Integer.parseInt(lblSecuenciaFactura.getText()));
+       facturaModel.insterDetalleVenta(listDetalleVta, Integer.parseInt(lblSecuenciaFactura.getText()),cdsucursal,1);
        facturaModel.detallepago(formaPago);
        
     }//GEN-LAST:event_jButton4ActionPerformed

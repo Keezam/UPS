@@ -291,10 +291,10 @@ public class FacturaModel {
             }
         }
         
-        return 0;
+        return result;
     }
     
-    public void insterDetalleVenta(List<DetalleVentas> lista,int codVenta){
+    public void insterDetalleVenta(List<DetalleVentas> lista,int codVenta,int sucursal,int id_personal){
         String sql = " INSERT INTO vta_ventasdetalle(codventa,id_producto,secuencia,descripcion,codoferta,codpromocion,subtotal,descuento,iva,total) " +
                      " VALUES (?,?,?,?,?,?,?,?,?,?)";
         int seuencia = 1;
@@ -317,12 +317,12 @@ public class FacturaModel {
             } catch (Exception e) {
                 e.printStackTrace();
             }finally{
-            if(pst!=null)try {
-                pst.close();
-            } catch (SQLException ex) {
-                
+                if(pst!=null)
+                    try {
+                        pst.close();
+                    } catch (SQLException ex) {}
             }
-        }
+            int egreso = registarEgreso(sucursal, codVenta, list.getCodproducto(), id_personal, list.getCantidad());
         }
    }     
        
@@ -362,6 +362,34 @@ public class FacturaModel {
     }
     
     
-    
+    //Egreso
+    public int registarEgreso(int surcusal,int producto,int factura,int personal,int cantidad){
+        
+        String sql = "insert into inv_Egreso " +
+                     "  (id_sucursal,id_producto,id_fatura_venta,id_personal,Cantidad,Fecha_egreso) " +
+                     " values (?,?,?,?,?,sysdate())";
+        int result = 0;
+        try {
+            pst = con.prepareStatement(sql);
+            pst.setInt(1, surcusal);
+            pst.setInt(2, producto);
+            pst.setInt(3, factura);
+            pst.setInt(4, personal);
+            pst.setInt(5, cantidad);
+            
+            
+            result = pst.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally{
+            if(pst!=null)try {
+                pst.close();
+            } catch (SQLException ex) {
+                
+            }
+        }
+        
+        return result;
+    }
     
 }

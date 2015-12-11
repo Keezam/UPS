@@ -15,6 +15,7 @@ public class DetalleVentas {
     private String descripcion;
     private int codoferta;
     private int codpromocion;
+    private int cantidad;
     private double subtotal;
     private double descuento;
     private double iva;
@@ -58,6 +59,14 @@ public class DetalleVentas {
 
     public void setCodpromocion(int codpromocion) {
         this.codpromocion = codpromocion;
+    }
+
+    public int getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
     }
 
     public double getSubtotal() {
