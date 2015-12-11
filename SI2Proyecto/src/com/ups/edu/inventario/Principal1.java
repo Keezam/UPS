@@ -18,9 +18,8 @@ public class Principal1 extends javax.swing.JInternalFrame {
      * Creates new form Principal1
      */
     public Principal1() {
-         ((BasicInternalFrameUI) this.getUI()).setNorthPane(null);
         initComponents();
-           buttonGroup1.add(RadioButton_Producto);
+        buttonGroup1.add(RadioButton_Producto);
         buttonGroup1.add(RadioButton_Proveedor);
         buttonGroup1.add(RadioButton_Sucursal);
         buttonGroup1.add(RadioButton_Fecha);
@@ -144,37 +143,39 @@ public class Principal1 extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-     public void Cargar_Panel_P_P_M(){
+    public void Cargar_Panel_P_P_M() {
         Principal1.panel1.removeAll();
-            Principal1.panel1.repaint();
-            Panel_P_P_M ch = new Panel_P_P_M();
-            Principal1.panel1.add(ch);
-              Dimension desktopSize = panel1.getSize();
-               Dimension FrameSize = ch.getSize();
-              ch.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
-            ch.setVisible(true);   
-   } 
-   public void Cargar_Panel_Fecha(){
-         Principal1.panel1.removeAll();
-            Principal1.panel1.repaint();
-            Panel_Fecha ch = new Panel_Fecha();
-            Principal1.panel1.add(ch);
-              Dimension desktopSize = panel1.getSize();
-               Dimension FrameSize = ch.getSize();
-              ch.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
-            ch.setVisible(true);   
-   }
-    public void Cargar_Panel_Sucursal(){
-         Principal1.panel1.removeAll();
-            Principal1.panel1.repaint();
-            Panel_Sucursal ch = new Panel_Sucursal();
-            Principal1.panel1.add(ch);
-              Dimension desktopSize = panel1.getSize();
-               Dimension FrameSize = ch.getSize();
-              ch.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
-            ch.setVisible(true);   
-   }
-    
+        Principal1.panel1.repaint();
+        Panel_P_P_M ch = new Panel_P_P_M();
+        Principal1.panel1.add(ch);
+        Dimension desktopSize = panel1.getSize();
+        Dimension FrameSize = ch.getSize();
+        ch.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
+        ch.setVisible(true);
+    }
+
+    public void Cargar_Panel_Fecha() {
+        Principal1.panel1.removeAll();
+        Principal1.panel1.repaint();
+        Panel_Fecha ch = new Panel_Fecha();
+        Principal1.panel1.add(ch);
+        Dimension desktopSize = panel1.getSize();
+        Dimension FrameSize = ch.getSize();
+        ch.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
+        ch.setVisible(true);
+    }
+
+    public void Cargar_Panel_Sucursal() {
+        Principal1.panel1.removeAll();
+        Principal1.panel1.repaint();
+        Panel_Sucursal ch = new Panel_Sucursal();
+        Principal1.panel1.add(ch);
+        Dimension desktopSize = panel1.getSize();
+        Dimension FrameSize = ch.getSize();
+        ch.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
+        ch.setVisible(true);
+    }
+
     private void RadioButton_ProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RadioButton_ProductoActionPerformed
         Cargar_Panel_P_P_M();
     }//GEN-LAST:event_RadioButton_ProductoActionPerformed
@@ -188,7 +189,7 @@ public class Principal1 extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_RadioButton_FechaActionPerformed
 
     private void RadioButton_SucursalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RadioButton_SucursalActionPerformed
-      Cargar_Panel_Sucursal();
+        Cargar_Panel_Sucursal();
     }//GEN-LAST:event_RadioButton_SucursalActionPerformed
 
 
