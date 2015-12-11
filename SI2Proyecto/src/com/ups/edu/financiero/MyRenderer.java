@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package com.ups.edu.financiero;
+package javaapplication2;
 
 
 import java.awt.Color;
