@@ -104,7 +104,6 @@ public class FrmVta_Promocion extends javax.swing.JInternalFrame {
             }
             
         } catch (SQLException ex) {
-            Logger.getLogger(Promocion.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, "Error al buscar");
         }
     }
@@ -129,7 +128,6 @@ public class FrmVta_Promocion extends javax.swing.JInternalFrame {
             }
             tbdatos.setModel(model);
         } catch (SQLException ex) {
-            Logger.getLogger(Promocion.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, "Error al buscar");
         }
     }

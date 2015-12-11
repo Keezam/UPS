@@ -189,8 +189,8 @@ public class FacturaModel {
     }
     
     public Object[] datosProducto(int id_producto){
-        String sqlBuscar="SELECT p.precio_unitario, IFNULL(i.cantidad_total,0) FROM inv_Producto  p  "
-                       + " left join inv_Inventario i on i.id_producto = p.id_producto WHERE p.id_producto = "+id_producto;
+        String sqlBuscar="SELECT p.precio_unitario, 0 FROM inv_Producto  p  "
+                       + " WHERE p.id_producto = "+id_producto;
         
         Object[] resultado = null;
         
@@ -219,7 +219,7 @@ public class FacturaModel {
     }
     
     public List<String> cargarSucurcual(){
-        String sqlBuscar = "SELECT su.`id_sucursal`,ci.`Nombre`,se.`Nombre`,su.`Direccion` FROM inv_Sucursal su JOIN inv_Sector se ON se.`id_sector` = su.`id_sector` JOIN inv_Ciudad ci ON ci.`id_ciudad` = su.`id_ciudad`";
+        String sqlBuscar = "SELECT su.`id_sucursal`,ci.`Nombre`,su.`Direccion` FROM inv_Sucursal su JOIN inv_Ciudad ci ON ci.`id_ciudad` = su.`id_ciudad`";
         List<String> surcursales = null;
         try{
             
@@ -227,7 +227,7 @@ public class FacturaModel {
             rs = st.executeQuery(sqlBuscar);
             surcursales = new ArrayList<>();
             while(rs.next()){
-                String cliente = rs.getInt(1)+"-"+rs.getString(2)+" "+rs.getString(3)+" "+rs.getString(4);
+                String cliente = rs.getInt(1)+"-"+rs.getString(2)+" "+rs.getString(3);
                 surcursales.add(cliente);
             }
             

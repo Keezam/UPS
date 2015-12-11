@@ -135,7 +135,7 @@ public class FrmVta_PromocionArticulo extends javax.swing.JInternalFrame {
             
             tbdatos.setModel(model);
         } catch (SQLException ex) {
-            Logger.getLogger(PromocionArticulo.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
     }
     
@@ -163,7 +163,7 @@ public class FrmVta_PromocionArticulo extends javax.swing.JInternalFrame {
             }
             tbdatos.setModel(model);
         } catch (SQLException ex) {
-            Logger.getLogger(PromocionArticulo.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
     }
 

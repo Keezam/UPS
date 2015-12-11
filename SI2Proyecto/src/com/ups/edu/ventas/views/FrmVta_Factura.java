@@ -72,8 +72,10 @@ public class FrmVta_Factura extends javax.swing.JInternalFrame {
         List<String> sucursales = facturaModel.cargarSucurcual();
         this.cmbSucursal.removeAllItems();
         this.cmbSucursal.addItem("Selecionar Sucursal");
-        for (String sucursal : sucursales) {
-             this.cmbSucursal.addItem(sucursal);
+        if(sucursales != null){
+            for (String sucursal : sucursales) {
+                this.cmbSucursal.addItem(sucursal);
+            }
         }
     }
     
