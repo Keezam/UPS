@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Ventanas;
+package com.ups.edu.inventario;
 
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 
