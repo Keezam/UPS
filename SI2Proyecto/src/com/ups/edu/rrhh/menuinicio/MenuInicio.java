@@ -425,7 +425,6 @@ try {
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jCheckBoxMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxMenuItem5ActionPerformed
-        // TODO add your handling code here:
         System.exit(0);
 
     }//GEN-LAST:event_jCheckBoxMenuItem5ActionPerformed
