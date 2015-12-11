@@ -47,7 +47,7 @@ public class FrmVta_Factura extends javax.swing.JInternalFrame {
     public FrmVta_Factura(JDesktopPane escritorio) {
         initComponents();
         facturaModel = new FacturaModel();
-        this.lblSecuenciaFactura.setText(""+facturaModel.numeroFactura());
+        secuencia();
         this.cargarComboCliente();
         this.cargarComboProducto();
         this.dibujarBotonTabla();
@@ -57,6 +57,10 @@ public class FrmVta_Factura extends javax.swing.JInternalFrame {
         formaPago = new FormaPago();
         formaPago.setFactura(Integer.parseInt(lblSecuenciaFactura.getText()));
         //frmFormaPago = new FrmVta_FormPago(formaPago);
+    }
+    
+    public void secuencia(){
+        this.lblSecuenciaFactura.setText(""+facturaModel.numeroFactura());
     }
     
     private void cargarComboCliente(){
@@ -114,7 +118,24 @@ public class FrmVta_Factura extends javax.swing.JInternalFrame {
         
     }
     
-    
+    public void limpiar(){
+        secuencia();
+        this.cargarComboCliente();
+        this.cargarComboProducto();
+        this.cargarComboSucursal();
+        txtCantidad.setText("");
+        txtDescuento.setText("");
+        txtObservacion.setText("");
+        lblDescuento.setText("0.0");
+        lblDireccion.setText("");
+        lblIVA.setText("0.0");
+        lblIdentificacion.setText("");
+        lblSubTotal.setText("0.0");
+        lblTelefono.setText("");
+        lblTotal.setText("0.0");
+        tbArticulo.removeAll();
+        
+    }
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -638,6 +659,12 @@ public class FrmVta_Factura extends javax.swing.JInternalFrame {
     private void cmbClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbClienteActionPerformed
         String cdocliente = (String) cmbCliente.getSelectedItem();
         int dato=0;
+        if(cdocliente==null){
+            lblIdentificacion.setText("");
+            lblTelefono.setText("");
+            lblDireccion.setText("");
+            return;
+        }
         if (!cdocliente.equals("Selecionar Cliente")&&!cdocliente.equals("")){
             cdocliente = cdocliente.substring(0,cdocliente.indexOf("-"));
             dato = Integer.parseInt(cdocliente);
@@ -659,6 +686,13 @@ public class FrmVta_Factura extends javax.swing.JInternalFrame {
         String codigoArticulo = (String) cmbProducto.getSelectedItem();
         int dato=0;
         Object[] resultado;
+        if(codigoArticulo==null){
+            chboxPromocion.setEnabled(false);
+            chboxPromocion.setSelected(false);
+            chboxOferta.setEnabled(false);
+            chboxOferta.setSelected(false);
+            return;
+        }
         if (!codigoArticulo.equals("Selecionar Producto")&&!codigoArticulo.equals("")){
             codigoArticulo = codigoArticulo.substring(0,codigoArticulo.indexOf("-"));
             dato = Integer.parseInt(codigoArticulo);
@@ -703,7 +737,9 @@ public class FrmVta_Factura extends javax.swing.JInternalFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
        String sucursal = cmbSucursal.getSelectedItem().toString();
-       formaPago = frmFormaPago.getFormaPago();
+       if(frmFormaPago != null){
+            formaPago = frmFormaPago.getFormaPago();
+       }
        int cdsucursal = 0;
        if(!sucursal.equals("Selecionar Sucursal")){
            sucursal= sucursal.substring(0, sucursal.indexOf("-"));
@@ -733,10 +769,10 @@ public class FrmVta_Factura extends javax.swing.JInternalFrame {
        cdocliente = cdocliente.substring(0,cdocliente.indexOf("-"));
        dato = Integer.parseInt(cdocliente);
        int ins1 = facturaModel.guardarFactura(Integer.parseInt(lblSecuenciaFactura.getText()), "FAC",1, dato,txtObservacion.getText(), subtotalFactura, descuentoFactura, ivafactura, totalfactura, facturaModel.buscarFormaPago(formaPago.getTipoPago()));
-       System.out.println("aqui" + ins1);
        facturaModel.insterDetalleVenta(listDetalleVta, Integer.parseInt(lblSecuenciaFactura.getText()),cdsucursal,1);
        facturaModel.detallepago(formaPago);
-       
+       System.out.println("aqui" + ins1);
+       limpiar();
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
@@ -749,6 +785,7 @@ public class FrmVta_Factura extends javax.swing.JInternalFrame {
         formaPago = null;
         txtCantidad.setText("");
         txtDescuento.setText("");*/
+        limpiar();
         frmFormaPago.dispose();
         this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed

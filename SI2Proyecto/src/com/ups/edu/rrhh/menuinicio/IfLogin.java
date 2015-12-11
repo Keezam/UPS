@@ -89,7 +89,13 @@ public class IfLogin extends javax.swing.JInternalFrame {
             jPasswordField1.setText("");
             }
             
+            if(rs!=null){
+                rs.close();
+            }
+            if(s != null)s.close();
+            if(conexion!=null)conexion.close();
         }catch(Exception ex){
+            ex.printStackTrace();
             System.out.println("Error sql");
         }
     }
