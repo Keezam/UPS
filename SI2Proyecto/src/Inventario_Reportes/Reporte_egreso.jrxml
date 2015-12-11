@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="667" pageHeight="842" columnWidth="627" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0c590851-dd63-452c-9ad3-c052f3be0ee6">
+	<property name="ireport.zoom" value="3.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="68"/>
+	<queryString language="SQL">
+		<![CDATA[select tp.Nombre as Producto, mp.Nombre as Marca, mop.Nombre as Modelo, prov.nombre as Proveedor, sum(eg.Cantidad) as Cantidad_Total_eg, eg.Fecha_egreso
+from inv_Producto p, inv_Tipo_Producto tp, inv_Marca_Producto mp, inv_Modelo_Producto mop, cmprv_provedores prov,inv_Egreso eg
+where eg.id_producto=p.id_producto and p.id_tipo=tp.id_tipo and p.id_marca=mp.id_marca and p.id_modelo=mop.id_modelo and p.id_proveedor=prov.id_provedor
+group by tp.Nombre, mp.Nombre, mop.Nombre,prov.nombre,eg.Fecha_egreso
+ORDER BY `eg`.`id_producto` ASC]]>
+	</queryString>
+	<field name="Producto" class="java.lang.String"/>
+	<field name="Marca" class="java.lang.String"/>
+	<field name="Modelo" class="java.lang.String"/>
+	<field name="Proveedor" class="java.lang.String"/>
+	<field name="Cantidad_Total_eg" class="java.math.BigDecimal"/>
+	<field name="Fecha_egreso" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band/>
+	</background>
+	<title>
+		<band height="72">
+			<frame>
+				<reportElement mode="Opaque" x="-20" y="-20" width="667" height="92" backcolor="#006699" uuid="02d1888b-7d8b-424d-8db6-59901eae2f5b"/>
+				<staticText>
+					<reportElement x="20" y="20" width="234" height="43" forecolor="#FFFFFF" uuid="37020836-9224-4d20-848a-d416ff737eb0"/>
+					<textElement>
+						<font size="34" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Egreso]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="13"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="21">
+			<line>
+				<reportElement x="-20" y="20" width="667" height="1" forecolor="#666666" uuid="949b619b-5b06-4016-bf67-1c4edb6ce0c4"/>
+			</line>
+			<staticText>
+				<reportElement mode="Opaque" x="-20" y="0" width="112" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="46474d20-f26d-421d-addc-1841888f5915"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Producto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="92" y="0" width="103" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="18280a50-83b7-4561-906d-85b93113bc3a"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Marca]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="195" y="0" width="123" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="bbfb1685-f765-4152-b468-359b9782e527"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Modelo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="318" y="0" width="97" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="f7e106c7-df37-4de9-914d-3e6581788615"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Proveedor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="415" y="0" width="107" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="356e57ce-f27b-419e-9094-2e06f178aedc"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cantidad_Total_eg]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="515" y="0" width="132" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="0304ce1a-d93e-4be6-9a67-0312377eb048"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha_egreso]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="-20" y="19" width="667" height="1" uuid="2bc20ef4-7237-438b-ac14-dedc773a17a1"/>
+			</line>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="0" y="0" width="92" height="20" uuid="4647f0c6-0ffd-4936-9f02-959b762ffced"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Producto}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="125" y="0" width="92" height="20" uuid="b75ef70f-6878-4489-8c1a-6cde8037fca3"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Marca}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="208" y="0" width="113" height="20" uuid="bb665b28-216d-4ceb-ba0c-77de736a7ef9"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Modelo}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="335" y="0" width="92" height="20" uuid="d51c122e-4b67-49c3-893c-34a2090ddd82"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Proveedor}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="460" y="0" width="92" height="20" uuid="a2de2a1a-8e16-4935-89a5-268fab8bacfd"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Cantidad_Total_eg}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="522" y="0" width="128" height="20" uuid="a56d36a6-6e69-4f84-a595-2ce107f68815"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Fecha_egreso}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band/>
+	</columnFooter>
+	<pageFooter>
+		<band height="17">
+			<textField>
+				<reportElement mode="Opaque" x="0" y="4" width="515" height="13" backcolor="#E6E6E6" uuid="45771cde-c541-4656-99cf-07c8e1de9f5f"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement mode="Opaque" x="515" y="4" width="40" height="13" backcolor="#E6E6E6" uuid="e84038ef-fb02-46ea-9ed0-83362aa31ea2"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="0" y="4" width="100" height="13" uuid="1d99cbf3-0302-4c18-b529-62e846fdc504"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band/>
+	</summary>
+</jasperReport>

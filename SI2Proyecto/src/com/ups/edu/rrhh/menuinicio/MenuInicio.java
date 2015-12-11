@@ -5,8 +5,10 @@
  */
 package com.ups.edu.rrhh.menuinicio;
 
+import Inventario_Otros_codigos.ConexionBD;
 import com.ups.edu.ventas.views.*;
 import com.ups.edu.inventario.*;
+import static com.ups.edu.inventario.Principal1.rb_ingresos;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -16,13 +18,19 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
  * @author SERVIDOR
  */
 public class MenuInicio extends javax.swing.JFrame {
-
+Connection conn = (Connection) ConexionBD.GetConnection();
     /**
      * Creates new form menu
      */
@@ -430,7 +438,18 @@ try {
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        // TODO add your handling code here:
+        try {
+           String dir = "C:\\Users\\anthony\\Documents\\NetBeansProjects\\UPS\\SI2Proyecto\\src\\Inventario_Reportes\\Reporte_ingreso.jrxml";
+              JasperReport reporteJasper;
+         
+               reporteJasper = JasperCompileManager.compileReport(dir);
+     
+              JasperPrint mostrarReporte = JasperFillManager.fillReport(reporteJasper, null,conn);
+              JasperViewer visor = new JasperViewer(mostrarReporte,false);
+              visor.setVisible(true);  
+              } catch (JRException ex) {
+                  
+       }
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jCheckBoxMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxMenuItem5ActionPerformed
@@ -451,7 +470,18 @@ try {
     }//GEN-LAST:event_jCheckBoxMenuItem6ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        // TODO add your handling code here:
+      try {
+           String dir = "C:\\Users\\anthony\\Documents\\NetBeansProjects\\UPS\\SI2Proyecto\\src\\Inventario_Reportes\\Reporte_egreso.jrxml";
+              JasperReport reporteJasper;
+         
+               reporteJasper = JasperCompileManager.compileReport(dir);
+     
+              JasperPrint mostrarReporte = JasperFillManager.fillReport(reporteJasper, null,conn);
+              JasperViewer visor = new JasperViewer(mostrarReporte,false);
+              visor.setVisible(true);  
+              } catch (JRException ex) {
+                  
+       }
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     /**

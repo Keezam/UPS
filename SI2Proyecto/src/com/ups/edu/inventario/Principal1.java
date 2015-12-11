@@ -5,23 +5,32 @@
  */
 package com.ups.edu.inventario;
 
+import Inventario_Otros_codigos.Combos;
+import Inventario_Otros_codigos.ConexionBD;
 import java.awt.Dimension;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.Statement;
+import javax.swing.plaf.basic.BasicInternalFrameUI;
+import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author JeanPierre
- */
 public class Principal1 extends javax.swing.JInternalFrame {
-
+Connection conn = (Connection) ConexionBD.GetConnection();
+ static  DefaultTableModel modelo = new DefaultTableModel();
     /**
      * Creates new form Principal1
      */
+    ConexionBD con = new ConexionBD();
     public Principal1() {
+         ((BasicInternalFrameUI) this.getUI()).setNorthPane(null);
         initComponents();
-        buttonGroup1.add(RadioButton_Producto);
-        buttonGroup1.add(RadioButton_Proveedor);
-        buttonGroup1.add(RadioButton_Sucursal);
-        buttonGroup1.add(RadioButton_Fecha);
+           buttonGroup1.add(rb_ingresos);
+        buttonGroup1.add(rb_egresos);
+        rb_egresos.setEnabled(false);
+        rb_ingresos.setEnabled(false);
+        Cargar_combo_ciudad_direccion();
+       
     }
 
     /**
@@ -34,37 +43,39 @@ public class Principal1 extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
-        RadioButton_Producto = new javax.swing.JRadioButton();
-        RadioButton_Proveedor = new javax.swing.JRadioButton();
-        RadioButton_Fecha = new javax.swing.JRadioButton();
-        panel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        RadioButton_Sucursal = new javax.swing.JRadioButton();
+        tabla = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+        combo_ciudad_direccion = new javax.swing.JComboBox();
+        rb_ingresos = new javax.swing.JRadioButton();
+        rb_egresos = new javax.swing.JRadioButton();
+        panel1 = new javax.swing.JPanel();
 
-        setClosable(true);
+        jScrollPane1.setViewportView(tabla);
 
-        RadioButton_Producto.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        RadioButton_Producto.setText("Producto");
-        RadioButton_Producto.addActionListener(new java.awt.event.ActionListener() {
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel1.setText("Ciudad / Sector: ");
+
+        combo_ciudad_direccion.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        combo_ciudad_direccion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                RadioButton_ProductoActionPerformed(evt);
+                combo_ciudad_direccionActionPerformed(evt);
             }
         });
 
-        RadioButton_Proveedor.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        RadioButton_Proveedor.setText("Proveedor");
-        RadioButton_Proveedor.addActionListener(new java.awt.event.ActionListener() {
+        rb_ingresos.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        rb_ingresos.setText("Ingresos");
+        rb_ingresos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                RadioButton_ProveedorActionPerformed(evt);
+                rb_ingresosActionPerformed(evt);
             }
         });
 
-        RadioButton_Fecha.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        RadioButton_Fecha.setText("Fecha");
-        RadioButton_Fecha.addActionListener(new java.awt.event.ActionListener() {
+        rb_egresos.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        rb_egresos.setText("Egresos");
+        rb_egresos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                RadioButton_FechaActionPerformed(evt);
+                rb_egresosActionPerformed(evt);
             }
         });
 
@@ -76,132 +87,191 @@ public class Principal1 extends javax.swing.JInternalFrame {
         );
         panel1Layout.setVerticalGroup(
             panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 92, Short.MAX_VALUE)
+            .addGap(0, 211, Short.MAX_VALUE)
         );
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane1.setViewportView(jTable1);
-
-        RadioButton_Sucursal.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        RadioButton_Sucursal.setText("Sucursal");
-        RadioButton_Sucursal.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                RadioButton_SucursalActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jScrollPane1))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 740, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(53, 53, 53)
-                        .addComponent(RadioButton_Sucursal)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(RadioButton_Producto)
-                        .addGap(88, 88, 88)
-                        .addComponent(RadioButton_Proveedor)
-                        .addGap(87, 87, 87)
-                        .addComponent(RadioButton_Fecha)
-                        .addGap(55, 55, 55))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(44, 44, 44)
-                        .addComponent(panel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 23, Short.MAX_VALUE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(154, 154, 154)
+                                .addComponent(rb_ingresos)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(combo_ciudad_direccion, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(rb_egresos, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(panel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(35, 35, 35))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(37, 37, 37)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(RadioButton_Producto)
-                    .addComponent(RadioButton_Proveedor)
-                    .addComponent(RadioButton_Fecha)
-                    .addComponent(RadioButton_Sucursal))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
-                .addComponent(panel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1)
+                    .addComponent(combo_ciudad_direccion, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(42, 42, 42)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(rb_ingresos)
+                    .addComponent(rb_egresos))
+                .addGap(18, 18, 18)
+                .addComponent(panel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(31, 31, 31)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    public void Cargar_Panel_P_P_M() {
-        Principal1.panel1.removeAll();
-        Principal1.panel1.repaint();
-        Panel_P_P_M ch = new Panel_P_P_M();
-        Principal1.panel1.add(ch);
-        Dimension desktopSize = panel1.getSize();
-        Dimension FrameSize = ch.getSize();
-        ch.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
-        ch.setVisible(true);
+    public void Cargar_combo_ciudad_direccion(){
+           Combos cmbP = new Combos();
+       cmbP.conn = this.conn;
+        combo_ciudad_direccion.setModel(cmbP.Llenar_Combo_Ciudad_Direccion());
     }
+    
+    public void Cargar_Todo_Tabla_ingreso(int id){
+           try {
+           DefaultTableModel modelo = new DefaultTableModel();
+            tabla.setModel(modelo);
+             Principal1.panel1.removeAll();
+           Principal1.panel1.repaint();   
 
-    public void Cargar_Panel_Fecha() {
-        Principal1.panel1.removeAll();
-        Principal1.panel1.repaint();
-        Panel_Fecha ch = new Panel_Fecha();
-        Principal1.panel1.add(ch);
-        Dimension desktopSize = panel1.getSize();
-        Dimension FrameSize = ch.getSize();
-        ch.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
-        ch.setVisible(true);
+            tabla.setModel(modelo);
+       
+            Statement s = conn.createStatement();
+
+            ResultSet rs = s.executeQuery("select tp.Nombre as Producto, mp.Nombre as Marca, mop.Nombre as Modelo, prov.nombre as Proveedor, sum(ing.Cantidad) as Cantidad_Total_ing "
+                    + "from inv_Producto p, inv_Tipo_Producto tp, inv_Marca_Producto mp, inv_Modelo_Producto mop, "
+                    + "cmprv_provedores prov, inv_Ingreso ing where ing.id_producto=p.id_producto and p.id_tipo=tp.id_tipo "
+                    + "and p.id_marca=mp.id_marca and p.id_modelo=mop.id_modelo and p.id_proveedor=prov.id_provedor and  ing.id_sucursal="+id+" "
+                    + "group by tp.Nombre, mp.Nombre, mop.Nombre,prov.nombre ORDER BY `ing`.`id_producto` ASC;");
+
+            ResultSetMetaData rsMd = rs.getMetaData();
+
+            int cantidadColumnas = rsMd.getColumnCount();
+
+            for (int i = 1; i <= cantidadColumnas; i++) {
+                modelo.addColumn(rsMd.getColumnLabel(i));
+            }
+
+            while (rs.next()) {
+                Object[] fila = new Object[cantidadColumnas];
+                for (int i = 0; i < cantidadColumnas; i++) {
+                    fila[i] = rs.getObject(i + 1);
+                }
+                modelo.addRow(fila);
+            }
+            rs.close();
+        
+        } catch (Exception ex) {
+            System.out.println("ERROR CARGAR TABLA "+ex);
+        }
     }
+    
+ 
+  public void Cargar_Todo_Tabla_egreso(int id){
+           try {
+           DefaultTableModel modelo = new DefaultTableModel();
+            tabla.setModel(modelo);
+             Principal1.panel1.removeAll();
+           Principal1.panel1.repaint();   
 
-    public void Cargar_Panel_Sucursal() {
-        Principal1.panel1.removeAll();
-        Principal1.panel1.repaint();
-        Panel_Sucursal ch = new Panel_Sucursal();
-        Principal1.panel1.add(ch);
-        Dimension desktopSize = panel1.getSize();
-        Dimension FrameSize = ch.getSize();
-        ch.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
-        ch.setVisible(true);
+            tabla.setModel(modelo);
+       
+            Statement s = conn.createStatement();
+
+            ResultSet rs = s.executeQuery("select tp.Nombre as Producto, mp.Nombre as Marca, mop.Nombre as Modelo, prov.nombre as Proveedor, sum(eg.Cantidad) as Cantidad_Total_eg "
+                    + "from inv_Producto p, inv_Tipo_Producto tp, inv_Marca_Producto mp, inv_Modelo_Producto mop, cmprv_provedores prov,inv_Egreso eg "
+                    + "where eg.id_producto=p.id_producto and p.id_tipo=tp.id_tipo and p.id_marca=mp.id_marca and p.id_modelo=mop.id_modelo and p.id_proveedor=prov.id_provedor and  eg.id_sucursal="+id+" "
+                    + "group by tp.Nombre, mp.Nombre, mop.Nombre,prov.nombre "
+                    + "ORDER BY `eg`.`id_producto` ASC");
+
+            ResultSetMetaData rsMd = rs.getMetaData();
+
+            int cantidadColumnas = rsMd.getColumnCount();
+
+            for (int i = 1; i <= cantidadColumnas; i++) {
+                modelo.addColumn(rsMd.getColumnLabel(i));
+            }
+
+            while (rs.next()) {
+                Object[] fila = new Object[cantidadColumnas];
+                for (int i = 0; i < cantidadColumnas; i++) {
+                    fila[i] = rs.getObject(i + 1);
+                }
+                modelo.addRow(fila);
+            }
+            rs.close();
+        
+        } catch (Exception ex) {
+            System.out.println("ERROR CARGAR TABLA "+ex);
+        }
     }
+    
+    private void combo_ciudad_direccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_combo_ciudad_direccionActionPerformed
+        if(combo_ciudad_direccion.getSelectedIndex() == 0){
+             DefaultTableModel modelo = new DefaultTableModel();
+            tabla.setModel(modelo);
+             rb_egresos.setEnabled(false);
+            rb_ingresos.setEnabled(false);
+            
+             Principal1.panel1.removeAll();
+           Principal1.panel1.repaint();
+        }  else { 
+              DefaultTableModel modelo = new DefaultTableModel();
+            tabla.setModel(modelo);
+             Principal1.panel1.removeAll();
+           Principal1.panel1.repaint();
+            rb_egresos.setEnabled(true);
+            rb_ingresos.setEnabled(true);
+                    }
+        
+    }//GEN-LAST:event_combo_ciudad_direccionActionPerformed
 
-    private void RadioButton_ProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RadioButton_ProductoActionPerformed
-        Cargar_Panel_P_P_M();
-    }//GEN-LAST:event_RadioButton_ProductoActionPerformed
+    private void rb_ingresosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rb_ingresosActionPerformed
+           
+        Cargar_Todo_Tabla_ingreso(combo_ciudad_direccion.getSelectedIndex());
+               Cargar_panel_consultas();
+    }//GEN-LAST:event_rb_ingresosActionPerformed
 
-    private void RadioButton_ProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RadioButton_ProveedorActionPerformed
-        Cargar_Panel_P_P_M();
-    }//GEN-LAST:event_RadioButton_ProveedorActionPerformed
-
-    private void RadioButton_FechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RadioButton_FechaActionPerformed
-        Cargar_Panel_Fecha();
-    }//GEN-LAST:event_RadioButton_FechaActionPerformed
-
-    private void RadioButton_SucursalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RadioButton_SucursalActionPerformed
-        Cargar_Panel_Sucursal();
-    }//GEN-LAST:event_RadioButton_SucursalActionPerformed
-
+    private void rb_egresosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rb_egresosActionPerformed
+        Cargar_Todo_Tabla_egreso(combo_ciudad_direccion.getSelectedIndex());
+        Cargar_panel_consultas();
+    }//GEN-LAST:event_rb_egresosActionPerformed
+public void Cargar_panel_consultas(){
+       Principal1.panel1.removeAll();
+           Principal1.panel1.repaint();
+            Consultas ch = new Consultas();
+         Principal1.panel1.add(ch);
+              Dimension desktopSize = panel1.getSize();
+               Dimension FrameSize = ch.getSize();
+              ch.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
+            ch.setVisible(true);   
+   } 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JRadioButton RadioButton_Fecha;
-    private javax.swing.JRadioButton RadioButton_Producto;
-    private javax.swing.JRadioButton RadioButton_Proveedor;
-    private javax.swing.JRadioButton RadioButton_Sucursal;
     private javax.swing.ButtonGroup buttonGroup1;
+    public static javax.swing.JComboBox combo_ciudad_direccion;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private static javax.swing.JPanel panel1;
+    public static javax.swing.JRadioButton rb_egresos;
+    public static javax.swing.JRadioButton rb_ingresos;
+    public static javax.swing.JTable tabla;
     // End of variables declaration//GEN-END:variables
 }
