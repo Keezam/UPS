@@ -531,45 +531,47 @@ public class CopiaPruebas extends javax.swing.JFrame {
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
         // TODO add your handling code here:
-        // TODO add your handling code here:
-        if(btnActualizar.getText().equals("ACTUALIZAR")){
-            ciudadAntigua = txtCiudad.getText();
-            btnActualizar.setText("GUARDAR");
-            btnActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ups/edu/compras/resources/guardar.jpg"))); // NOI18N
-            activarCamposUpdate();
-        }else if(btnActualizar.getText().equals("GUARDAR")){
-            String estado = "";
-            if(estado1.isSelected()){
-                estado = "A";
-            }else 
-            if(estado2.isSelected()){
-                estado = "I";
+        conn = ConexionBD.GetConnection();
+        if(conn != null){
+            if(btnActualizar.getText().equals("ACTUALIZAR")){
+                ciudadAntigua = txtCiudad.getText();
+                btnActualizar.setText("GUARDAR");
+                btnActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ups/edu/compras/resources/guardar.jpg"))); // NOI18N
+                activarCamposUpdate();
+            }else if(btnActualizar.getText().equals("GUARDAR")){
+                String estado = "";
+                if(estado1.isSelected()){
+                    estado = "A";
+                }else 
+                if(estado2.isSelected()){
+                    estado = "I";
+                }
+                String cedula = id_proveedor.getText();
+                String nombreP = nombre.getText();
+                String direccionP = direccion.getText();
+                Long telefonoPrp = null;
+                Long telefonoScn = null;
+                if(!(telefono1.getText().equals(""))){
+                    telefonoPrp = Long.parseLong(telefono1.getText());
+                }
+                if(!(telefono2.getText().equals(""))){
+                     telefonoScn = Long.parseLong(telefono2.getText());
+                }
+                String ciudad = txtCiudad.getText();
+                String correoP = correo.getText();
+                btnActualizar.setText("ACTUALIZAR");
+                btnActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ups/edu/compras/resources/actualizar.png"))); // NOI18N
+                boolean resultado = updateProveedor(cedula, nombreP, direccionP, telefonoPrp, telefonoScn, ciudad, correoP, estado);
+                if(consultarCiudad(ciudad) == 0){
+                    actualizarCiudad(ciudad);
+                }
+                if(resultado){
+                    JOptionPane.showMessageDialog(this, "Dato actualizados correctamente","Información",JOptionPane.INFORMATION_MESSAGE);
+                }else if(!resultado){
+                    JOptionPane.showMessageDialog(this, "Error en la actualizacion, formato incorrecto","Error",JOptionPane.WARNING_MESSAGE);
+                }
+                desactivarCamposUpdate();
             }
-            String cedula = id_proveedor.getText();
-            String nombreP = nombre.getText();
-            String direccionP = direccion.getText();
-            Long telefonoPrp = null;
-            Long telefonoScn = null;
-            if(!(telefono1.getText().equals(""))){
-                telefonoPrp = Long.parseLong(telefono1.getText());
-            }
-            if(!(telefono2.getText().equals(""))){
-                 telefonoScn = Long.parseLong(telefono2.getText());
-            }
-            String ciudad = txtCiudad.getText();
-            String correoP = correo.getText();
-            btnActualizar.setText("ACTUALIZAR");
-            btnActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ups/edu/compras/resources/actualizar.png"))); // NOI18N
-            boolean resultado = updateProveedor(cedula, nombreP, direccionP, telefonoPrp, telefonoScn, ciudad, correoP, estado);
-            if(consultarCiudad(ciudad) == 0){
-                actualizarCiudad(ciudad);
-            }
-            if(resultado){
-                JOptionPane.showMessageDialog(this, "Dato actualizados correctamente","Información",JOptionPane.INFORMATION_MESSAGE);
-            }else if(!resultado){
-                JOptionPane.showMessageDialog(this, "Error en la actualizacion, formato incorrecto","Error",JOptionPane.WARNING_MESSAGE);
-            }
-            desactivarCamposUpdate();
         }
     }//GEN-LAST:event_btnActualizarActionPerformed
 
@@ -779,6 +781,28 @@ public class CopiaPruebas extends javax.swing.JFrame {
 
     private void eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarActionPerformed
         // TODO add your handling code here:
+        conn = ConexionBD.GetConnection();
+        Object datos [] = new Object[3];
+        if(conn != null){
+            for (int i = 0; i < tableProductos.getRowCount(); i++) {
+                for (int j = 0; j < 3; j++) {
+                    datos[j] = tableProductos.getValueAt(i, j);
+                }
+                int tipoP = consultarTipo(datos[0].toString());
+                int marcaP = consultarMarca(datos[1].toString());
+                int modeloP = consultarModelo(datos[2].toString());
+                
+                eliminarProducto(tipoP, marcaP, modeloP);
+                eliminarMarca(datos[1].toString());
+                eliminarModelo(datos[2].toString());
+                eliminarTipo(datos[0].toString());
+                
+            }
+            eliminarProveedor(id_proveedor.getText());
+            
+        }else{
+            JOptionPane.showMessageDialog(this, "Conexion Perdida. Revise su conexion a red.","Información",JOptionPane.INFORMATION_MESSAGE);
+        }
     }//GEN-LAST:event_eliminarActionPerformed
     
     String tipoT, marcaT, modeloT;
@@ -893,6 +917,109 @@ public class CopiaPruebas extends javax.swing.JFrame {
             getToolkit().beep();  
             e.consume(); 
         } 
+    }
+    
+    
+    private void eliminarMarca(String marca){
+        String elimina = "DELETE FROM `inv_Marca_Producto` WHERE `Nombre` = ?";
+        try{
+            conn.setAutoCommit(false);
+            CallableStatement call;
+            call = conn.prepareCall(elimina);
+            call.setString(1, marca);
+            call.execute();
+            call.close();
+            conn.commit();
+        }catch(Exception e){
+            try{
+                conn.rollback();
+            }catch(Exception ex){
+                System.out.println("Error en rollback: "+ex.getMessage());
+            }
+            System.out.println("Error: "+e.getMessage());
+        }
+    }
+    
+    private void eliminarTipo(String tipo){
+        String elimina = "DELETE FROM `inv_Tipo_Producto` WHERE `Nombre` = ?";
+        try{
+            conn.setAutoCommit(false);
+            CallableStatement call;
+            call = conn.prepareCall(elimina);
+            call.setString(1, tipo);
+            call.execute();
+            call.close();
+            conn.commit();
+        }catch(Exception e){
+            try{
+                conn.rollback();
+            }catch(Exception ex){
+                System.out.println("Error en rollback: "+ex.getMessage());
+            }
+            System.out.println("Error: "+e.getMessage());
+        }
+    }
+    
+    private void eliminarModelo(String modelo){
+        String elimina = "DELETE FROM `inv_Modelo_Producto` WHERE `Nombre` = ?";
+        try{
+            conn.setAutoCommit(false);
+            CallableStatement call;
+            call = conn.prepareCall(elimina);
+            call.setString(1, modelo);
+            call.execute();
+            call.close();
+            conn.commit();
+        }catch(Exception e){
+            try{
+                conn.rollback();
+            }catch(Exception ex){
+                System.out.println("Error en rollback: "+ex.getMessage());
+            }
+            System.out.println("Error: "+e.getMessage());
+        }
+    }
+    
+    private void eliminarProducto(int tipo, int marca, int modelo){
+        String elimina = "DELETE FROM `inv_Producto` WHERE `id_tipo` = ? and `id_marca` = ? and `id_modelo` = ?";
+        try{
+            conn.setAutoCommit(false);
+            CallableStatement call;
+            call = conn.prepareCall(elimina);
+            call.setInt(1, tipo);
+            call.setInt(2, marca);
+            call.setInt(3, modelo);
+            call.execute();
+            call.close();
+            conn.commit();
+        }catch(Exception e){
+            try{
+                conn.rollback();
+            }catch(Exception ex){
+                System.out.println("Error en rollback: "+ex.getMessage());
+            }
+            System.out.println("Error: "+e.getMessage());
+        }
+    }
+    
+    private void eliminarProveedor(String cedula){
+        String elimina =  "DELETE FROM `cmprv_provedores` WHERE `cedula_proveedor` = ?";
+        try{
+            conn.setAutoCommit(false);
+            CallableStatement call;
+            call = conn.prepareCall(elimina);
+            call.setString(1, cedula);
+            call.execute();
+            call.close();
+            conn.commit();
+        }catch(Exception e){
+            try{
+                conn.rollback();
+            }catch(Exception ex){
+                System.out.println("Error en rollback: "+ex.getMessage());
+            }
+            System.out.println("Error: "+e.getMessage());
+        }
     }
     
     private void actualizarProducto(int tipo, int marca, int modelo, double precio, String estados){
@@ -1521,6 +1648,7 @@ public class CopiaPruebas extends javax.swing.JFrame {
         //btnAgregar.setEnabled(true);
         //btnQuitar.setEnabled(true);
         btnCancelar.setEnabled(true);
+        eliminar.setEnabled(false);
         
         id_proveedor.setEnabled(false);
         nombre.setEnabled(true);

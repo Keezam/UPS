@@ -20,9 +20,10 @@ public class orden extends javax.swing.JFrame {
     DefaultTableModel listado_prod;
     
     public orden() {
+        initComponents();
+        
         String columnas[] = {"PRODUCTO", "MARCA", "MODELO", "CANTIDAD", "PRECIO_UNITARIO", "Total"};
         listado_prod = new DefaultTableModel(columnas, 0);
-        initComponents();
         dialogAgregarProducto.setSize(410, 350);
         conn = ConexionBD.GetConnection();
         id_orden.setEnabled(false);
