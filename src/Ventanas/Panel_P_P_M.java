@@ -5,15 +5,21 @@
  */
 package Ventanas;
 
+import Otros_codigos.ConexionBD;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.Statement;
 import javax.swing.JOptionPane;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author JeanPierre
  */
 public class Panel_P_P_M extends javax.swing.JInternalFrame {
-
+Connection conn = (Connection) ConexionBD.GetConnection();
     /**
      * Creates new form Panel_Producto
      */
@@ -81,11 +87,188 @@ public class Panel_P_P_M extends javax.swing.JInternalFrame {
         if(jTextField1.getText().equals(""))  { 
         JOptionPane.showMessageDialog(null, "VERIFICAR CAMPOS", "ERROR", JOptionPane.ERROR_MESSAGE);
         }else{
+            if(Principal1.rb_ingresos.isSelected()){
+            if(Consultas.RadioButton_Producto.isSelected()){
+               
+                String nombre = jTextField1.getText();
+            int a2 = Principal1.combo_ciudad_direccion.getSelectedIndex();
+            Cargar_Todo_Tabla_ingreso_producto(nombre, a2);}
+            else{
+                 if(Consultas.RadioButton_Proveedor.isSelected()){
+             
+             String nombre = jTextField1.getText();
+            int a2 = Principal1.combo_ciudad_direccion.getSelectedIndex();
+            Cargar_Todo_Tabla_ingreso_proveedor(nombre, a2);}
+        }
+        }
+                if(Principal1.rb_egresos.isSelected()){
+            if(Consultas.RadioButton_Producto.isSelected()){
+               
+                String nombre = jTextField1.getText();
+            int a2 = Principal1.combo_ciudad_direccion.getSelectedIndex();
+            Cargar_Todo_Tabla_egresos_producto(nombre, a2);}
+            else{
+                 if(Consultas.RadioButton_Proveedor.isSelected()){
+             
+             String nombre = jTextField1.getText();
+            int a2 = Principal1.combo_ciudad_direccion.getSelectedIndex();
+            Cargar_Todo_Tabla_egresos_proveedor(nombre, a2);}
+        }
+        }
             
         }
+      
     }//GEN-LAST:event_jButton1ActionPerformed
 
+public void Cargar_Todo_Tabla_ingreso_proveedor(String nombre, int id){
+           try {
+            DefaultTableModel modelo = new DefaultTableModel();
+            
+            Principal1.tabla.setModel(modelo);
+       
+            Statement s = conn.createStatement();
 
+            ResultSet rs = s.executeQuery("select tp.Nombre as Producto, mp.Nombre as Marca, mop.Nombre as Modelo, prov.nombre as Proveedor, sum(ing.Cantidad) as Cantidad_Total_ing "
+                    + "from inv_Producto p, inv_Tipo_Producto tp, inv_Marca_Producto mp, inv_Modelo_Producto mop, cmprv_provedores prov, inv_Ingreso ing "
+                    + "where ing.id_producto=p.id_producto and p.id_tipo=tp.id_tipo and p.id_marca=mp.id_marca and p.id_modelo=mop.id_modelo and p.id_proveedor=prov.id_provedor and  ing.id_sucursal= "+id+" "
+                    + "and prov.nombre= '"+nombre+"' "
+                    + "group by tp.Nombre, mp.Nombre, mop.Nombre,prov.nombre "
+                    + "ORDER BY `ing`.`id_producto` ASC");
+
+            ResultSetMetaData rsMd = rs.getMetaData();
+
+            int cantidadColumnas = rsMd.getColumnCount();
+
+            for (int i = 1; i <= cantidadColumnas; i++) {
+                modelo.addColumn(rsMd.getColumnLabel(i));
+            }
+
+            while (rs.next()) {
+                Object[] fila = new Object[cantidadColumnas];
+                for (int i = 0; i < cantidadColumnas; i++) {
+                    fila[i] = rs.getObject(i + 1);
+                }
+                modelo.addRow(fila);
+            }
+            rs.close();
+        
+        } catch (Exception ex) {
+            System.out.println("ERROR CARGAR TABLA "+ex);
+        }
+}
+
+    public void Cargar_Todo_Tabla_ingreso_producto(String producto, int id){
+           try {
+            DefaultTableModel modelo = new DefaultTableModel();
+            
+            Principal1.tabla.setModel(modelo);
+       
+            Statement s = conn.createStatement();
+
+            ResultSet rs = s.executeQuery("select tp.Nombre as Producto, mp.Nombre as Marca, mop.Nombre as Modelo, prov.nombre as Proveedor, sum(ing.Cantidad) as Cantidad_Total_ing "
+                    + "from inv_Producto p, inv_Tipo_Producto tp, inv_Marca_Producto mp, inv_Modelo_Producto mop, cmprv_provedores prov, inv_Ingreso ing "
+ +"where ing.id_producto=p.id_producto and p.id_tipo=tp.id_tipo and p.id_marca=mp.id_marca and p.id_modelo=mop.id_modelo and p.id_proveedor=prov.id_provedor and  ing.id_sucursal= "+id+" " 
+                    +"and tp.Nombre= '"+producto+"' " 
+                    +"group by tp.Nombre, mp.Nombre, mop.Nombre,prov.nombre "
+                    + "ORDER BY `ing`.`id_producto` ASC");
+
+            ResultSetMetaData rsMd = rs.getMetaData();
+
+            int cantidadColumnas = rsMd.getColumnCount();
+
+            for (int i = 1; i <= cantidadColumnas; i++) {
+                modelo.addColumn(rsMd.getColumnLabel(i));
+            }
+
+            while (rs.next()) {
+                Object[] fila = new Object[cantidadColumnas];
+                for (int i = 0; i < cantidadColumnas; i++) {
+                    fila[i] = rs.getObject(i + 1);
+                }
+                modelo.addRow(fila);
+            }
+            rs.close();
+        
+        } catch (Exception ex) {
+            System.out.println("ERROR CARGAR TABLA "+ex);
+        }
+    }
+    
+    
+    public void Cargar_Todo_Tabla_egresos_producto(String producto, int id){
+           try {
+            DefaultTableModel modelo = new DefaultTableModel();
+            
+            Principal1.tabla.setModel(modelo);
+       
+            Statement s = conn.createStatement();
+
+            ResultSet rs = s.executeQuery("select tp.Nombre as Producto, mp.Nombre as Marca, mop.Nombre as Modelo, prov.nombre as Proveedor, sum(eg.Cantidad) as Cantidad_Total_eg "
+                    + "from inv_Producto p, inv_Tipo_Producto tp, inv_Marca_Producto mp, inv_Modelo_Producto mop, cmprv_provedores prov,inv_Egreso eg "
+                    + "where eg.id_producto=p.id_producto and p.id_tipo=tp.id_tipo and p.id_marca=mp.id_marca and p.id_modelo=mop.id_modelo and p.id_proveedor=prov.id_provedor and  eg.id_sucursal="+id+" "
+                    + "and tp.Nombre='"+producto+"' "
+                    + "group by tp.Nombre, mp.Nombre, mop.Nombre,prov.nombre "
+                    + "ORDER BY `eg`.`id_producto` ASC");
+
+            ResultSetMetaData rsMd = rs.getMetaData();
+
+            int cantidadColumnas = rsMd.getColumnCount();
+
+            for (int i = 1; i <= cantidadColumnas; i++) {
+                modelo.addColumn(rsMd.getColumnLabel(i));
+            }
+
+            while (rs.next()) {
+                Object[] fila = new Object[cantidadColumnas];
+                for (int i = 0; i < cantidadColumnas; i++) {
+                    fila[i] = rs.getObject(i + 1);
+                }
+                modelo.addRow(fila);
+            }
+            rs.close();
+        
+        } catch (Exception ex) {
+            System.out.println("ERROR CARGAR TABLA "+ex);
+        }
+    }
+    
+    
+    public void Cargar_Todo_Tabla_egresos_proveedor(String nombre, int id){
+           try {
+            DefaultTableModel modelo = new DefaultTableModel();
+            
+            Principal1.tabla.setModel(modelo);
+       
+            Statement s = conn.createStatement();
+
+            ResultSet rs = s.executeQuery("select tp.Nombre as Producto, mp.Nombre as Marca, mop.Nombre as Modelo, prov.nombre as Proveedor, sum(eg.Cantidad) as Cantidad_Total_eg "
+                    + "from inv_Producto p, inv_Tipo_Producto tp, inv_Marca_Producto mp, inv_Modelo_Producto mop, cmprv_provedores prov,inv_Egreso eg "
+                    + "where eg.id_producto=p.id_producto and p.id_tipo=tp.id_tipo and p.id_marca=mp.id_marca and p.id_modelo=mop.id_modelo and p.id_proveedor=prov.id_provedor and  eg.id_sucursal="+id+" "
+                    + "and prov.nombre='"+nombre+"' "
+                    + "group by tp.Nombre, mp.Nombre, mop.Nombre,prov.nombre "
+                    + "ORDER BY `eg`.`id_producto` ASC");
+
+            ResultSetMetaData rsMd = rs.getMetaData();
+
+            int cantidadColumnas = rsMd.getColumnCount();
+
+            for (int i = 1; i <= cantidadColumnas; i++) {
+                modelo.addColumn(rsMd.getColumnLabel(i));
+            }
+
+            while (rs.next()) {
+                Object[] fila = new Object[cantidadColumnas];
+                for (int i = 0; i < cantidadColumnas; i++) {
+                    fila[i] = rs.getObject(i + 1);
+                }
+                modelo.addRow(fila);
+            }
+            rs.close();
+        
+        } catch (Exception ex) {
+            System.out.println("ERROR CARGAR TABLA "+ex);
+        }
+}
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JTextField jTextField1;
