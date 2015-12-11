@@ -6,9 +6,12 @@
 package com.ups.edu.rrhh.menuinicio;
 
 import Inventario_Otros_codigos.ConexionBD;
+import com.ups.edu.financiero.Aceptacion_Compra;
+import com.ups.edu.financiero.Facturacion;
 import com.ups.edu.ventas.views.*;
 import com.ups.edu.inventario.*;
 import static com.ups.edu.inventario.Principal1.rb_ingresos;
+import financiero.PRESUPUESTO;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -16,6 +19,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import net.sf.jasperreports.engine.JRException;
@@ -57,6 +61,19 @@ Connection conn = (Connection) ConexionBD.GetConnection();
 IfLogin objIFrame1=new IfLogin();
 
 
+private Boolean validar_instanciav2(JDesktopPane d, JInternalFrame InternalFra) {
+        Boolean mostrar = false;
+        JInternalFrame[] a = d.getAllFrames();
+        int filas = a.length;
+        for (int i = 0; i < filas; i++) {
+            String c = a[i].getTitle();// getToolTipText
+            if (InternalFra.getTitle().compareTo(c) == 0) {// getToolTipText
+                mostrar = true;
+                break;
+            }
+        }
+        return mostrar;
+    }
 
 
     /**
@@ -68,6 +85,7 @@ IfLogin objIFrame1=new IfLogin();
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jMenuItem5 = new javax.swing.JMenuItem();
         Escritorio = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMLogo = new javax.swing.JMenu();
@@ -80,6 +98,9 @@ IfLogin objIFrame1=new IfLogin();
         jCheckBoxMenuItem4 = new javax.swing.JCheckBoxMenuItem();
         jCheckBoxMenuItem6 = new javax.swing.JCheckBoxMenuItem();
         jMFinanciero = new javax.swing.JMenu();
+        jMenuItem7 = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
+        jMenuItem6 = new javax.swing.JMenuItem();
         jMCompras = new javax.swing.JMenu();
         jMVentas = new javax.swing.JMenu();
         jMVta_Cliente = new javax.swing.JMenuItem();
@@ -94,6 +115,8 @@ IfLogin objIFrame1=new IfLogin();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
+
+        jMenuItem5.setText("jMenuItem5");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -187,6 +210,31 @@ IfLogin objIFrame1=new IfLogin();
         jMFinanciero.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/finanzas.jpg"))); // NOI18N
         jMFinanciero.setText("Financiero");
         jMFinanciero.setFont(new java.awt.Font("Franklin Gothic Medium Cond", 1, 18)); // NOI18N
+
+        jMenuItem7.setText("INGRESAR PRESUPUESTO");
+        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem7ActionPerformed(evt);
+            }
+        });
+        jMFinanciero.add(jMenuItem7);
+
+        jMenuItem4.setText("ACEPTAR COMPRA");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
+        jMFinanciero.add(jMenuItem4);
+
+        jMenuItem6.setText("FACTURACION");
+        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem6ActionPerformed(evt);
+            }
+        });
+        jMFinanciero.add(jMenuItem6);
+
         jMenuBar1.add(jMFinanciero);
 
         jMCompras.setForeground(new java.awt.Color(0, 0, 102));
@@ -484,6 +532,33 @@ try {
        }
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
+    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+      PRESUPUESTO it = new PRESUPUESTO();
+        if (validar_instanciav2(Escritorio, it) == false) {
+            Escritorio.add(it);
+            it.show();
+            it = null;
+        }
+    }//GEN-LAST:event_jMenuItem7ActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+      Aceptacion_Compra it = new Aceptacion_Compra();
+        if (validar_instanciav2(Escritorio, it) == false) {
+            Escritorio.add(it);
+            it.show();
+            it = null;
+        }
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+    Facturacion it = new Facturacion();
+        if (validar_instanciav2(Escritorio, it) == false) {
+            Escritorio.add(it);
+            it.show();
+            it = null;
+        }
+    }//GEN-LAST:event_jMenuItem6ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -565,6 +640,10 @@ try {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMvta_FormaPago;
     // End of variables declaration//GEN-END:variables
 }
