@@ -5,13 +5,8 @@
  */
 package com.ups.edu.rrhh.menuinicio;
 
-import com.ups.edu.ventas.views.FrmVta_Cliente;
-import com.ups.edu.ventas.views.FrmVta_Comisiones;
-import com.ups.edu.ventas.views.FrmVta_Factura;
-import com.ups.edu.ventas.views.FrmVta_FormaPago;
-import com.ups.edu.ventas.views.FrmVta_Garantias;
-import com.ups.edu.ventas.views.FrmVta_Ofertas;
-import com.ups.edu.ventas.views.FrmVta_Promocion;
+import com.ups.edu.ventas.views.*;
+import com.ups.edu.inventario.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -86,6 +81,8 @@ Iframe1_2 objIFrame1=new Iframe1_2();
         jMvta_FormaPago = new javax.swing.JMenuItem();
         jMVta_Comision = new javax.swing.JMenuItem();
         jMInventario = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -235,6 +232,23 @@ Iframe1_2 objIFrame1=new Iframe1_2();
         jMInventario.setForeground(new java.awt.Color(0, 0, 102));
         jMInventario.setText("Inventario");
         jMInventario.setFont(new java.awt.Font("Franklin Gothic Demi Cond", 1, 18)); // NOI18N
+
+        jMenuItem1.setText("Consultas");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMInventario.add(jMenuItem1);
+
+        jMenuItem2.setText("Reportes");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMInventario.add(jMenuItem2);
+
         jMenuBar1.add(jMInventario);
 
         setJMenuBar(jMenuBar1);
@@ -276,7 +290,7 @@ Iframe1_2 objIFrame1=new Iframe1_2();
             Escritorio.add(objIFrame2);
             objIFrame2.setLocation(280, 10);
             objIFrame2.show();
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             Logger.getLogger(menuu.class.getName()).log(Level.SEVERE, null, ex);
         }
         
@@ -323,7 +337,7 @@ Iframe1_2 objIFrame1=new Iframe1_2();
             Escritorio.add(objIFrame3);
             objIFrame3.setLocation(450, 10);
             objIFrame3.show();
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             Logger.getLogger(menuu.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jCheckBoxMenuItem3ActionPerformed
@@ -367,6 +381,21 @@ Iframe1_2 objIFrame1=new Iframe1_2();
             frmVtaGarantia.show();
         }
     }//GEN-LAST:event_jMVta_GarantiasActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+try {
+            Principal1 Inventario = new Principal1();
+            Escritorio.add(Inventario);
+            Inventario.setLocation(280, 10);
+            Inventario.show();
+        } catch (Exception ex) {
+            Logger.getLogger(menuu.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -436,6 +465,8 @@ Iframe1_2 objIFrame1=new Iframe1_2();
     private javax.swing.JMenuItem jMVta_Promocion;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMvta_FormaPago;
     // End of variables declaration//GEN-END:variables
 }
