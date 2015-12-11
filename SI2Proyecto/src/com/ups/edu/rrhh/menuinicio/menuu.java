@@ -290,7 +290,7 @@ Iframe1_2 objIFrame1=new Iframe1_2();
             Escritorio.add(objIFrame2);
             objIFrame2.setLocation(280, 10);
             objIFrame2.show();
-        } catch (Exception ex) {
+        } catch (SQLException ex) {
             Logger.getLogger(menuu.class.getName()).log(Level.SEVERE, null, ex);
         }
         
@@ -337,7 +337,7 @@ Iframe1_2 objIFrame1=new Iframe1_2();
             Escritorio.add(objIFrame3);
             objIFrame3.setLocation(450, 10);
             objIFrame3.show();
-        } catch (Exception ex) {
+        } catch (SQLException ex) {
             Logger.getLogger(menuu.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jCheckBoxMenuItem3ActionPerformed
