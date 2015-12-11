@@ -723,24 +723,17 @@ public class proveedor extends javax.swing.JInternalFrame {
     private void eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarActionPerformed
         // TODO add your handling code here:
         conn = ConexionBD.GetConnection();
-        Object datos [] = new Object[3];
         if(conn != null){
-            for (int i = 0; i < tableProductos.getRowCount(); i++) {
-                for (int j = 0; j < 3; j++) {
-                    datos[j] = tableProductos.getValueAt(i, j);
-                }
-                int tipoP = consultarTipo(datos[0].toString());
-                int marcaP = consultarMarca(datos[1].toString());
-                int modeloP = consultarModelo(datos[2].toString());
-
-                eliminarProducto(tipoP, marcaP, modeloP);
-                eliminarMarca(datos[1].toString());
-                eliminarModelo(datos[2].toString());
-                eliminarTipo(datos[0].toString());
-
+            int resp = JOptionPane.showConfirmDialog(null, "¿Esta seguro?", "Alerta!", JOptionPane.YES_NO_OPTION);
+            if(resp == 0){
+                if(actualizarEstado(id_proveedor.getText())){
+                    JOptionPane.showMessageDialog(this, "Datos actualizados correctamente", "Informacion",JOptionPane.OK_OPTION);
+                }else{
+                    JOptionPane.showMessageDialog(this, "Error en actualizacion.","Error",JOptionPane.CANCEL_OPTION);
+                }                
+            }else{
+                
             }
-            eliminarProveedor(id_proveedor.getText());
-
         }else{
             JOptionPane.showMessageDialog(this, "Conexion Perdida. Revise su conexion a red.","Información",JOptionPane.INFORMATION_MESSAGE);
         }
@@ -891,108 +884,131 @@ public class proveedor extends javax.swing.JInternalFrame {
         } 
     }
     
-    
-    private void eliminarMarca(String marca){
-        String elimina = "DELETE FROM `inv_Marca_Producto` WHERE `Nombre` = ?";
+    private boolean actualizarEstado(String cedula){
+        String updateProveedor = "UPDATE `cmprv_provedores` SET"
+                + "`estado`=?"
+                + " WHERE `cedula_proveedor`=?";
         try{
-            conn.setAutoCommit(false);
             CallableStatement call;
-            call = conn.prepareCall(elimina);
-            call.setString(1, marca);
+            call = conn.prepareCall(updateProveedor);
+            call.setString(1,"I");
+            call.setString(2, cedula);
             call.execute();
             call.close();
             conn.commit();
+            return true;
         }catch(Exception e){
             try{
                 conn.rollback();
+                return false;
             }catch(Exception ex){
                 System.out.println("Error en rollback: "+ex.getMessage());
+                return false;
             }
-            System.out.println("Error: "+e.getMessage());
         }
     }
     
-    private void eliminarTipo(String tipo){
-        String elimina = "DELETE FROM `inv_Tipo_Producto` WHERE `Nombre` = ?";
-        try{
-            conn.setAutoCommit(false);
-            CallableStatement call;
-            call = conn.prepareCall(elimina);
-            call.setString(1, tipo);
-            call.execute();
-            call.close();
-            conn.commit();
-        }catch(Exception e){
-            try{
-                conn.rollback();
-            }catch(Exception ex){
-                System.out.println("Error en rollback: "+ex.getMessage());
-            }
-            System.out.println("Error: "+e.getMessage());
-        }
-    }
-    
-    private void eliminarModelo(String modelo){
-        String elimina = "DELETE FROM `inv_Modelo_Producto` WHERE `Nombre` = ?";
-        try{
-            conn.setAutoCommit(false);
-            CallableStatement call;
-            call = conn.prepareCall(elimina);
-            call.setString(1, modelo);
-            call.execute();
-            call.close();
-            conn.commit();
-        }catch(Exception e){
-            try{
-                conn.rollback();
-            }catch(Exception ex){
-                System.out.println("Error en rollback: "+ex.getMessage());
-            }
-            System.out.println("Error: "+e.getMessage());
-        }
-    }
-    
-    private void eliminarProducto(int tipo, int marca, int modelo){
-        String elimina = "DELETE FROM `inv_Producto` WHERE `id_tipo` = ? and `id_marca` = ? and `id_modelo` = ?";
-        try{
-            conn.setAutoCommit(false);
-            CallableStatement call;
-            call = conn.prepareCall(elimina);
-            call.setInt(1, tipo);
-            call.setInt(2, marca);
-            call.setInt(3, modelo);
-            call.execute();
-            call.close();
-            conn.commit();
-        }catch(Exception e){
-            try{
-                conn.rollback();
-            }catch(Exception ex){
-                System.out.println("Error en rollback: "+ex.getMessage());
-            }
-            System.out.println("Error: "+e.getMessage());
-        }
-    }
-    
-    private void eliminarProveedor(String cedula){
-        String elimina =  "DELETE FROM `cmprv_provedores` WHERE `cedula_proveedor` = ?";
-        try{
-            conn.setAutoCommit(false);
-            CallableStatement call;
-            call = conn.prepareCall(elimina);
-            call.setString(1, cedula);
-            call.execute();
-            call.close();
-            conn.commit();
-        }catch(Exception e){
-            try{
-                conn.rollback();
-            }catch(Exception ex){
-                System.out.println("Error en rollback: "+ex.getMessage());
-            }
-            System.out.println("Error: "+e.getMessage());
-        }
-    }
+//    private void eliminarMarca(String marca){
+//        String elimina = "DELETE FROM `inv_Marca_Producto` WHERE `Nombre` = ?";
+//        try{
+//            conn.setAutoCommit(false);
+//            CallableStatement call;
+//            call = conn.prepareCall(elimina);
+//            call.setString(1, marca);
+//            call.execute();
+//            call.close();
+//            conn.commit();
+//        }catch(Exception e){
+//            try{
+//                conn.rollback();
+//            }catch(Exception ex){
+//                System.out.println("Error en rollback: "+ex.getMessage());
+//            }
+//            System.out.println("Error: "+e.getMessage());
+//        }
+//    }
+//    
+//    private void eliminarTipo(String tipo){
+//        String elimina = "DELETE FROM `inv_Tipo_Producto` WHERE `Nombre` = ?";
+//        try{
+//            conn.setAutoCommit(false);
+//            CallableStatement call;
+//            call = conn.prepareCall(elimina);
+//            call.setString(1, tipo);
+//            call.execute();
+//            call.close();
+//            conn.commit();
+//        }catch(Exception e){
+//            try{
+//                conn.rollback();
+//            }catch(Exception ex){
+//                System.out.println("Error en rollback: "+ex.getMessage());
+//            }
+//            System.out.println("Error: "+e.getMessage());
+//        }
+//    }
+//    
+//    private void eliminarModelo(String modelo){
+//        String elimina = "DELETE FROM `inv_Modelo_Producto` WHERE `Nombre` = ?";
+//        try{
+//            conn.setAutoCommit(false);
+//            CallableStatement call;
+//            call = conn.prepareCall(elimina);
+//            call.setString(1, modelo);
+//            call.execute();
+//            call.close();
+//            conn.commit();
+//        }catch(Exception e){
+//            try{
+//                conn.rollback();
+//            }catch(Exception ex){
+//                System.out.println("Error en rollback: "+ex.getMessage());
+//            }
+//            System.out.println("Error: "+e.getMessage());
+//        }
+//    }
+//    
+//    private void eliminarProducto(int tipo, int marca, int modelo){
+//        String elimina = "DELETE FROM `inv_Producto` WHERE `id_tipo` = ? and `id_marca` = ? and `id_modelo` = ?";
+//        try{
+//            conn.setAutoCommit(false);
+//            CallableStatement call;
+//            call = conn.prepareCall(elimina);
+//            call.setInt(1, tipo);
+//            call.setInt(2, marca);
+//            call.setInt(3, modelo);
+//            call.execute();
+//            call.close();
+//            conn.commit();
+//        }catch(Exception e){
+//            try{
+//                conn.rollback();
+//            }catch(Exception ex){
+//                System.out.println("Error en rollback: "+ex.getMessage());
+//            }
+//            System.out.println("Error: "+e.getMessage());
+//        }
+//    }
+//    
+//    private void eliminarProveedor(String cedula){
+//        String elimina =  "DELETE FROM `cmprv_provedores` WHERE `cedula_proveedor` = ?";
+//        try{
+//            conn.setAutoCommit(false);
+//            CallableStatement call;
+//            call = conn.prepareCall(elimina);
+//            call.setString(1, cedula);
+//            call.execute();
+//            call.close();
+//            conn.commit();
+//        }catch(Exception e){
+//            try{
+//                conn.rollback();
+//            }catch(Exception ex){
+//                System.out.println("Error en rollback: "+ex.getMessage());
+//            }
+//            System.out.println("Error: "+e.getMessage());
+//        }
+//    }
     
     private void actualizarProducto(int tipo, int marca, int modelo, double precio, String estados){
         String actualziaProducto = "";
