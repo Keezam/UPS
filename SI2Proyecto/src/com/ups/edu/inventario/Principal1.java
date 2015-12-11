@@ -20,10 +20,6 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.view.JasperViewer;
 
-/**
- *
- * @author JeanPierre
- */
 public class Principal1 extends javax.swing.JInternalFrame {
 Connection conn = (Connection) ConexionBD.GetConnection();
  static  DefaultTableModel modelo = new DefaultTableModel();

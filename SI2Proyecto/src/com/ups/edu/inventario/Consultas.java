@@ -8,10 +8,6 @@ package com.ups.edu.inventario;
 import java.awt.Dimension;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 
-/**
- *
- * @author JeanPierre
- */
 public class Consultas extends javax.swing.JInternalFrame {
 
     /**

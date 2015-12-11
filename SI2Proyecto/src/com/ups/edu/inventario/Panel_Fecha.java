@@ -15,10 +15,6 @@ import javax.swing.JOptionPane;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author JeanPierre
- */
 public class Panel_Fecha extends javax.swing.JInternalFrame {
 Connection conn = (Connection) ConexionBD.GetConnection();
     /**

@@ -14,10 +14,6 @@ import javax.swing.JOptionPane;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author JeanPierre
- */
 public class Panel_P_P_M extends javax.swing.JInternalFrame {
 Connection conn = (Connection) ConexionBD.GetConnection();
     /**
