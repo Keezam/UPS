@@ -73,6 +73,16 @@ public class IfLogin extends javax.swing.JInternalFrame {
                  txtcuenta.setText("");
                   jPasswordField1.setText("");
                   jMInventario.setVisible(true);
+            } else if(c.equalsIgnoreCase("6")){
+                JOptionPane.showMessageDialog(null, "Bienvenido Gerente" );
+                 this.setVisible(false);
+                 txtcuenta.setText("");
+                  jPasswordField1.setText("");
+                  jMRecHum.setVisible(true);
+                  jMFinanciero.setVisible(true);  
+                  jMCompras.setVisible(true);
+                  jMVentas.setVisible(true);
+                  jMInventario.setVisible(true);
             } else{
             JOptionPane.showMessageDialog(null, "NO EXISTE CUENTA","Error",JOptionPane.WARNING_MESSAGE);
             txtcuenta.setText("");
