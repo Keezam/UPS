@@ -113,6 +113,7 @@ public class FrmVta_Factura extends javax.swing.JInternalFrame {
     }
     
     
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -724,7 +725,7 @@ public class FrmVta_Factura extends javax.swing.JInternalFrame {
            return;
        }
        int dato=0;
-       
+       int personal = 0; 
        
        
        cdocliente = cdocliente.substring(0,cdocliente.indexOf("-"));

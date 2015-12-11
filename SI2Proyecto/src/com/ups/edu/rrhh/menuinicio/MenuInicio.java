@@ -99,10 +99,10 @@ IfLogin objIFrame1=new IfLogin();
         );
         EscritorioLayout.setVerticalGroup(
             EscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 419, Short.MAX_VALUE)
+            .addGap(0, 394, Short.MAX_VALUE)
         );
 
-        jMLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/logo-ups-home.png"))); // NOI18N
+        jMLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ups/edu/rrhh/menuinicio/logo-ups-home.png"))); // NOI18N
         jMenuBar1.add(jMLogo);
 
         jMInicio.setForeground(new java.awt.Color(0, 0, 102));
