@@ -738,22 +738,48 @@ public class Pruebas extends javax.swing.JFrame {
         isDecimal(evt);
     }                                  
 
+    String ciudadAntigua = "";
+    
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {                                              
         // TODO add your handling code here:
         if(btnActualizar.getText().equals("ACTUALIZAR")){
+            ciudadAntigua = txtCiudad.getText();
             btnActualizar.setText("GUARDAR");
             btnActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ups/edu/compras/resources/guardar.jpg"))); // NOI18N
-            activarCamposInsert();
+            activarCamposUpdate();
         }else if(btnActualizar.getText().equals("GUARDAR")){
-            desactivarCamposInsert();
-            btnActualizar.setText("NUEVO PROV.");
+            String estado = "";
+            if(estado1.isSelected()){
+                estado = "A";
+            }else 
+            if(estado2.isSelected()){
+                estado = "I";
+            }
+            String cedula = id_proveedor.getText();
+            String nombreP = nombre.getText();
+            String direccionP = direccion.getText();
+            Long telefonoPrp = null;
+            Long telefonoScn = null;
+            if(!(telefono1.getText().equals(""))){
+                telefonoPrp = Long.parseLong(telefono1.getText());
+            }
+            if(!(telefono2.getText().equals(""))){
+                 telefonoScn = Long.parseLong(telefono2.getText());
+            }
+            String ciudad = txtCiudad.getText();
+            String correoP = correo.getText();
+            btnActualizar.setText("ACTUALIZAR");
             btnActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ups/edu/compras/resources/actualizar.png"))); // NOI18N
-            //boolean resultado = insertarProveedores();
-//            if(resultado){
-//                JOptionPane.showMessageDialog(this, "Dato actualizados correctamente","Información",JOptionPane.INFORMATION_MESSAGE);
-//            }else if(!resultado){
-//                JOptionPane.showMessageDialog(this, "Error en la actualizacion, formato incorrecto","Error",JOptionPane.WARNING_MESSAGE);
-//            }
+            boolean resultado = updateProveedor(cedula, nombreP, direccionP, telefonoPrp, telefonoScn, ciudad, correoP, estado);
+            if(consultarCiudad(ciudad) == 0){
+                actualizarCiudad(ciudad);
+            }
+            if(resultado){
+                JOptionPane.showMessageDialog(this, "Dato actualizados correctamente","Información",JOptionPane.INFORMATION_MESSAGE);
+            }else if(!resultado){
+                JOptionPane.showMessageDialog(this, "Error en la actualizacion, formato incorrecto","Error",JOptionPane.WARNING_MESSAGE);
+            }
+            desactivarCamposUpdate();
         }
     }                                             
 
@@ -796,10 +822,80 @@ public class Pruebas extends javax.swing.JFrame {
 //        }
 //    }
 //    
-    int filas;
-    int columnas;
+    
+    private boolean updateProveedor(String cedula, String nombre, String direccion, Long telefono1, Long telefono2, String ciudad, String correo, String estado){
+        String updateProveedor = "";
+        try{
+            actualizarCiudad(ciudad);
+            conn.setAutoCommit(false);
+            updateProveedor = "UPDATE `cmprv_provedores` SET"
+                    //+ "`id_producto`=?,"
+                    + "`id_ciudad`=?,"
+                    + "`nombre`=?,"
+                    + "`direccion`=?,"
+                    + "`telefono1`=?,"
+                    + "`telefono2`=?,"
+                    + "`correo`=?,"
+                    + "`estado`=?"
+                    + "WHERE `cedula_proveedor`=?";
+            CallableStatement call;
+            call = conn.prepareCall(updateProveedor);
+            call.setInt(1, consultarCiudad(ciudad));
+            call.setString(2, nombre);
+            call.setString(3, direccion);
+            call.setLong(4, telefono1);
+            call.setLong(5, telefono2);
+            call.setString(6,correo);
+            call.setString(7, estado);
+            call.setString(8, cedula);
+            conn.commit();
+            return true;
+        }catch(Exception e){
+            try{
+                conn.rollback();
+                return false;
+            }catch(Exception ex){
+                System.out.println("Error rollback updateProveedor: "+ex.getMessage());
+                return false;
+            }
+        }
+    }
+    
+    private void actualziarTipo(int tipo){
+        
+    }
+  
+    private void actualizarModelo(int modelo){
+        
+    }
+    
+    private void actualizarMarca(int marca){
+        
+    }
+    
+    private void actualizarCiudad(String ciudad){
+        try{
+            String updateCiudad = "UPDATE `cmprv_ciudad` SET `descripcion`=? WHERE `descripcion`=? ";
+            CallableStatement call;
+            call = conn.prepareCall(updateCiudad);
+            call.setString(1, ciudad);
+            call.setString(2, ciudadAntigua);
+            call.execute();
+            call.close();
+            conn.commit();
+        }catch(Exception e){
+            try{
+                conn.rollback();
+            }catch(Exception ex){
+                System.out.println("Error en rollback");
+            }
+        }
+    }
+    
     private void agregarToTable(){
         //DefaultTableModel modelo = new DefaultTableModel();
+        int filas;
+        int columnas;
         tableProductos.setModel(modelo);
         filas = modelo.getRowCount();
         columnas = modelo.getColumnCount();
@@ -839,12 +935,13 @@ public class Pruebas extends javax.swing.JFrame {
             int modeloP;
             double precio;           
             //TableModel tableModel = tableProductos.getModel(); 
-            System.out.println("Get row count: "+modelo.getRowCount());
+            int columnas = modelo.getColumnCount();
+            int filas = modelo.getRowCount();
             Object datos[] = new Object[columnas];
             System.out.println("Filas: "+filas+", Columnas: "+columnas);
             for(int i=0; i <=filas; i++) { 
                 for(int j=0; j<columnas; j++) {
-                    System.out.print(modelo.getValueAt(i,j)); 
+                    System.out.println(modelo.getValueAt(i,j)); 
                     datos[j] = (Object) modelo.getValueAt(i, j);
                 }
                 tipo = consultarTipo(datos[0].toString());
@@ -879,7 +976,7 @@ public class Pruebas extends javax.swing.JFrame {
             }
             System.out.println("Salgo del for");
             return true;
-        }catch(Exception e){
+        }catch(SQLException | NumberFormatException e){
             try{
                 conn.rollback();
             }catch(Exception ex){
@@ -1263,6 +1360,44 @@ public class Pruebas extends javax.swing.JFrame {
         });
     }
 
+    private void activarCamposUpdate(){
+        buscar.setEnabled(false);
+        btnAgregar.setEnabled(true);
+        //btnQuitar.setEnabled(true);
+        btnCancelar.setEnabled(true);
+        
+        id_proveedor.setEnabled(false);
+        nombre.setEnabled(true);
+        direccion.setEnabled(true);
+        telefono1.setEnabled(true);
+        telefono2.setEnabled(true);
+        txtCiudad.setEnabled(true);
+        correo.setEnabled(true);
+        estado1.setEnabled(true);
+        estado2.setEnabled(true);
+    }
+    
+    private void desactivarCamposUpdate(){
+        buscar.setEnabled(true);
+        btnAgregar.setEnabled(false);
+        btnQuitar.setEnabled(false);
+        btnCancelar.setEnabled(false);
+        
+        id_proveedor.setEnabled(true);id_proveedor.setText("");
+        nombre.setEnabled(false);nombre.setText("");
+        direccion.setEnabled(false);direccion.setText("");
+        telefono1.setEnabled(false);telefono1.setText("");
+        telefono2.setEnabled(false);telefono2.setText("");
+        txtCiudad.setEnabled(false);txtCiudad.setText("");
+        correo.setEnabled(false);correo.setText("");
+        estado1.setEnabled(false);estado1.setSelected(false);
+        estado2.setEnabled(false);estado2.setSelected(false);
+        while(modelo.getRowCount()>0){
+            modelo.removeRow(0);
+        }
+    }
+    
+    
     private void activarCamposInsert(){
         buscar.setEnabled(false);
         btnAgregar.setEnabled(true);
