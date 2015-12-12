@@ -31,7 +31,7 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javaapplication2.Java2sAutoComboBox;
+import com.ups.edu.financiero.Java2sAutoComboBox;
 import javax.swing.ButtonModel;
 import javax.swing.DefaultCellEditor;
 import javax.swing.DefaultComboBoxModel;

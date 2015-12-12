@@ -77,8 +77,8 @@ public class Aceptacion_Compra extends javax.swing.JInternalFrame {
         /*ConexionBD con;
         con = new ConexionBD();
         Connection cn = con.GetConnection();*/
-        javaapplication2.conexionBD con;
-        con = new javaapplication2.conexionBD();
+        com.ups.edu.financiero.conexionBD con;
+        con = new com.ups.edu.financiero.conexionBD();
         Connection cn = con.conexion();
         if (cn != null) {
             try {
@@ -109,8 +109,8 @@ public class Aceptacion_Compra extends javax.swing.JInternalFrame {
       /*  ConexionBD con;
         con = new ConexionBD();
         Connection cn = con.GetConnection();*/
-      javaapplication2.conexionBD con;
-        con = new javaapplication2.conexionBD();
+     conexionBD con;
+        con = new conexionBD();
         Connection cn = con.conexion();
         if (cn != null) {
             try {
@@ -203,26 +203,7 @@ String sql = "SELECT id_orden_compra,codigo_orden_compra, id_provedor ,fecha_ord
         }
     }
     
-    static class ButtonsPanel extends JPanel {
-
-        public final java.util.List<JButton> buttons = java.util.Arrays.asList(new JButton(""));
-
-        public ButtonsPanel() {
-            super();
-            setOpaque(true);
-
-            for (JButton b : buttons) {
-                b.setFocusable(false);
-                b.setRolloverEnabled(false);
-                add(b);
-                b.setBackground(Color.white);
-                //b.setBounds(0, 0, 16, 16);
-//                ImageIcon fot = new ImageIcon(getClass().getResource("/imagenes/info1.jpg"));
-            //    buttons.get(0).setIcon(fot);
-
-            }
-        }
-    }
+   
     
     public static void actualizar(String estado,int id) {
         String sql = "";
@@ -289,6 +270,26 @@ String sql = "SELECT id_orden_compra,codigo_orden_compra, id_provedor ,fecha_ord
             }
         }
         return n;
+    }
+      static class ButtonsPanel extends JPanel {
+
+        public final java.util.List<JButton> buttons = java.util.Arrays.asList(new JButton(""));
+
+        public ButtonsPanel() {
+            super();
+            setOpaque(true);
+
+            for (JButton b : buttons) {
+                b.setFocusable(false);
+                b.setRolloverEnabled(false);
+                add(b);
+                b.setBackground(Color.white);
+                //b.setBounds(0, 0, 16, 16);
+//                ImageIcon fot = new ImageIcon(getClass().getResource("/imagenes/info1.jpg"));
+            //    buttons.get(0).setIcon(fot);
+
+            }
+        }
     }
 
     static class ButtonsRenderer extends ButtonsPanel implements TableCellRenderer {

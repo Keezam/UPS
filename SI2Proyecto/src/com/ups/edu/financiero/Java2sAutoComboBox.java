@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package javaapplication2;
+package com.ups.edu.financiero;
 import java.awt.Font;
 import java.awt.event.ItemEvent;
 import javax.swing.DefaultComboBoxModel;

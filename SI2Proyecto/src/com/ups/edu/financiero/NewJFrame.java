@@ -5,8 +5,8 @@
  */
 package com.ups.edu.financiero;
 
-import financiero.Aceptacion_Compra;
-import financiero.PRESUPUESTO;
+import com.ups.edu.financiero.Aceptacion_Compra;
+import com.ups.edu.financiero.PRESUPUESTO;
 import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
 

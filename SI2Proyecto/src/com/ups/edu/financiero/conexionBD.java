@@ -1,4 +1,4 @@
-package javaapplication2;
+package com.ups.edu.financiero;
 
 import java.awt.HeadlessException;
 import java.sql.Connection;
