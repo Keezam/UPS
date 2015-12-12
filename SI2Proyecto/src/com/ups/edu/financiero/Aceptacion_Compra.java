@@ -287,7 +287,7 @@ String sql = "SELECT id_orden_compra,codigo_orden_compra, id_provedor ,fecha_ord
                 //b.setBounds(0, 0, 16, 16);
 //                ImageIcon fot = new ImageIcon(getClass().getResource("/imagenes/info1.jpg"));
             //    buttons.get(0).setIcon(fot);
-
+//otra cosa
             }
         }
     }
