@@ -8,10 +8,10 @@ package com.ups.edu.rrhh.menuinicio;
 import Inventario_Otros_codigos.ConexionBD;
 import com.ups.edu.financiero.Aceptacion_Compra;
 import com.ups.edu.financiero.Facturacion;
+import com.ups.edu.financiero.PRESUPUESTO;
 import com.ups.edu.ventas.views.*;
 import com.ups.edu.inventario.*;
 import static com.ups.edu.inventario.Principal1.rb_ingresos;
-import financiero.PRESUPUESTO;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -533,7 +533,7 @@ try {
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
-      PRESUPUESTO it = new PRESUPUESTO();
+        PRESUPUESTO it = new PRESUPUESTO();
         if (validar_instanciav2(Escritorio, it) == false) {
             Escritorio.add(it);
             it.show();
